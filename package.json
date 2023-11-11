@@ -13,5 +13,9 @@
     "@astrojs/check": "^0.3.1",
     "astro": "^3.5.2",
     "typescript": "^5.2.2"
+  },
+  "volta": {
+    "node": "20.9.0",
+    "npm": "10.1.0"
   }
 }
