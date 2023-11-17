@@ -4,6 +4,8 @@ import { Icon } from 'astro-icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
 
+import '@fontsource/m-plus-1-code'
+
 interface Props {
   rendered: Awaited<Render['.md']>
 }
@@ -118,7 +120,8 @@ const { Content, headings } = Astro.props.rendered
   }
 
   .markdown :global(code) {
-    @apply font-mono text-sm inline bg-gray-200 rounded px-1 py-05;
+    @apply text-sm inline bg-gray-200 rounded px-1 py-05;
+    font-family: 'M PLUS 1 Code', sans-serif;
   }
 
   .markdown :global(pre) {
