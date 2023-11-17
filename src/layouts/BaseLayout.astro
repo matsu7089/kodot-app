@@ -1,0 +1,72 @@
+---
+import '@fontsource/m-plus-1p'
+import '@fontsource/pixelify-sans'
+
+import { Icon } from 'astro-icon'
+
+interface Props {
+  primaryColor?: string
+}
+
+const { primaryColor = 'sky-500' } = Astro.props
+const primaryBgClass = 'bg-' + primaryColor
+const primaryTextClass = 'text-' + primaryColor
+
+const siteName = 'Kodot App'
+const headerLinks = [
+  { href: '/articles', label: 'Articles' },
+  { href: '/notes', label: 'Notes' },
+]
+const year = new Date().getFullYear()
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Godot Engineの情報サイト" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{siteName}</title>
+  </head>
+  <body class="flex flex-col min-h-screen bg-godot">
+    <header class="bg-white p-4 flex justify-between items-center text-godot">
+      <a href="/" class="flex items-center">
+        <Icon name="kodot-solid" alt="logo" class="h-8 mr-2" />
+        <span class="font-pixelify text-xl">{siteName}</span>
+      </a>
+      <div class="flex items-center">
+        <nav>
+          <ul class="flex font-pixelify text-lg">
+            {
+              headerLinks.map((link) => (
+                <li class="mx-2">
+                  <a href={link.href} class=" hover:text-gray-300">
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <Icon name="moon" alt="toggle theme" class="h-8" />
+      </div>
+    </header>
+    <main class="flex-grow m-4">
+      <slot />
+    </main>
+    <footer class="bg-white p-4 font-pixelify text-godot text-xs text-center">
+      <p>{`[c] ${year} ${siteName}`}</p>
+      <p>
+        Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel art.
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  [astro-icon] {
+    fill: currentColor;
+  }
+</style>

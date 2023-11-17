@@ -1,0 +1,159 @@
+---
+import type { Render } from 'astro:content'
+import { Icon } from 'astro-icon'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PixelContainer from '@/components/PixelContainer.astro'
+
+interface Props {
+  rendered: Awaited<Render['.md']>
+}
+
+const { Content, headings } = Astro.props.rendered
+---
+
+<BaseLayout>
+  <div class="flex">
+    <PixelContainer class="flex-1 markdown bg-white p-4">
+      <div class="flex flex-col items-center">
+        <img class="max-w-lg" src="/800x450.png" alt="Card image" />
+        <div class="text-2xl font-bold mt-6">タイトルサンプル</div>
+        <div class="mt-4 flex flex-wrap items-center font-pixelify">
+          <div class="flex items-center mr-4">
+            <Icon
+              name="clock"
+              class="h-4 w-4 mr-1 text-godot"
+              alt="clock icon"
+            />
+            <span>2023-11-11</span>
+          </div>
+          <div class="flex items-center mr-4">
+            <Icon
+              name="updated"
+              class="h-4 w-4 mr-1 text-godot"
+              alt="clock icon"
+            />
+            <span>2023-11-22</span>
+          </div>
+          <div class="flex items-center">
+            <Icon
+              name="kodot-solid"
+              class="h-4 w-4 mr-1 text-godot"
+              alt="kodot icon"
+            />
+            <span>v4.1.3</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <Content />
+      </div>
+    </PixelContainer>
+    <PixelContainer class="w-1/4 bg-white p-4 ml-4">
+      <span class="font-pixelify">目次</span>
+    </PixelContainer>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ref: https://github.com/iandinwoodie/github-markdown-tailwindcss/ */
+  .py-05 {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+  }
+
+  .markdown {
+    @apply text-gray-900 leading-normal break-words;
+  }
+
+  .markdown > :global(* + *) {
+    @apply mt-0 mb-4;
+  }
+
+  .markdown :global(li + li) {
+    @apply mt-1;
+  }
+
+  .markdown :global(li) > :global(p + p) {
+    @apply mt-6;
+  }
+
+  .markdown :global(strong) {
+    @apply font-semibold;
+  }
+
+  .markdown :global(a) {
+    @apply text-godot font-semibold;
+  }
+
+  .markdown :global(strong) :global(a) {
+    @apply font-bold;
+  }
+
+  .markdown :global(h1) {
+    @apply leading-tight border-b text-4xl font-semibold mb-4 mt-6 pb-2;
+  }
+
+  .markdown :global(h2) {
+    @apply leading-tight border-b text-2xl font-semibold mb-4 mt-6 pb-2;
+  }
+
+  .markdown :global(h3) {
+    @apply leading-snug text-lg font-semibold mb-4 mt-6;
+  }
+
+  .markdown :global(h4) {
+    @apply leading-none text-base font-semibold mb-4 mt-6;
+  }
+
+  .markdown :global(h5) {
+    @apply leading-tight text-sm font-semibold mb-4 mt-6;
+  }
+
+  .markdown :global(h6) {
+    @apply leading-tight text-sm font-semibold text-gray-600 mb-4 mt-6;
+  }
+
+  .markdown :global(blockquote) {
+    @apply text-base border-l-4 border-gray-300 pl-4 pr-4 text-gray-600;
+  }
+
+  .markdown :global(code) {
+    @apply font-mono text-sm inline bg-gray-200 rounded px-1 py-05;
+  }
+
+  .markdown :global(pre) {
+    @apply bg-gray-100 p-4;
+    border-width: 4px;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(36,41,46)' /></svg>")
+      2;
+    background-clip: padding-box;
+  }
+
+  .markdown :global(pre) :global(code) {
+    @apply block bg-transparent p-0 overflow-visible rounded-none;
+  }
+
+  .markdown :global(ul) {
+    @apply text-base pl-8 list-disc;
+  }
+
+  .markdown :global(ol) {
+    @apply text-base pl-8 list-decimal;
+  }
+
+  .markdown :global(kbd) {
+    @apply text-xs inline-block rounded border px-1 py-05 align-middle font-normal font-mono shadow;
+  }
+
+  .markdown :global(table) {
+    @apply text-base border-gray-600;
+  }
+
+  .markdown :global(th) {
+    @apply border py-1 px-3;
+  }
+
+  .markdown :global(td) {
+    @apply border py-1 px-3;
+  }
+</style>
