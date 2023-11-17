@@ -9,6 +9,9 @@ export default {
         sans: ['"M PLUS 1p"', 'sans-serif', ...defaultTheme.fontFamily.sans],
         pixelify: ['"Pixelify Sans"', 'sans-serif'],
       },
+      colors: {
+        godot: '#478cbf',
+      },
     },
   },
   plugins: [],
