@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import PixelContainer from '@/components/PixelContainer.astro'
+
+interface Props extends HTMLAttributes<'button'> {}
+
+const { class: classNames, ...attrs } = Astro.props
+---
+
+<PixelContainer
+  class="inline-block hover:-translate-x-0.5 hover:-translate-y-0.5"
+>
+  <button
+    class:list={['font-pixelify p-2 text-xl text-godot bg-white', classNames]}
+    {...attrs}
+  >
+    <slot />
+  </button>
+</PixelContainer>
