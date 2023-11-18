@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon'
+---
+
+<button id="themeToggle">
+  <Icon name="sun" class="h-8" />
+  <Icon name="moon" class="h-8" />
+</button>
+
+<script is:inline>
+  // ref: https://docs.astro.build/ja/tutorial/6-islands/2/
+  const themeKey = 'theme'
+  const dark = 'dark'
+  const light = 'light'
+
+  const theme = (() => {
+    const lsTheme = localStorage?.getItem(themeKey)
+
+    if (lsTheme === dark || lsTheme === light) {
+      return lsTheme
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return dark
+    }
+    return light
+  })()
+
+  const element = document.documentElement
+
+  if (theme === light) {
+    element.classList.remove(dark)
+  } else {
+    element.classList.add(dark)
+  }
+
+  localStorage?.setItem(themeKey, theme)
+
+  const handleToggleClick = () => {
+    const element = document.documentElement
+    element.classList.toggle(dark)
+
+    const isDark = element.classList.contains(dark)
+    localStorage.setItem(themeKey, isDark ? dark : light)
+  }
+
+  document
+    .getElementById('themeToggle')
+    ?.addEventListener('click', handleToggleClick)
+</script>
+
+<style>
+  [astro-icon='sun'] {
+    @apply hidden;
+  }
+  :global(.dark) [astro-icon='sun'] {
+    @apply block;
+  }
+
+  :global(.dark) [astro-icon='moon'] {
+    @apply hidden;
+  }
+</style>

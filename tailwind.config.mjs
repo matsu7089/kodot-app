@@ -3,6 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,md}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -11,6 +12,10 @@ export default {
       },
       colors: {
         godot: '#478cbf',
+        'gh-dimmed': {
+          text: '#adbac7',
+          bg: '#22272e',
+        },
       },
       listStyleType: {
         square: 'square',

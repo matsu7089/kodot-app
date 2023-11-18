@@ -3,6 +3,7 @@ import '@fontsource/m-plus-1p'
 import '@fontsource/pixelify-sans'
 
 import { Icon } from 'astro-icon'
+import ThemeIcon from '@/components/ThemeIcon.astro'
 
 interface Props {
   primaryColor?: string
@@ -31,7 +32,9 @@ const year = new Date().getFullYear()
     <title>{siteName}</title>
   </head>
   <body class="flex flex-col min-h-screen bg-godot">
-    <header class="bg-white p-4 flex justify-between items-center text-godot">
+    <header
+      class="bg-white dark:bg-gh-dimmed-bg p-4 flex justify-between items-center text-godot"
+    >
       <a href="/" class="flex items-center">
         <Icon name="kodot-solid" alt="logo" class="h-8 mr-2" />
         <span class="font-pixelify text-xl">{siteName}</span>
@@ -50,13 +53,17 @@ const year = new Date().getFullYear()
             }
           </ul>
         </nav>
-        <Icon name="moon" alt="toggle theme" class="h-8" />
+        <ThemeIcon />
       </div>
     </header>
-    <main class="flex-grow container mx-auto">
+    <main
+      class="flex-grow container mx-auto text-gray-900 dark:text-gh-dimmed-text"
+    >
       <slot />
     </main>
-    <footer class="bg-white p-4 font-pixelify text-godot text-xs text-center">
+    <footer
+      class="bg-white dark:bg-gh-dimmed-bg p-4 font-pixelify text-godot text-xs text-center"
+    >
       <p>{`[c] ${year} ${siteName}`}</p>
       <p>
         Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel art.
@@ -68,5 +75,11 @@ const year = new Date().getFullYear()
 <style is:global>
   [astro-icon] {
     fill: currentColor;
+  }
+</style>
+
+<style>
+  :global(.dark) body {
+    backdrop-filter: brightness(50%);
   }
 </style>
