@@ -12,6 +12,9 @@ export default {
       colors: {
         godot: '#478cbf',
       },
+      listStyleType: {
+        square: 'square',
+      },
     },
   },
   plugins: [],
