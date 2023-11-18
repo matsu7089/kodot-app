@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
+import remarkCodeTitles from 'remark-flexible-code-titles'
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,5 +10,6 @@ export default defineConfig({
       footnoteLabelTagName: 'span',
       footnoteLabel: '脚注',
     },
+    remarkPlugins: [remarkCodeTitles],
   },
 })
