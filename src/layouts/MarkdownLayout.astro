@@ -16,8 +16,12 @@ const { Content, headings } = Astro.props.rendered
 <BaseLayout>
   <div class="flex">
     <PixelContainer class="flex-1 markdown bg-white p-4">
+      <img
+        class="w-full h-80 object-cover"
+        src="/800x450.png"
+        alt="Card image"
+      />
       <div class="flex flex-col items-center">
-        <img class="max-w-lg" src="/800x450.png" alt="Card image" />
         <div class="text-2xl font-bold mt-6">タイトルサンプル</div>
         <div class="mt-4 flex flex-wrap items-center font-pixelify">
           <div class="flex items-center mr-4">
