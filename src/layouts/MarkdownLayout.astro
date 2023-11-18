@@ -11,11 +11,13 @@ interface Props {
 }
 
 const { Content, headings } = Astro.props.rendered
+
+const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 ---
 
 <BaseLayout>
-  <div class="flex m-4">
-    <PixelContainer class="flex-1 markdown bg-white p-4">
+  <div class="flex flex-wrap m-4">
+    <PixelContainer class="flex-1 min-w-0 bg-white p-4">
       <img
         class="w-full h-80 object-cover"
         src="/800x450.png"
@@ -50,12 +52,27 @@ const { Content, headings } = Astro.props.rendered
           </div>
         </div>
       </div>
-      <div class="mt-4">
+      <div class="mt-4 markdown">
         <Content />
       </div>
     </PixelContainer>
-    <PixelContainer class="w-1/4 bg-white p-4 ml-4">
-      <span class="font-pixelify">目次</span>
+    <PixelContainer
+      class="w-60 ml-4 self-start sticky top-4 max-h-[calc(100vh-theme(spacing.8))] overflow-y-auto"
+    >
+      <div class="p-4 bg-white">
+        <span>目次</span>
+        <ul class="mt-4 list-square pl-4 leading-tight">
+          {
+            filteredHeadings.map(({ slug, text }) => (
+              <li class="[&:not(:first-child)]:mt-1">
+                <a class="hover:text-godot" href={'#' + slug}>
+                  {text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </PixelContainer>
   </div>
 </BaseLayout>
