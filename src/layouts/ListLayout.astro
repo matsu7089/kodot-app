@@ -1,0 +1,24 @@
+---
+import type { Page } from 'astro'
+import type { CollectionEntry, CollectionKey } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/Card.astro'
+import Pagination from '@/components/Pagination.astro'
+
+interface Props {
+  title: string
+  page: Page<CollectionEntry<CollectionKey>>
+}
+
+const { title, page } = Astro.props
+---
+
+<BaseLayout>
+  <div class="text-white dark:text-gh-dimmed-text text-center my-8">
+    <h1 class="font-pixelify text-4xl font-bold">{title}</h1>
+  </div>
+  <div>
+    {page.data.map(() => <Card />)}
+  </div>
+  <Pagination class="my-8" page={page} />
+</BaseLayout>
