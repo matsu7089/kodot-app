@@ -18,6 +18,12 @@ export const orderByPubDateDesc = (
   b: CollectionEntry<CollectionKey>
 ) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 
+/** 最新の記事を指定した数取得 */
+export const getRecentEntries = async (
+  limit: number,
+  ...args: Parameters<typeof getPubCollection>
+) => (await getPubCollection(...args)).sort(orderByPubDateDesc).slice(0, limit)
+
 /** 1ページ目のPageを取得 */
 export const getFirstPage = async (
   pathname: string,
