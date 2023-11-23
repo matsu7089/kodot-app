@@ -10,12 +10,12 @@ import PixelContainer from '@/components/PixelContainer.astro'
 // const { href, title, body } = Astro.props
 ---
 
-<a href="#">
+<a class="inline-block" href="#">
   <PixelContainer
-    class="bg-white dark:bg-gh-dimmed-bg max-w-sm hover:-translate-x-0.5 hover:-translate-y-0.5 p-2"
+    class="bg-white dark:bg-gh-dimmed-bg hover:-translate-x-0.5 hover:-translate-y-0.5 h-full p-2 flex flex-col"
   >
     <img class="w-full" src="/800x450.png" alt="Card image" />
-    <div class="p-4">
+    <div class="p-4 flex flex-col justify-between h-full">
       <div class="font-bold">タイトルサンプル</div>
       <div class="mt-2 flex flex-wrap items-center text-xs font-pixelify">
         <div class="flex items-center mr-2">
