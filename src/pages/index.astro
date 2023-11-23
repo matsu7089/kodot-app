@@ -15,7 +15,7 @@ const recentArticles = await getRecentEntries(displayLimit, 'articles')
       <p class="mb-6">Godot Engineに関する技術記事です。</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {recentArticles.map(() => <Card />)}
+      {recentArticles.map((entry) => <Card entry={entry} />)}
     </div>
   </div>
   <div class="text-right mt-6">
