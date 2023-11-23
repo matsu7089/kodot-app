@@ -4,7 +4,16 @@ import {
   type CollectionKey,
   type CollectionEntry,
 } from 'astro:content'
+import dayjsModule from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import { pageSize } from '@/siteConfig'
+
+dayjsModule.extend(utc)
+dayjsModule.extend(timezone)
+dayjsModule.tz.setDefault('Asia/Tokyo')
+
+export const dayjs = dayjsModule
 
 /** 公開されている記事リストを取得 */
 export const getPubCollection = async (key: CollectionKey, tag?: string) =>
