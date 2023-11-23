@@ -4,7 +4,7 @@ import {
   type CollectionKey,
   type CollectionEntry,
 } from 'astro:content'
-import { siteConfig } from '@/siteConfig'
+import { pageSize } from '@/siteConfig'
 
 /** 公開されている記事リストを取得 */
 export const getPubCollection = async (key: CollectionKey, tag?: string) =>
@@ -24,7 +24,6 @@ export const getFirstPage = async (
   ...args: Parameters<typeof getPubCollection>
 ) => {
   const entries = (await getPubCollection(...args)).sort(orderByPubDateDesc)
-  const { pageSize } = siteConfig
 
   const data = entries.slice(0, pageSize)
   const lastPage = Math.ceil(entries.length / pageSize)
@@ -75,7 +74,7 @@ export const customPaginatePaths = (
 
     return customPaginate(
       paginate(entries, {
-        pageSize: siteConfig.pageSize,
+        pageSize,
       })
     )
   }) satisfies GetStaticPaths
