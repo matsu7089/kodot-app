@@ -1,18 +1,30 @@
 ---
 import type { Render } from 'astro:content'
 import { Icon } from 'astro-icon'
+import { dayjs } from '@/utils'
+import { dateFormat } from '@/siteConfig'
+import '@fontsource/m-plus-1-code'
+
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
-
-import '@fontsource/m-plus-1-code'
 
 interface Props {
   rendered: Awaited<Render['.md']>
 }
 
-const { Content, headings } = Astro.props.rendered
+const { Content, headings, remarkPluginFrontmatter } = Astro.props.rendered
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
+
+const modifiedDate = (() => {
+  const date = dayjs(remarkPluginFrontmatter.lastModified)
+    .tz()
+    .format(dateFormat)
+
+  return date === dayjs(remarkPluginFrontmatter.pubDate).format(dateFormat)
+    ? undefined
+    : date
+})()
 ---
 
 <BaseLayout>
@@ -34,14 +46,18 @@ const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
             />
             <span>2023-11-11</span>
           </div>
-          <div class="flex items-center mr-4">
-            <Icon
-              name="updated"
-              class="h-4 w-4 mr-1 text-godot"
-              alt="clock icon"
-            />
-            <span>2023-11-22</span>
-          </div>
+          {
+            modifiedDate && (
+              <div class="flex items-center mr-4">
+                <Icon
+                  name="updated"
+                  class="h-4 w-4 mr-1 text-godot"
+                  alt="clock icon"
+                />
+                <span>{modifiedDate}</span>
+              </div>
+            )
+          }
           <div class="flex items-center">
             <Icon
               name="kodot-solid"
