@@ -1,26 +1,36 @@
 ---
 import { Icon } from 'astro-icon'
+import type { CollectionEntry, CollectionKey } from 'astro:content'
 import PixelContainer from '@/components/PixelContainer.astro'
-// interface Props {
-//   title: string
-//   body: string
-//   href: string
-// }
 
-// const { href, title, body } = Astro.props
+interface Props {
+  entry: CollectionEntry<CollectionKey>
+}
+
+const {
+  entry: {
+    collection,
+    slug,
+    data: { title, pubDate, godotVersion },
+  },
+} = Astro.props
+
+const href = `/${collection}/${slug}`
+const date = pubDate.toLocaleDateString('ja-JP')
+const version = 'v' + godotVersion.match(/^\d+/)?.[0]
 ---
 
-<a class="inline-block" href="#">
+<a class="inline-block" href={href}>
   <PixelContainer
     class="hover:-translate-x-0.5 hover:-translate-y-0.5 h-full p-2 flex flex-col"
   >
     <img class="w-full" src="/800x450.png" alt="Card image" />
     <div class="p-4 flex flex-col justify-between h-full">
-      <div class="font-bold">タイトルサンプル</div>
+      <div class="font-bold">{title}</div>
       <div class="mt-2 flex flex-wrap items-center text-xs font-pixelify">
         <div class="flex items-center mr-2">
           <Icon name="clock" class="h-4 w-4 mr-1 text-godot" alt="clock icon" />
-          <span>2023-11-11</span>
+          <span>{date}</span>
         </div>
         <div class="flex items-center">
           <Icon
@@ -28,7 +38,7 @@ import PixelContainer from '@/components/PixelContainer.astro'
             class="h-4 w-4 mr-1 text-godot"
             alt="kodot icon"
           />
-          <span>v4</span>
+          <span>{version}</span>
         </div>
       </div>
     </div>
