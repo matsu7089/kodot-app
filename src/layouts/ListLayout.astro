@@ -15,7 +15,9 @@ const { title, page } = Astro.props
 
 <BaseLayout>
   <div class="text-white dark:text-gh-dimmed-text text-center my-8">
-    <h1 class="font-pixelify text-4xl font-bold">{title}</h1>
+    <h1 class="font-pixelify text-4xl font-bold">
+      {`- ${title} -`}
+    </h1>
   </div>
   <div>
     {page.data.map(() => <Card />)}
