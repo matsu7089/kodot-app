@@ -2,21 +2,21 @@
 import type { HTMLAttributes } from 'astro/types'
 import PixelContainer from '@/components/PixelContainer.astro'
 
-interface Props extends HTMLAttributes<'button'> {}
+interface Props extends HTMLAttributes<'a'> {}
 
 const { class: classNames, ...attrs } = Astro.props
+
+const disabled = attrs.href == null
 ---
 
-<PixelContainer
-  class="inline-block hover:-translate-x-0.5 hover:-translate-y-0.5"
->
-  <button
+<a class={classNames} {...attrs}>
+  <PixelContainer
     class:list={[
-      'font-pixelify p-2 text-xl text-godot bg-white dark:bg-gh-dimmed-bg',
-      classNames,
+      'inline-block font-pixelify p-2 text-xl text-godot bg-white dark:bg-gh-dimmed-bg',
+      { 'hover:-translate-x-0.5 hover:-translate-y-0.5': !disabled },
+      { 'opacity-50': disabled },
     ]}
-    {...attrs}
   >
     <slot />
-  </button>
-</PixelContainer>
+  </PixelContainer>
+</a>
