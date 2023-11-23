@@ -6,7 +6,10 @@ interface Props extends HTMLAttributes<'div'> {}
 const { class: classNames, ...attrs } = Astro.props
 ---
 
-<div class:list={['pixel-border', classNames]} {...attrs}>
+<div
+  class:list={['pixel-border bg-white dark:bg-gh-dimmed-bg', classNames]}
+  {...attrs}
+>
   <slot />
 </div>
 
