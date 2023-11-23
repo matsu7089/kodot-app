@@ -8,16 +8,16 @@ interface Props {
 }
 
 const {
-  entry: {
-    collection,
-    slug,
-    data: { title, pubDate, godotVersion },
-  },
+  entry: { collection, slug, data },
 } = Astro.props
 
 const href = `/${collection}/${slug}`
-const date = pubDate.toLocaleDateString('ja-JP')
-const version = 'v' + godotVersion.match(/^\d+/)?.[0]
+const title = data.title
+const date = data.pubDate.toLocaleDateString('ja-JP')
+const version =
+  'godotVersion' in data
+    ? 'v' + data.godotVersion.match(/^\d+/)?.[0]
+    : undefined
 ---
 
 <a class="inline-block" href={href}>
