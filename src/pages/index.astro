@@ -2,24 +2,20 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import ButtonLink from '@/components/ButtonLink.astro'
+import { getRecentEntries } from '@/utils'
+
+const displayLimit = 3
+const recentArticles = await getRecentEntries(displayLimit, 'articles')
 ---
 
 <BaseLayout>
-  <div>
+  <div class="mx-4">
     <div class="text-white dark:text-gh-dimmed-text">
       <h2 class="font-pixelify text-4xl font-bold mb-2">&gt; Articles</h2>
       <p class="mb-6">Godot Engineに関する技術記事です。</p>
     </div>
-    <div class="flex flex-wrap">
-      <div class="p-2 w-1/2 md:w-1/3">
-        <Card />
-      </div>
-      <div class="p-2 w-1/2 md:w-1/3">
-        <Card />
-      </div>
-      <div class="p-2 w-1/2 md:w-1/3">
-        <Card />
-      </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {recentArticles.map(() => <Card />)}
     </div>
   </div>
   <div class="text-right mt-6">
