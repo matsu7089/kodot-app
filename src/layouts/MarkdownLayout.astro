@@ -16,15 +16,16 @@ const { Content, headings, remarkPluginFrontmatter } = Astro.props.rendered
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
-const modifiedDate = (() => {
-  const date = dayjs(remarkPluginFrontmatter.lastModified)
-    .tz()
-    .format(dateFormat)
+const { pubDate, lastModified, godotVersion } = remarkPluginFrontmatter
 
-  return date === dayjs(remarkPluginFrontmatter.pubDate).format(dateFormat)
-    ? undefined
-    : date
+const pubDateText = dayjs(pubDate).format(dateFormat)
+
+const modifiedDateText = (() => {
+  const dateText = dayjs(lastModified).tz().format(dateFormat)
+  return dateText === pubDateText ? undefined : dateText
 })()
+
+const versionText = 'v' + godotVersion
 ---
 
 <BaseLayout>
@@ -44,28 +45,32 @@ const modifiedDate = (() => {
               class="h-4 w-4 mr-1 text-godot"
               alt="clock icon"
             />
-            <span>2023-11-11</span>
+            <span>{pubDateText}</span>
           </div>
           {
-            modifiedDate && (
+            modifiedDateText && (
               <div class="flex items-center mr-4">
                 <Icon
                   name="updated"
                   class="h-4 w-4 mr-1 text-godot"
                   alt="clock icon"
                 />
-                <span>{modifiedDate}</span>
+                <span>{modifiedDateText}</span>
               </div>
             )
           }
-          <div class="flex items-center">
-            <Icon
-              name="kodot-solid"
-              class="h-4 w-4 mr-1 text-godot"
-              alt="kodot icon"
-            />
-            <span>v4.1.3</span>
-          </div>
+          {
+            godotVersion && (
+              <div class="flex items-center">
+                <Icon
+                  name="kodot-solid"
+                  class="h-4 w-4 mr-1 text-godot"
+                  alt="kodot icon"
+                />
+                <span>{versionText}</span>
+              </div>
+            )
+          }
         </div>
       </div>
       <div class="mt-4 markdown">
