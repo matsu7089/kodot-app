@@ -11,7 +11,14 @@ export default {
         pixelify: ['"Pixelify Sans"', 'sans-serif'],
       },
       colors: {
-        godot: '#478cbf',
+        godot: {
+          DEFAULT: '#478cbf',
+          dark: '#244660',
+        },
+        'godot-green': {
+          DEFAULT: '#47bf99',
+          dark: '#24604c',
+        },
         'gh-dimmed': {
           text: '#adbac7',
           bg: '#22272e',
