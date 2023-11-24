@@ -1,5 +1,4 @@
 ---
-import type { Render } from 'astro:content'
 import { dayjs } from '@/utils'
 import { dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
@@ -7,16 +6,18 @@ import '@fontsource/m-plus-1-code'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
+import type { MarkdownHeading } from 'astro'
 
 interface Props {
-  rendered: Awaited<Render['.md']>
+  headings: Array<MarkdownHeading>
+  frontmatter: Record<string, any>
 }
 
-const { Content, headings, remarkPluginFrontmatter } = Astro.props.rendered
+const { headings, frontmatter } = Astro.props
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
-const { pubDate, lastModified, godotVersion } = remarkPluginFrontmatter
+const { pubDate, lastModified, godotVersion } = frontmatter
 
 const pubDateText = dayjs(pubDate).format(dateFormat)
 
@@ -53,7 +54,7 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
         </div>
       </div>
       <div class="mt-4 markdown">
-        <Content />
+        <slot />
       </div>
     </PixelContainer>
     <PixelContainer
