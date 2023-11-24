@@ -7,9 +7,10 @@ import ThemeIcon from '@/components/ThemeIcon.astro'
 
 interface Props {
   primaryColor?: string
+  disableAutoContaier?: boolean
 }
 
-const { primaryColor = 'sky-500' } = Astro.props
+const { primaryColor = 'sky-500', disableAutoContaier } = Astro.props
 const primaryBgClass = 'bg-' + primaryColor
 const primaryTextClass = 'text-' + primaryColor
 
@@ -57,7 +58,10 @@ const year = new Date().getFullYear()
       </div>
     </header>
     <main
-      class="flex-grow container mx-auto text-gray-900 dark:text-gh-dimmed-text"
+      class:list={[
+        'flex-grow text-gray-900 dark:text-gh-dimmed-text',
+        { 'container mx-auto': !disableAutoContaier },
+      ]}
     >
       <slot />
     </main>
