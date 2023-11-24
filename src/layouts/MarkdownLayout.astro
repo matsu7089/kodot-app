@@ -11,9 +11,10 @@ import type { MarkdownHeading } from 'astro'
 interface Props {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
+  primaryColor?: 'godot' | 'godot-green'
 }
 
-const { headings, frontmatter } = Astro.props
+const { headings, frontmatter, primaryColor } = Astro.props
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
@@ -29,7 +30,7 @@ const modifiedDateText = (() => {
 const versionText = godotVersion ? 'v' + godotVersion : undefined
 ---
 
-<BaseLayout>
+<BaseLayout primaryColor={primaryColor}>
   <div class="flex flex-wrap m-4">
     <PixelContainer class="flex-1 min-w-0 p-4">
       <img
