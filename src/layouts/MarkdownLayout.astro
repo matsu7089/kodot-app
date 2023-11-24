@@ -17,7 +17,7 @@ const { headings, frontmatter } = Astro.props
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
-const { pubDate, lastModified, godotVersion } = frontmatter
+const { title, pubDate, lastModified, godotVersion } = frontmatter
 
 const pubDateText = dayjs(pubDate).format(dateFormat)
 
@@ -38,7 +38,7 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
         alt="Card image"
       />
       <div class="flex flex-col items-center">
-        <div class="text-2xl font-bold mt-6">タイトルサンプル</div>
+        <div class="text-2xl font-bold mt-6">{title}</div>
         <div class="mt-4 flex flex-wrap items-center font-pixelify space-x-2">
           <IconLabel name="clock">{pubDateText}</IconLabel>
           {
