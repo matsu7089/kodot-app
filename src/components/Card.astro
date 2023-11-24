@@ -2,6 +2,8 @@
 import type { CollectionEntry, CollectionKey } from 'astro:content'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
+import { dayjs } from '@/utils'
+import { dateFormat } from '@/siteConfig'
 
 interface Props {
   entry: CollectionEntry<CollectionKey>
@@ -13,7 +15,7 @@ const {
 
 const href = `/${collection}/${slug}`
 const title = data.title
-const date = data.pubDate.toLocaleDateString('ja-JP')
+const date = dayjs(data.pubDate).format(dateFormat)
 const version =
   'godotVersion' in data
     ? 'v' + data.godotVersion.match(/^\d+/)?.[0]
