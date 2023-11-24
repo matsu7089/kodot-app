@@ -1,7 +1,7 @@
 ---
-import { Icon } from 'astro-icon'
 import type { CollectionEntry, CollectionKey } from 'astro:content'
 import PixelContainer from '@/components/PixelContainer.astro'
+import IconLabel from '@/components/IconLabel.astro'
 
 interface Props {
   entry: CollectionEntry<CollectionKey>
@@ -27,19 +27,11 @@ const version =
     <img class="w-full" src="/800x450.png" alt="Card image" />
     <div class="p-4 flex flex-col justify-between h-full">
       <div class="font-bold">{title}</div>
-      <div class="mt-2 flex flex-wrap items-center text-xs font-pixelify">
-        <div class="flex items-center mr-2">
-          <Icon name="clock" class="h-4 w-4 mr-1 text-godot" alt="clock icon" />
-          <span>{date}</span>
-        </div>
-        <div class="flex items-center">
-          <Icon
-            name="kodot-solid"
-            class="h-4 w-4 mr-1 text-godot"
-            alt="kodot icon"
-          />
-          <span>{version}</span>
-        </div>
+      <div
+        class="mt-2 flex flex-wrap items-center text-xs font-pixelify space-x-2"
+      >
+        <IconLabel name="clock">{date}</IconLabel>
+        {version && <IconLabel name="kodot-solid">{version}</IconLabel>}
       </div>
     </div>
   </PixelContainer>

@@ -1,12 +1,12 @@
 ---
 import type { Render } from 'astro:content'
-import { Icon } from 'astro-icon'
 import { dayjs } from '@/utils'
 import { dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
+import IconLabel from '@/components/IconLabel.astro'
 
 interface Props {
   rendered: Awaited<Render['.md']>
@@ -25,7 +25,7 @@ const modifiedDateText = (() => {
   return dateText === pubDateText ? undefined : dateText
 })()
 
-const versionText = 'v' + godotVersion
+const versionText = godotVersion ? 'v' + godotVersion : undefined
 ---
 
 <BaseLayout>
@@ -38,37 +38,16 @@ const versionText = 'v' + godotVersion
       />
       <div class="flex flex-col items-center">
         <div class="text-2xl font-bold mt-6">タイトルサンプル</div>
-        <div class="mt-4 flex flex-wrap items-center font-pixelify">
-          <div class="flex items-center mr-4">
-            <Icon
-              name="clock"
-              class="h-4 w-4 mr-1 text-godot"
-              alt="clock icon"
-            />
-            <span>{pubDateText}</span>
-          </div>
+        <div class="mt-4 flex flex-wrap items-center font-pixelify space-x-2">
+          <IconLabel name="clock">{pubDateText}</IconLabel>
           {
             modifiedDateText && (
-              <div class="flex items-center mr-4">
-                <Icon
-                  name="updated"
-                  class="h-4 w-4 mr-1 text-godot"
-                  alt="clock icon"
-                />
-                <span>{modifiedDateText}</span>
-              </div>
+              <IconLabel name="updated">{modifiedDateText}</IconLabel>
             )
           }
           {
-            godotVersion && (
-              <div class="flex items-center">
-                <Icon
-                  name="kodot-solid"
-                  class="h-4 w-4 mr-1 text-godot"
-                  alt="kodot icon"
-                />
-                <span>{versionText}</span>
-              </div>
+            versionText && (
+              <IconLabel name="kodot-solid">{versionText}</IconLabel>
             )
           }
         </div>
