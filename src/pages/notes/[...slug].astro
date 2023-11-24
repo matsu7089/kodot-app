@@ -1,0 +1,18 @@
+---
+import MarkdownLayout from '@/layouts/MarkdownLayout.astro'
+import { getPubCollection } from '@/utils'
+
+export const getStaticPaths = async () => {
+  const entries = await getPubCollection('notes')
+
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const rendered = await entry.render()
+---
+
+<MarkdownLayout rendered={rendered} />

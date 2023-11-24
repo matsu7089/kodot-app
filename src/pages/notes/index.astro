@@ -1,0 +1,8 @@
+---
+import ListLayout from '@/layouts/ListLayout.astro'
+import { getFirstPage } from '@/utils'
+
+const page = await getFirstPage(Astro.url.pathname, 'notes')
+---
+
+<ListLayout title="Notes" page={page} />

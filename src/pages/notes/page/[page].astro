@@ -1,0 +1,10 @@
+---
+import ListLayout from '@/layouts/ListLayout.astro'
+import { customPaginatePaths } from '@/utils'
+
+export const getStaticPaths = customPaginatePaths('notes')
+
+const { page } = Astro.props
+---
+
+<ListLayout title="Notes" page={page} />
