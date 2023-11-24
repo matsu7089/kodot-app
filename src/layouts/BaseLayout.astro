@@ -31,7 +31,7 @@ const year = new Date().getFullYear()
     <meta name="generator" content={Astro.generator} />
     <title>{siteName}</title>
   </head>
-  <body class="flex flex-col min-h-screen bg-godot">
+  <body class="flex flex-col min-h-screen bg-godot dark:bg-godot-dark">
     <header
       class="bg-white dark:bg-gh-dimmed-bg p-4 flex justify-between items-center text-godot"
     >
@@ -75,11 +75,5 @@ const year = new Date().getFullYear()
 <style is:global>
   [astro-icon] {
     fill: currentColor;
-  }
-</style>
-
-<style>
-  :global(.dark) body {
-    backdrop-filter: brightness(50%);
   }
 </style>
