@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon'
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'span'> {
+  name: string
+  alt?: string
+  iconClass?: string
+}
+
+const {
+  name,
+  alt,
+  iconClass = 'text-godot',
+  class: classNames,
+  ...attrs
+} = Astro.props
+---
+
+<span class:list={['flex items-center', classNames]} {...attrs}>
+  <Icon name={name} class:list={['h-4 w-4 mr-1', iconClass]} alt={alt} />
+  <span><slot /></span>
+</span>
