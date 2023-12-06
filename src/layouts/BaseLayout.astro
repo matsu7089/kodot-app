@@ -4,16 +4,18 @@ import '@fontsource/pixelify-sans'
 
 import { Icon } from 'astro-icon'
 import ThemeIcon from '@/components/ThemeIcon.astro'
+import {
+  type PrimaryColor,
+  primaryBgClass,
+  primaryTextClass,
+} from '@/siteConfig'
 
 interface Props {
-  primaryColor?: 'godot' | 'godot-green'
+  primaryColor: PrimaryColor
   disableAutoContaier?: boolean
 }
 
-const { primaryColor = 'godot', disableAutoContaier } = Astro.props
-
-const primaryBgClass = `bg-${primaryColor} dark:bg-${primaryColor}-dark`
-const primaryTextClass = `text-${primaryColor}`
+const { primaryColor, disableAutoContaier } = Astro.props
 
 const siteName = 'Kodot App'
 const headerLinks = [
@@ -33,11 +35,13 @@ const year = new Date().getFullYear()
     <meta name="generator" content={Astro.generator} />
     <title>{siteName}</title>
   </head>
-  <body class:list={['flex flex-col min-h-screen', primaryBgClass]}>
+  <body
+    class:list={['flex flex-col min-h-screen', primaryBgClass[primaryColor]]}
+  >
     <header
       class:list={[
         'bg-white dark:bg-gh-dimmed-bg p-4 flex justify-between items-center',
-        primaryTextClass,
+        primaryTextClass[primaryColor],
       ]}
     >
       <a href="/" class="flex items-center">
@@ -72,7 +76,7 @@ const year = new Date().getFullYear()
     <footer
       class:list={[
         'bg-white dark:bg-gh-dimmed-bg p-4 font-pixelify text-xs text-center',
-        primaryTextClass,
+        primaryTextClass[primaryColor],
       ]}
     >
       <p>{`[c] ${year} ${siteName}`}</p>
@@ -86,12 +90,5 @@ const year = new Date().getFullYear()
 <style is:global>
   [astro-icon] {
     fill: currentColor;
-  }
-</style>
-
-<style>
-  /** 色のクラスを動的にすると、スタイルがうまく生成されないので暫定対応 */
-  .dummy {
-    @apply text-godot text-godot-green bg-godot dark:bg-godot-dark bg-godot-green dark:bg-godot-green-dark;
   }
 </style>

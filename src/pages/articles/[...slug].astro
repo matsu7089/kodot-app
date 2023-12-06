@@ -17,6 +17,10 @@ const { Content, headings, remarkPluginFrontmatter } =
   await Astro.props.entry.render()
 ---
 
-<MarkdownLayout headings={headings} frontmatter={remarkPluginFrontmatter}>
+<MarkdownLayout
+  primaryColor="blue"
+  headings={headings}
+  frontmatter={remarkPluginFrontmatter}
+>
   <Content />
 </MarkdownLayout>

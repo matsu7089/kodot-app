@@ -3,36 +3,49 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import ButtonLink from '@/components/ButtonLink.astro'
 import { getRecentEntries } from '@/utils'
+import { primaryBgClass } from '@/siteConfig'
 
 const displayLimit = 3
 const recentArticles = await getRecentEntries(displayLimit, 'articles')
 const recentNotes = await getRecentEntries(displayLimit, 'notes')
 ---
 
-<BaseLayout disableAutoContaier>
+<BaseLayout primaryColor="blue" disableAutoContaier>
   <div class="container mx-auto px-4 py-8">
     <div class="text-white dark:text-gh-dimmed-text">
       <h2 class="font-pixelify text-4xl font-bold mb-2">&gt; Articles</h2>
       <p>Godot Engine に関する技術記事です。</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-      {recentArticles.map((entry) => <Card entry={entry} />)}
+      {
+        recentArticles.map((entry) => (
+          <Card primaryColor="blue" entry={entry} />
+        ))
+      }
     </div>
     <div class="text-right my-4">
-      <ButtonLink href="/articles">See all posts -></ButtonLink>
+      <ButtonLink primaryColor="blue" href="/articles">
+        See all posts ->
+      </ButtonLink>
     </div>
   </div>
-  <div class="bg-godot-green dark:bg-godot-green-dark">
+  <div class={primaryBgClass['green']}>
     <div class="container mx-auto px-4 py-8">
       <div class="text-white dark:text-gh-dimmed-text">
         <h2 class="font-pixelify text-4xl font-bold mb-2">&gt; Notes</h2>
         <p>Godot Engine に限らないトピックも扱う記事です。</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-        {recentNotes.map((entry) => <Card entry={entry} />)}
+        {
+          recentNotes.map((entry) => (
+            <Card primaryColor="green" entry={entry} />
+          ))
+        }
       </div>
       <div class="text-right my-4">
-        <ButtonLink href="/notes">See all posts -></ButtonLink>
+        <ButtonLink primaryColor="green" href="/notes">
+          See all posts ->
+        </ButtonLink>
       </div>
     </div>
   </div>

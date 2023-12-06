@@ -2,25 +2,27 @@
 import type { Page } from 'astro'
 import type { HTMLAttributes } from 'astro/types'
 import ButtonLink from '@/components/ButtonLink.astro'
+import type { PrimaryColor } from '@/siteConfig'
 
 interface Props extends HTMLAttributes<'div'> {
+  primaryColor: PrimaryColor
   page: Page
 }
 
-const { page, class: classNames, ...attrs } = Astro.props
+const { primaryColor, page, class: classNames, ...attrs } = Astro.props
 ---
 
 <div
   class:list={['flex justify-center items-center space-x-8', classNames]}
   {...attrs}
 >
-  <ButtonLink href={page.url.prev}>
+  <ButtonLink primaryColor={primaryColor} href={page.url.prev}>
     {'<- Prev'}
   </ButtonLink>
   <span class="font-pixelify text-xl text-white dark:text-gh-dimmed-text"
     >{page.currentPage}</span
   >
-  <ButtonLink href={page.url.next}>
+  <ButtonLink primaryColor={primaryColor} href={page.url.next}>
     {'Next ->'}
   </ButtonLink>
 </div>

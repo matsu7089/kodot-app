@@ -1,6 +1,7 @@
 ---
 import type { Page } from 'astro'
 import type { CollectionEntry, CollectionKey } from 'astro:content'
+import type { PrimaryColor } from '@/siteConfig'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import Pagination from '@/components/Pagination.astro'
@@ -8,7 +9,7 @@ import Pagination from '@/components/Pagination.astro'
 interface Props {
   title: string
   page: Page<CollectionEntry<CollectionKey>>
-  primaryColor?: 'godot' | 'godot-green'
+  primaryColor: PrimaryColor
 }
 
 const { title, page, primaryColor } = Astro.props
@@ -21,7 +22,11 @@ const { title, page, primaryColor } = Astro.props
     </h1>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
-    {page.data.map((entry) => <Card entry={entry} />)}
+    {
+      page.data.map((entry) => (
+        <Card primaryColor={primaryColor} entry={entry} />
+      ))
+    }
   </div>
-  <Pagination class="my-8" page={page} />
+  <Pagination class="my-8" primaryColor={primaryColor} page={page} />
 </BaseLayout>

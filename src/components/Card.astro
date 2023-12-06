@@ -3,13 +3,15 @@ import type { CollectionEntry, CollectionKey } from 'astro:content'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
 import { dayjs } from '@/utils'
-import { dateFormat } from '@/siteConfig'
+import { type PrimaryColor, dateFormat } from '@/siteConfig'
 
 interface Props {
+  primaryColor: PrimaryColor
   entry: CollectionEntry<CollectionKey>
 }
 
 const {
+  primaryColor,
   entry: { collection, slug, data },
 } = Astro.props
 
@@ -32,8 +34,14 @@ const version =
       <div
         class="mt-2 flex flex-wrap items-center text-xs font-pixelify space-x-2"
       >
-        <IconLabel name="clock">{date}</IconLabel>
-        {version && <IconLabel name="kodot-solid">{version}</IconLabel>}
+        <IconLabel name="clock" primaryColor={primaryColor}>{date}</IconLabel>
+        {
+          version && (
+            <IconLabel name="kodot-solid" primaryColor={primaryColor}>
+              {version}
+            </IconLabel>
+          )
+        }
       </div>
     </div>
   </PixelContainer>

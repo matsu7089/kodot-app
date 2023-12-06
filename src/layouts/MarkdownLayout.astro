@@ -1,6 +1,6 @@
 ---
 import { dayjs } from '@/utils'
-import { dateFormat } from '@/siteConfig'
+import { type PrimaryColor, dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
@@ -11,7 +11,7 @@ import type { MarkdownHeading } from 'astro'
 interface Props {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
-  primaryColor?: 'godot' | 'godot-green'
+  primaryColor: PrimaryColor
 }
 
 const { headings, frontmatter, primaryColor } = Astro.props
@@ -41,20 +41,26 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
       <div class="flex flex-col items-center">
         <div class="text-2xl font-bold mt-6">{title}</div>
         <div class="mt-4 flex flex-wrap items-center font-pixelify space-x-2">
-          <IconLabel name="clock">{pubDateText}</IconLabel>
+          <IconLabel name="clock" primaryColor={primaryColor}>
+            {pubDateText}
+          </IconLabel>
           {
             modifiedDateText && (
-              <IconLabel name="updated">{modifiedDateText}</IconLabel>
+              <IconLabel name="updated" primaryColor={primaryColor}>
+                {modifiedDateText}
+              </IconLabel>
             )
           }
           {
             versionText && (
-              <IconLabel name="kodot-solid">{versionText}</IconLabel>
+              <IconLabel name="kodot-solid" primaryColor={primaryColor}>
+                {versionText}
+              </IconLabel>
             )
           }
         </div>
       </div>
-      <div class="mt-4 markdown">
+      <div class:list={['mt-4 markdown', primaryColor]}>
         <slot />
       </div>
     </PixelContainer>
@@ -67,7 +73,14 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
           {
             filteredHeadings.map(({ slug, text }) => (
               <li class="[&:not(:first-child)]:mt-1">
-                <a class="hover:text-godot" href={'#' + slug}>
+                <a
+                  class={
+                    primaryColor === 'blue'
+                      ? 'hover:text-kodot-blue'
+                      : 'hover:text-kodot-green'
+                  }
+                  href={'#' + slug}
+                >
                   {text}
                 </a>
               </li>
@@ -111,7 +124,10 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   }
 
   .markdown :global(a) {
-    @apply text-godot font-semibold;
+    @apply text-kodot-blue font-semibold;
+  }
+  .markdown.green :global(a) {
+    @apply text-kodot-green;
   }
 
   .markdown :global(strong) :global(a) {
