@@ -80,16 +80,18 @@ const year = new Date().getFullYear()
         Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel art.
       </p>
     </footer>
-    {/** 色のクラスを動的にすると、スタイルがうまく生成されないので暫定対応 */}
-    <div
-      class="hidden text-godot text-godot-green bg-godot dark:bg-godot-dark bg-godot-green dark:bg-godot-green-dark"
-    >
-    </div>
   </body>
 </html>
 
 <style is:global>
   [astro-icon] {
     fill: currentColor;
+  }
+</style>
+
+<style>
+  /** 色のクラスを動的にすると、スタイルがうまく生成されないので暫定対応 */
+  .dummy {
+    @apply text-godot text-godot-green bg-godot dark:bg-godot-dark bg-godot-green dark:bg-godot-green-dark;
   }
 </style>
