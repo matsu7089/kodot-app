@@ -11,11 +11,11 @@ export default {
         pixelify: ['"Pixelify Sans"', 'sans-serif'],
       },
       colors: {
-        godot: {
+        'kodot-blue': {
           DEFAULT: '#478cbf',
           dark: '#244660',
         },
-        'godot-green': {
+        'kodot-green': {
           DEFAULT: '#47bf99',
           dark: '#24604c',
         },
