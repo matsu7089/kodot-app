@@ -30,4 +30,13 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern: /^(text|bg)-kodot-[^-]+$/,
+    },
+    {
+      pattern: /^bg-kodot-.+-dark$/,
+      variants: ['dark'],
+    },
+  ],
 }
