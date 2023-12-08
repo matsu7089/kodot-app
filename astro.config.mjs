@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
+import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
@@ -20,6 +21,10 @@ export default defineConfig({
       footnoteLabelTagName: 'span',
       footnoteLabel: '脚注',
     },
-    remarkPlugins: [remarkCodeTitles, remarkModifiedTime],
+    remarkPlugins: [
+      () => remarkLinkCard({ shortenUrl: true }),
+      remarkCodeTitles,
+      remarkModifiedTime,
+    ],
   },
 })

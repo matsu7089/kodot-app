@@ -212,4 +212,56 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   .markdown :global(td) {
     @apply border py-1 px-3;
   }
+
+  /* ref: https://github.com/gladevise/remark-link-card */
+  .markdown :global(.rlc-container) {
+    @apply w-full xl:max-h-[120px] mx-auto text-gray-900 flex
+           hover:-translate-x-0.5 hover:-translate-y-0.5;
+
+    border-width: 4px;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(17,24,39)' /></svg>")
+      2;
+  }
+
+  :global(.dark) .markdown :global(.rlc-container) {
+    @apply text-gh-dimmed-text;
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(173,186,199)' /></svg>");
+  }
+
+  .markdown :global(.rlc-info) {
+    @apply overflow-hidden p-4 flex-[4_1_100px] text-left flex flex-col justify-between
+           border-r-4 border-gray-900;
+  }
+
+  :global(.dark) .markdown :global(.rlc-info) {
+    @apply border-gh-dimmed-text;
+  }
+
+  .markdown :global(.rlc-title) {
+    @apply text-xl line-clamp-2 xl:line-clamp-1;
+  }
+
+  .markdown :global(.rlc-description) {
+    @apply text-sm text-gray-500 whitespace-nowrap overflow-hidden overflow-ellipsis mt-1;
+  }
+
+  .markdown :global(.rlc-url-container) {
+    @apply text-sm text-gray-500 flex items-center mt-1;
+  }
+
+  .markdown :global(.rlc-favicon) {
+    @apply mr-2 w-4 h-4;
+  }
+
+  .markdown :global(.rlc-url) {
+    @apply text-sm overflow-ellipsis whitespace-nowrap overflow-hidden;
+  }
+
+  .markdown :global(.rlc-image-container) {
+    @apply relative flex-[1_1_100px];
+  }
+
+  .markdown :global(.rlc-image) {
+    @apply object-cover w-full h-full;
+  }
 </style>
