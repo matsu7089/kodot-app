@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
+import rehypeExternalLinks from 'rehype-external-links'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
 const remarkModifiedTime = () => {
@@ -25,6 +26,12 @@ export default defineConfig({
       () => remarkLinkCard({ shortenUrl: true }),
       remarkCodeTitles,
       remarkModifiedTime,
+    ],
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        { rel: 'nofollow noopener noreferrer', target: '_blank' },
+      ],
     ],
   },
 })
