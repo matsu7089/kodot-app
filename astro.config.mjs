@@ -23,7 +23,7 @@ export default defineConfig({
       footnoteLabel: '脚注',
     },
     remarkPlugins: [
-      () => remarkLinkCard({ shortenUrl: true }),
+      [remarkLinkCard, { shortenUrl: true }],
       remarkCodeTitles,
       remarkModifiedTime,
     ],
