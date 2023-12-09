@@ -84,13 +84,28 @@ export async function GET({ props }: Props) {
         {
           type: 'div',
           props: {
-            tw: 'flex justify-between items-center',
+            tw: 'flex justify-between items-end',
             children: [
               {
-                type: 'span',
+                type: 'div',
                 props: {
-                  tw: 'text-[30px]',
-                  children: [''],
+                  tw: 'flex items-center',
+                  children: [
+                    {
+                      type: 'img',
+                      props: {
+                        tw: 'w-[32px] mr-[8px]',
+                        src: svgData('pen'),
+                      },
+                    },
+                    {
+                      type: 'span',
+                      props: {
+                        tw: 'text-[32px]',
+                        children: [entry.data.author],
+                      },
+                    },
+                  ],
                 },
               },
               {
