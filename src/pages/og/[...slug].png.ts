@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { CollectionKey } from 'astro:content'
+import type { CollectionEntry, CollectionKey } from 'astro:content'
 import { getPubCollection } from '@/utils'
 import { ImageResponse } from '@vercel/og'
 import { loadDefaultJapaneseParser } from 'budoux'
@@ -12,8 +12,7 @@ interface Props {
     slug: string
   }
   props: {
-    collection: CollectionKey
-    title: string
+    entry: CollectionEntry<CollectionKey>
   }
 }
 
@@ -29,20 +28,19 @@ export async function getStaticPaths() {
           slug: `${entry.collection}/${entry.slug}`,
         },
         props: {
-          collection: entry.collection,
-          title: entry.data.title,
+          entry,
         },
       } satisfies Props)
   )
 }
 
 export async function GET({ props }: Props) {
-  const { collection, title } = props
+  const { entry } = props
 
   const primaryColor = {
     articles: '#478cbf',
     notes: '#47bf99',
-  }[collection]
+  }[entry.collection]
 
   const kodotIconSvg =
     'data:image/svg+xml,' +
@@ -69,7 +67,7 @@ export async function GET({ props }: Props) {
                 type: 'div',
                 props: {
                   tw: 'flex flex-wrap',
-                  children: parser.parse(title).map((word) => ({
+                  children: parser.parse(entry.data.title).map((word) => ({
                     type: 'span',
                     props: {
                       children: [word],
