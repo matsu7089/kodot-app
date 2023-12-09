@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 import rehypeExternalLinks from 'rehype-external-links'
+import { visit } from 'unist-util-visit'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
 const remarkModifiedTime = () => {
@@ -11,6 +12,22 @@ const remarkModifiedTime = () => {
     const filepath = file.history[0]
     const result = execSync(`git log -1 --pretty="format:%cI" ${filepath}`)
     file.data.astro.frontmatter.lastModified = result.toString()
+  }
+}
+
+/** remarkLinkCardのaタグにrelとtargetを設定するプラグイン */
+const rlcExternalLinks = () => {
+  const rlcStartString = '<a class="rlc-container"'
+
+  return (tree) => {
+    visit(tree, 'html', (node) => {
+      if (node.value.startsWith(rlcStartString)) {
+        node.value = node.value.replace(
+          rlcStartString,
+          rlcStartString + ' rel="nofollow noopener noreferrer" target="_blank"'
+        )
+      }
+    })
   }
 }
 
@@ -24,6 +41,7 @@ export default defineConfig({
     },
     remarkPlugins: [
       [remarkLinkCard, { shortenUrl: true }],
+      rlcExternalLinks,
       remarkCodeTitles,
       remarkModifiedTime,
     ],
