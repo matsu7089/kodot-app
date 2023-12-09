@@ -42,13 +42,16 @@ export async function GET({ props }: Props) {
     notes: '#47bf99',
   }[entry.collection]
 
-  const kodotIconSvg =
-    'data:image/svg+xml,' +
-    encodeURIComponent(
-      fs
-        .readFileSync(path.resolve('./src/icons/kodot-solid.svg'), 'utf-8')
-        .replace(/<path/g, `<path fill="${primaryColor}"`)
+  const svgData = (name: string) => {
+    return (
+      'data:image/svg+xml,' +
+      encodeURIComponent(
+        fs
+          .readFileSync(path.resolve(`./src/icons/${name}.svg`), 'utf-8')
+          .replace(/<path/g, `<path fill="${primaryColor}"`)
+      )
     )
+  }
 
   const html = {
     type: 'div',
@@ -94,7 +97,7 @@ export async function GET({ props }: Props) {
                 type: 'img',
                 props: {
                   tw: 'w-[80px]',
-                  src: kodotIconSvg,
+                  src: svgData('kodot-solid'),
                 },
               },
             ],
