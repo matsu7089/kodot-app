@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
+import compress from 'astro-compress'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
@@ -34,7 +35,7 @@ const rlcExternalLinks = () => {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
+  integrations: [tailwind(), compress()],
   markdown: {
     remarkRehype: {
       footnoteLabelTagName: 'span',
