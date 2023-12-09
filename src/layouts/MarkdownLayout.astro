@@ -92,6 +92,44 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   </div>
 </BaseLayout>
 
+<!-- ref: https://timneubauer.dev/blog/copy-code-button-in-astro/ -->
+<script is:inline>
+  const copyButtonLabel = 'Copy'
+  const codeBlocks = Array.from(document.querySelectorAll('pre'))
+
+  for (let codeBlock of codeBlocks) {
+    const wrapper = document.createElement('div')
+    wrapper.style.position = 'relative'
+
+    const copyButton = document.createElement('button')
+    copyButton.className = 'copy-code'
+    copyButton.innerHTML = copyButtonLabel
+
+    codeBlock.setAttribute('tabindex', '0')
+    codeBlock.appendChild(copyButton)
+
+    codeBlock.parentNode?.insertBefore(wrapper, codeBlock)
+    wrapper.appendChild(codeBlock)
+
+    copyButton.addEventListener('click', async () => {
+      await copyCode(codeBlock, copyButton)
+    })
+  }
+
+  async function copyCode(block, button) {
+    let code = block.querySelector('code')
+    let text = code.innerText
+
+    await navigator.clipboard.writeText(text)
+
+    button.innerText = 'Copied !'
+
+    setTimeout(() => {
+      button.innerText = copyButtonLabel
+    }, 700)
+  }
+</script>
+
 <style>
   /* ref: https://github.com/iandinwoodie/github-markdown-tailwindcss/ */
   .py-05 {
@@ -302,5 +340,10 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   .markdown
     :global(.remark-container.caution > .remark-container-title)::before {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,16,16'><path d='m5,1h6v1h1v1h1v1h1v1h1v6h-1v1h-1v1h-1v1h-1v1h-6v-1h-1v-1h-1v-1h-1v-1h-1v-6h1v-1h1v-1h1v-1h1zm3,3h-1v5h2v-5zm0,6h-1v2h2v-2z' fill='rgb(191,71,79)'/></svg>");
+  }
+
+  /* ref: https://timneubauer.dev/blog/copy-code-button-in-astro/ */
+  .markdown :global(.copy-code) {
+    @apply absolute top-0 right-0 py-1 px-2 text-lg leading-4 font-pixelify;
   }
 </style>
