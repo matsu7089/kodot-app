@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import type { CollectionKey } from 'astro:content'
 import { getPubCollection } from '@/utils'
 import { ImageResponse } from '@vercel/og'
@@ -47,10 +48,7 @@ export async function GET({ props }: Props) {
     'data:image/svg+xml,' +
     encodeURIComponent(
       fs
-        .readFileSync(
-          new URL('../../icons/kodot-solid.svg', import.meta.url),
-          'utf-8'
-        )
+        .readFileSync(path.resolve('./src/icons/kodot-solid.svg'), 'utf-8')
         .replace(/<path/g, `<path fill="${primaryColor}"`)
     )
 
@@ -114,7 +112,7 @@ export async function GET({ props }: Props) {
     fonts: [
       {
         name: 'M PLUS 1p',
-        data: fs.readFileSync(new URL('./_m-plus-1p.ttf', import.meta.url)),
+        data: fs.readFileSync(path.resolve('./src/pages/og/_m-plus-1p.ttf')),
         weight: 400,
         style: 'normal',
       },
