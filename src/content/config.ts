@@ -4,6 +4,7 @@ const baseSchema = z.object({
   isDraft: z.boolean().default(false),
   title: z.string(),
   pubDate: z.date(),
+  author: z.string(),
   tags: z.array(z.string()).default(['others']),
 })
 
