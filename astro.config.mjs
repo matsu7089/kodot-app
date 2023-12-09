@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
+import remarkContainers from 'remark-flexible-containers'
 import rehypeExternalLinks from 'rehype-external-links'
 import { visit } from 'unist-util-visit'
 
@@ -43,6 +44,7 @@ export default defineConfig({
       [remarkLinkCard, { shortenUrl: true }],
       rlcExternalLinks,
       remarkCodeTitles,
+      remarkContainers,
       remarkModifiedTime,
     ],
     rehypePlugins: [
