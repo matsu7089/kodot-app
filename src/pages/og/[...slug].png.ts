@@ -16,7 +16,7 @@ export type Props = {
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const allEntries = (await getPubCollection('articles')).concat(
     await getPubCollection('notes')
   )
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   )
 }
 
-export async function GET({ props }: Props) {
+export const GET = async ({ props }: Props) => {
   const { entry } = props
 
   const primaryColor = {
