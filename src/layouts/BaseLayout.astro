@@ -2,6 +2,7 @@
 import '@fontsource/m-plus-1p'
 import '@fontsource/pixelify-sans'
 
+import type { HTMLAttributes } from 'astro/types'
 import { Icon } from 'astro-icon'
 import ThemeIcon from '@/components/ThemeIcon.astro'
 import {
@@ -10,12 +11,17 @@ import {
   primaryTextClass,
 } from '@/siteConfig'
 
-interface Props {
+interface Props extends HTMLAttributes<'main'> {
   primaryColor: PrimaryColor
   disableAutoContaier?: boolean
 }
 
-const { primaryColor, disableAutoContaier } = Astro.props
+const {
+  primaryColor,
+  disableAutoContaier,
+  class: classNames,
+  ...attrs
+} = Astro.props
 
 const siteName = 'Kodot App'
 const headerLinks = [
@@ -69,7 +75,9 @@ const year = new Date().getFullYear()
       class:list={[
         'flex-grow text-gray-900 dark:text-gh-dimmed-text',
         { 'container mx-auto': !disableAutoContaier },
+        classNames,
       ]}
+      {...attrs}
     >
       <slot />
     </main>
