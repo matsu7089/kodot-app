@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'astro/types'
 import ButtonLink from '@/components/ButtonLink.astro'
 import type { PrimaryColor } from '@/siteConfig'
 
-interface Props extends HTMLAttributes<'div'> {
+export type Props = HTMLAttributes<'div'> & {
   primaryColor: PrimaryColor
   page: Page
 }

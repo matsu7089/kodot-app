@@ -8,7 +8,7 @@ import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
 import type { MarkdownHeading } from 'astro'
 
-interface Props {
+export type Props = {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
   primaryColor: PrimaryColor

@@ -5,7 +5,7 @@ import IconLabel from '@/components/IconLabel.astro'
 import { dayjs } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
 
-interface Props {
+export type Props = {
   primaryColor: PrimaryColor
   entry: CollectionEntry<CollectionKey>
 }

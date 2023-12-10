@@ -11,7 +11,7 @@ import {
   primaryTextClass,
 } from '@/siteConfig'
 
-interface Props extends HTMLAttributes<'main'> {
+export type Props = HTMLAttributes<'main'> & {
   primaryColor: PrimaryColor
   disableAutoContaier?: boolean
 }

@@ -7,7 +7,7 @@ import { loadDefaultJapaneseParser } from 'budoux'
 
 const parser = loadDefaultJapaneseParser()
 
-interface Props {
+export type Props = {
   params: {
     slug: string
   }

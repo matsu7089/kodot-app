@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon'
 import type { HTMLAttributes } from 'astro/types'
 import { type PrimaryColor, primaryTextClass } from '@/siteConfig'
 
-interface Props extends HTMLAttributes<'span'> {
+export type Props = HTMLAttributes<'span'> & {
   name: string
   alt?: string
   primaryColor: PrimaryColor

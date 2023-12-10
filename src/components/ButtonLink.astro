@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'astro/types'
 import PixelContainer from '@/components/PixelContainer.astro'
 import { type PrimaryColor, primaryTextClass } from '@/siteConfig'
 
-interface Props extends HTMLAttributes<'a'> {
+export type Props = HTMLAttributes<'a'> & {
   primaryColor: PrimaryColor
 }
 
