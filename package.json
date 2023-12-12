@@ -15,6 +15,7 @@
     "@fontsource/m-plus-1-code": "^5.0.16",
     "@fontsource/m-plus-1p": "^5.0.16",
     "@fontsource/pixelify-sans": "^5.0.1",
+    "@southball/remark-mermaid": "^0.5.0",
     "@vercel/og": "^0.5.20",
     "astro": "^4.0.2",
     "astro-compress": "^2.2.3",
