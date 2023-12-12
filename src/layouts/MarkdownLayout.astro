@@ -357,4 +357,13 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   .markdown :global(.copy-code) {
     @apply absolute top-0 right-0 py-1 px-2 text-lg leading-4 font-pixelify;
   }
+
+  /* remark-mermaid */
+  .markdown :global(.remark-mermaid) {
+    background-color: #2d333b;
+    border-width: 4px;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(45,51,59)' /></svg>")
+      2;
+    background-clip: padding-box;
+  }
 </style>

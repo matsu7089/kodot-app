@@ -5,6 +5,7 @@ import compress from 'astro-compress'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
+import remarkMermaid from '@southball/remark-mermaid'
 import rehypeExternalLinks from 'rehype-external-links'
 import { visit } from 'unist-util-visit'
 
@@ -44,6 +45,7 @@ export default defineConfig({
     remarkPlugins: [
       [remarkLinkCard, { shortenUrl: true }],
       rlcExternalLinks,
+      [remarkMermaid, { themes: ['dark'] }],
       remarkCodeTitles,
       remarkContainers,
       remarkModifiedTime,
