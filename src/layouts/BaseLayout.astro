@@ -5,6 +5,7 @@ import '@fontsource/pixelify-sans'
 import type { HTMLAttributes } from 'astro/types'
 import { Icon } from 'astro-icon'
 import ThemeIcon from '@/components/ThemeIcon.astro'
+import SeoHead from '@/components/SeoHead.astro'
 import {
   type PrimaryColor,
   primaryBgClass,
@@ -35,11 +36,10 @@ const year = new Date().getFullYear()
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="Godot Engineの情報サイト" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{siteName}</title>
+    <SeoHead />
   </head>
   <body
     class:list={['flex flex-col min-h-screen', primaryBgClass[primaryColor]]}
