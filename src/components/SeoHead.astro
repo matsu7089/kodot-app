@@ -1,0 +1,38 @@
+---
+import { siteName } from '@/siteConfig'
+
+export type Props = {
+  title?: string
+  description?: string
+  ogType?: 'website' | 'article'
+  ogImagePath?: string
+}
+
+const {
+  title,
+  description,
+  ogType = 'website',
+  ogImagePath = '/og/default.png',
+} = Astro.props
+
+const titleText = title
+  ? `${title} | ${siteName} `
+  : `${siteName} | Godot のゲーム開発に関する情報共有サイト`
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+
+const ogImageURL = new URL(ogImagePath, Astro.site)
+---
+
+<>
+  <title>{titleText}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:title" content={titleText} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+</>
