@@ -29,6 +29,11 @@ const headerLinks = [
   { href: '/articles', label: 'Articles' },
   { href: '/notes', label: 'Notes' },
 ]
+const footerLinks = [
+  ...headerLinks,
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+]
 const year = new Date().getFullYear()
 ---
 
@@ -83,14 +88,28 @@ const year = new Date().getFullYear()
     </main>
     <footer
       class:list={[
-        'bg-white dark:bg-gh-dimmed-bg p-4 font-pixelify text-xs text-center',
+        'bg-white dark:bg-gh-dimmed-bg p-4 font-pixelify flex flex-col items-center',
         primaryTextClass[primaryColor],
       ]}
     >
-      <p>{`[c] ${year} ${siteName}`}</p>
-      <p>
-        Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel art.
-      </p>
+      <ul class="mb-4 space-x-4 text-base flex flex-wrap">
+        {
+          footerLinks.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-gray-300">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="text-xs text-center">
+        <p>{`[c] ${year} ${siteName}`}</p>
+        <p>
+          Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel
+          art.
+        </p>
+      </div>
     </footer>
 
     <style is:global>
