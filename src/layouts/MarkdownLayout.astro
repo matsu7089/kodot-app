@@ -11,10 +11,10 @@ import type { MarkdownHeading } from 'astro'
 export type Props = {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
-  primaryColor: PrimaryColor
+  primaryColor?: PrimaryColor
 }
 
-const { headings, frontmatter, primaryColor } = Astro.props
+const { headings, frontmatter, primaryColor = 'blue' } = Astro.props
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
