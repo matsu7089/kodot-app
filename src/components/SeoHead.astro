@@ -5,14 +5,16 @@ export type Props = {
   title?: string
   description?: string
   ogType?: 'website' | 'article'
-  ogImagePath?: string
+  ogImageURL?: URL
+  jsonLd?: object
 }
 
 const {
   title,
   description,
   ogType = 'website',
-  ogImagePath = '/og/default.png',
+  ogImageURL = new URL('/og/default.png', Astro.site),
+  jsonLd,
 } = Astro.props
 
 const titleText = title
@@ -20,8 +22,6 @@ const titleText = title
   : `${siteName} | Godot のゲーム開発に関する情報共有サイト`
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-
-const ogImageURL = new URL(ogImagePath, Astro.site)
 ---
 
 <>
@@ -35,4 +35,10 @@ const ogImageURL = new URL(ogImagePath, Astro.site)
   <meta property="og:type" content={ogType} />
   <meta property="og:image" content={ogImageURL} />
   <meta name="twitter:card" content="summary_large_image" />
+
+  {
+    jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )
+  }
 </>
