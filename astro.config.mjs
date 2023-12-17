@@ -57,5 +57,5 @@ export default defineConfig({
       ],
     ],
   },
-  site: 'http://localhost:4321',
+  site: 'https://kodot-app.pages.dev',
 })
