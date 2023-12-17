@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content'
 import MarkdownLayout from '@/layouts/MarkdownLayout.astro'
+import type { Props as SeoHeadProps } from '@/components/SeoHead.astro'
+import { dayjs } from '@/utils'
 
 export const getStaticPaths = async () => {
   const articleEntries = await getCollection('articles', ({ data }) =>
@@ -13,14 +15,39 @@ export const getStaticPaths = async () => {
   }))
 }
 
-const { Content, headings, remarkPluginFrontmatter } =
-  await Astro.props.entry.render()
+const { entry } = Astro.props
+const { Content, headings, remarkPluginFrontmatter } = await entry.render()
+
+const { title, author, pubDate } = entry.data
+
+const ogImageURL = new URL(`/og/articles/${entry.slug}.png`, Astro.site)
+
+const seoHeadProps: SeoHeadProps = {
+  title: title,
+  ogType: 'article',
+  ogImageURL,
+  jsonLd: [
+    {
+      '@context': 'http://schema.org',
+      '@type': 'Article',
+      headline: title,
+      image: ogImageURL,
+      datePublished: dayjs(pubDate).toISOString(),
+      dateModified: dayjs(remarkPluginFrontmatter.lastModified).toISOString(),
+      author: {
+        '@type': 'Person',
+        name: author,
+      },
+    },
+  ],
+}
 ---
 
 <MarkdownLayout
   primaryColor="blue"
   headings={headings}
   frontmatter={remarkPluginFrontmatter}
+  seoHeadProps={seoHeadProps}
 >
   <Content />
 </MarkdownLayout>

@@ -5,7 +5,7 @@ import '@fontsource/pixelify-sans'
 import type { HTMLAttributes } from 'astro/types'
 import { Icon } from 'astro-icon'
 import ThemeIcon from '@/components/ThemeIcon.astro'
-import SeoHead from '@/components/SeoHead.astro'
+import SeoHead, { type Props as SeoHeadProps } from '@/components/SeoHead.astro'
 import {
   type PrimaryColor,
   primaryBgClass,
@@ -14,11 +14,13 @@ import {
 
 export type Props = HTMLAttributes<'main'> & {
   primaryColor: PrimaryColor
+  seoHeadProps?: SeoHeadProps
   disableAutoContaier?: boolean
 }
 
 const {
   primaryColor,
+  seoHeadProps,
   disableAutoContaier,
   class: classNames,
   ...attrs
@@ -44,7 +46,7 @@ const year = new Date().getFullYear()
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <SeoHead />
+    <SeoHead {...seoHeadProps} />
   </head>
   <body
     class:list={['flex flex-col min-h-screen', primaryBgClass[primaryColor]]}

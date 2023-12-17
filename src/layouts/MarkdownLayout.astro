@@ -6,15 +6,24 @@ import '@fontsource/m-plus-1-code'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
+import type { Props as SeoHeadProps } from '@/components/SeoHead.astro'
 import type { MarkdownHeading } from 'astro'
 
 export type Props = {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
   primaryColor?: PrimaryColor
+  seoHeadProps?: SeoHeadProps
 }
 
-const { headings, frontmatter, primaryColor = 'blue' } = Astro.props
+const {
+  headings,
+  frontmatter,
+  primaryColor = 'blue',
+  seoHeadProps = {
+    title: frontmatter.title,
+  },
+} = Astro.props
 
 const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
 
@@ -30,7 +39,7 @@ const modifiedDateText = (() => {
 const versionText = godotVersion ? 'v' + godotVersion : undefined
 ---
 
-<BaseLayout primaryColor={primaryColor}>
+<BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
   <div class="flex flex-wrap m-4">
     <PixelContainer class="flex-1 min-w-0 p-4">
       <img
