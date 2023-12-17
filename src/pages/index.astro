@@ -29,6 +29,7 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
       </ButtonLink>
     </div>
   </div>
+  <div class:list={[primaryBgClass['green'], 'fadein']}></div>
   <div class={primaryBgClass['green']}>
     <div class="container mx-auto px-4 py-8">
       <div class="text-white dark:text-gh-dimmed-text">
@@ -49,4 +50,17 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
       </div>
     </div>
   </div>
+  <div class:list={[primaryBgClass['green'], 'fadeout']}></div>
 </BaseLayout>
+
+<style>
+  .fadein {
+    height: 64px;
+    mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAABAAQMAAAAps2XVAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAACxJREFUCNdVyjERADAQAsE4eP8uzwEpD5itgNc5TUB+tq9h/6eg7onmH1GiD3xvP8FJ3ZmlAAAAAElFTkSuQmCC');
+  }
+
+  .fadeout {
+    height: 64px;
+    mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAABAAQMAAAAps2XVAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAC1JREFUCNdVyrENADAQwsDfgP23ZAPSxYCusrgExnQJfLbHmL9x+qZXnt4Teg9X0j/BnRwF+gAAAABJRU5ErkJggg==');
+  }
+</style>
