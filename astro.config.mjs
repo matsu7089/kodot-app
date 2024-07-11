@@ -7,6 +7,7 @@ import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
 import remarkMermaid from '@southball/remark-mermaid'
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeAstroRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links'
 import { visit } from 'unist-util-visit'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
@@ -55,6 +56,7 @@ export default defineConfig({
         rehypeExternalLinks,
         { rel: 'nofollow noopener noreferrer', target: '_blank' },
       ],
+      rehypeAstroRelativeMarkdownLinks,
     ],
   },
   site: 'https://kodot-app.pages.dev',
