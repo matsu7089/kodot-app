@@ -1,8 +1,8 @@
 import type { GetStaticPaths, Page, PaginateFunction } from 'astro'
 import {
   getCollection,
-  type CollectionKey,
   type CollectionEntry,
+  type ContentEntryMap,
 } from 'astro:content'
 import dayjsModule from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -16,15 +16,18 @@ dayjsModule.tz.setDefault('Asia/Tokyo')
 export const dayjs = dayjsModule
 
 /** 公開されている記事リストを取得 */
-export const getPubCollection = async (key: CollectionKey, tag?: string) =>
+export const getPubCollection = async (
+  key: keyof ContentEntryMap,
+  tag?: string
+) =>
   await getCollection(key, ({ data: { isDraft, tags } }) =>
     (import.meta.env.PROD ? !isDraft : true) && tag ? tags.includes(tag) : true
   )
 
 /** 公開日の降順で並び替え */
 export const orderByPubDateDesc = (
-  a: CollectionEntry<CollectionKey>,
-  b: CollectionEntry<CollectionKey>
+  a: CollectionEntry<keyof ContentEntryMap>,
+  b: CollectionEntry<keyof ContentEntryMap>
 ) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 
 /** 最新の記事を指定した数取得 */

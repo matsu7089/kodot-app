@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { CollectionEntry, CollectionKey } from 'astro:content'
+import type { CollectionEntry, ContentEntryMap } from 'astro:content'
 import { getPubCollection } from '@/utils'
 import { ImageResponse } from '@vercel/og'
 import { loadDefaultJapaneseParser } from 'budoux'
@@ -12,7 +12,7 @@ export type Props = {
     slug: string
   }
   props: {
-    entry: CollectionEntry<CollectionKey>
+    entry: CollectionEntry<keyof ContentEntryMap>
   }
 }
 
