@@ -2,5 +2,14 @@
   "files.exclude": {
     ".astro": true,
     "node_modules": true
-  }
+  },
+  "cSpell.words": [
+    "astro",
+    "astrojs",
+    "budoux",
+    "fontsource",
+    "kodot",
+    "rehype",
+    "tailwindcss"
+  ]
 }
