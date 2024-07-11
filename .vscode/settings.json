@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    ".astro": true,
+    "node_modules": true
+  }
+}
