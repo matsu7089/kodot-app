@@ -1,6 +1,6 @@
 ---
 import '@fontsource/m-plus-1p'
-import '@fontsource/pixelify-sans'
+import '@fontsource/press-start-2p'
 
 import type { HTMLAttributes } from 'astro/types'
 import { Icon } from 'astro-icon'
@@ -59,11 +59,13 @@ const year = new Date().getFullYear()
     >
       <a href="/" class="flex items-center">
         <Icon name="kodot-solid" alt="logo" class="h-8 mr-2" />
-        <span class="font-pixelify text-xl">{siteName}</span>
+        <div class="font-ps2 text-base pt-[4px]">
+          <span class="mr-2">Kodot</span><span>App</span>
+        </div>
       </a>
       <div class="flex items-center">
         <nav>
-          <ul class="flex font-pixelify text-lg">
+          <ul class="flex font-ps2 text-sm">
             {
               headerLinks.map((link) => (
                 <li class="mx-2">
@@ -90,11 +92,11 @@ const year = new Date().getFullYear()
     </main>
     <footer
       class:list={[
-        'bg-white dark:bg-gh-dimmed-bg p-4 font-pixelify flex flex-col items-center',
+        'bg-white dark:bg-gh-dimmed-bg p-4 font-ps2 flex flex-col items-center',
         primaryTextClass[primaryColor],
       ]}
     >
-      <ul class="mb-4 space-x-4 text-base flex flex-wrap">
+      <ul class="mb-4 space-x-4 text-sm flex flex-wrap">
         {
           footerLinks.map((link) => (
             <li>
@@ -105,8 +107,8 @@ const year = new Date().getFullYear()
           ))
         }
       </ul>
-      <div class="text-xs text-center">
-        <p>{`[c] ${year} ${siteName}`}</p>
+      <div class="text-[8px] text-center">
+        <p>{`© ${year} ${siteName}`}</p>
         <p>
           Godot Engine Logo by Andrea Calabró, CC BY 4.0 / converted to pixel
           art.

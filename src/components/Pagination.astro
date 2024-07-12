@@ -17,12 +17,12 @@ const { primaryColor, page, class: classNames, ...attrs } = Astro.props
   {...attrs}
 >
   <ButtonLink primaryColor={primaryColor} href={page.url.prev}>
-    {'<- Prev'}
+    {'< Prev'}
   </ButtonLink>
-  <span class="font-pixelify text-xl text-white dark:text-gh-dimmed-text"
+  <span class="font-ps2 text-base text-white dark:text-gh-dimmed-text"
     >{page.currentPage}</span
   >
   <ButtonLink primaryColor={primaryColor} href={page.url.next}>
-    {'Next ->'}
+    {'Next >'}
   </ButtonLink>
 </div>

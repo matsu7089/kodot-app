@@ -13,7 +13,7 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
 <BaseLayout primaryColor="blue" disableAutoContaier>
   <div class="container mx-auto px-4 py-8">
     <div class="text-white dark:text-gh-dimmed-text">
-      <h2 class="font-pixelify text-4xl font-bold mb-2">&gt; Articles</h2>
+      <h2 class="font-ps2 text-xl font-bold mb-2">&gt; Articles</h2>
       <p>Godot Engine を使ったゲーム開発に関する記事です。</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
@@ -25,7 +25,7 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
     </div>
     <div class="text-right my-4">
       <ButtonLink primaryColor="blue" href="/articles">
-        See all posts ->
+        All Posts >
       </ButtonLink>
     </div>
   </div>
@@ -33,7 +33,7 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
   <div class={primaryBgClass['green']}>
     <div class="container mx-auto px-4 py-8">
       <div class="text-white dark:text-gh-dimmed-text">
-        <h2 class="font-pixelify text-4xl font-bold mb-2">&gt; Notes</h2>
+        <h2 class="font-ps2 text-xl font-bold mb-2">&gt; Notes</h2>
         <p>Godot Engine に限らない様々なトピックを扱う記事です。</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
@@ -45,7 +45,7 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
       </div>
       <div class="text-right my-4">
         <ButtonLink primaryColor="green" href="/notes">
-          See all posts ->
+          All Posts ->
         </ButtonLink>
       </div>
     </div>

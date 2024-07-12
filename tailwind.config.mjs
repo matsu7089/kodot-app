@@ -8,7 +8,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"M PLUS 1p"', 'sans-serif', ...defaultTheme.fontFamily.sans],
-        pixelify: ['"Pixelify Sans"', 'sans-serif'],
+        ps2: ['"Press Start 2P"', 'sans-serif'],
       },
       colors: {
         'kodot-blue': {
