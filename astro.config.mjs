@@ -2,6 +2,8 @@ import { execSync } from 'child_process'
 import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
 import compress from 'astro-compress'
+import remarkBreaks from 'remark-breaks'
+import remarkEmoji from 'remark-emoji'
 import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
@@ -44,6 +46,8 @@ export default defineConfig({
       footnoteLabel: '脚注',
     },
     remarkPlugins: [
+      remarkBreaks,
+      remarkEmoji,
       [remarkLinkCard, { shortenUrl: true }],
       rlcExternalLinks,
       [remarkMermaid, { themes: ['dark'] }],
