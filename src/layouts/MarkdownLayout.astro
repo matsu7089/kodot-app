@@ -6,6 +6,7 @@ import '@fontsource/m-plus-1-code'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
+import TagChip from '@/components/TagChip.astro'
 import type { Props as SeoHeadProps } from '@/components/SeoHead.astro'
 import type { MarkdownHeading } from 'astro'
 
@@ -25,9 +26,7 @@ const {
   },
 } = Astro.props
 
-const filteredHeadings = headings.filter(({ depth }) => depth <= 2)
-
-const { title, pubDate, lastModified, godotVersion, author } = frontmatter
+const { title, pubDate, lastModified, godotVersion, author, tags } = frontmatter
 
 const pubDateText = dayjs(pubDate).format(dateFormat)
 
@@ -37,10 +36,12 @@ const modifiedDateText = (() => {
 })()
 
 const versionText = godotVersion ? 'v' + godotVersion : undefined
+
+const minDepth = Math.min(...headings.map((heading) => heading.depth))
 ---
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
-  <div class="flex flex-wrap m-4">
+  <div class="flex flex-wrap flex-col lg:flex-row m-4 gap-4">
     <PixelContainer class="flex-1 min-w-0 p-4">
       <img
         class="w-full h-40 md:h-60 lg:h-80 xl:h-96 object-cover"
@@ -69,48 +70,71 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
               </IconLabel>
             )
           }
-          {
-            author && (
-              <IconLabel
-                class="font-sans text-base"
-                name="pen"
-                primaryColor={primaryColor}
-              >
-                {author}
-              </IconLabel>
-            )
-          }
         </div>
       </div>
       <div class:list={['mt-4 markdown', primaryColor]}>
         <slot />
       </div>
     </PixelContainer>
-    <PixelContainer
-      class="w-60 ml-4 self-start sticky top-4 max-h-[calc(100vh-theme(spacing.8))] overflow-y-auto hidden lg:block"
+    <div
+      class="w-full lg:w-60 self-start sticky top-4 overflow-y-auto space-y-4"
     >
-      <div class="p-4">
-        <span>目次</span>
-        <ul class="mt-4 list-square pl-4 leading-tight">
-          {
-            filteredHeadings.map(({ slug, text }) => (
-              <li class="[&:not(:first-child)]:mt-1">
-                <a
-                  class={
-                    primaryColor === 'blue'
-                      ? 'hover:text-kodot-blue'
-                      : 'hover:text-kodot-green'
-                  }
-                  href={'#' + slug}
+      <PixelContainer class="invisible lg:visible">
+        <div class="p-4">
+          <span class="text-sm font-ps2">Contents</span>
+          <ul class="mt-4 list-square pl-4 leading-tight">
+            {
+              headings.map(({ depth, slug, text }) => (
+                <li
+                  class="space-y-1"
+                  style={{ marginLeft: `${(depth - minDepth) * 8}px` }}
                 >
-                  {text}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </PixelContainer>
+                  <a
+                    class={
+                      primaryColor === 'blue'
+                        ? 'hover:text-kodot-blue'
+                        : 'hover:text-kodot-green'
+                    }
+                    href={'#' + slug}
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </PixelContainer>
+      {
+        tags && (
+          <PixelContainer>
+            <div class="p-4">
+              <span class="text-sm font-ps2">Tags</span>
+              <div class="mt-4 flex flex-wrap gap-1">
+                {tags.map((tag: string) => (
+                  <TagChip label={tag} />
+                ))}
+              </div>
+            </div>
+          </PixelContainer>
+        )
+      }
+      {
+        author && (
+          <PixelContainer>
+            <div class="p-4">
+              <span class="text-sm font-ps2">Writer</span>
+              <div class="mt-4 flex items-center space-x-4">
+                <img class="w-12 h-12" src="/800x450.png" alt="Writer image" />
+                <div>
+                  <div class="font-bold">{author}</div>
+                </div>
+              </div>
+            </div>
+          </PixelContainer>
+        )
+      }
+    </div>
   </div>
 </BaseLayout>
 
@@ -144,7 +168,7 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
 
     await navigator.clipboard.writeText(text)
 
-    button.innerText = 'Copied !'
+    button.innerText = 'Copied!'
 
     setTimeout(() => {
       button.innerText = copyButtonLabel
@@ -223,8 +247,18 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
   }
 
   .markdown :global(.remark-code-title) {
-    @apply text-sm px-5;
+    @apply text-sm mx-2 px-2 text-white w-fit bg-kodot-blue;
     font-family: 'M PLUS 1 Code', sans-serif;
+    border-width: 4px 4px 0;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(45,51,59)' /></svg>")
+      2;
+    background-clip: padding-box;
+  }
+  .markdown.green :global(.remark-code-title) {
+    @apply bg-kodot-green;
+  }
+  :global(.dark) .markdown :global(.remark-code-title) {
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(173,186,199)' /></svg>");
   }
 
   .markdown :global(code) {
@@ -238,6 +272,9 @@ const versionText = godotVersion ? 'v' + godotVersion : undefined
     border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(45,51,59)' /></svg>")
       2;
     background-clip: padding-box;
+  }
+  :global(.dark) .markdown :global(pre) {
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(173,186,199)' /></svg>");
   }
 
   .markdown :global(pre) :global(code) {
