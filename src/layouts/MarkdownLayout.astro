@@ -81,7 +81,9 @@ const minDepth = Math.min(...headings.map((heading) => heading.depth))
     >
       <PixelContainer class="hidden lg:block">
         <div class="p-4">
-          <span class="text-sm font-ps2">Contents</span>
+          <IconLabel name="dog" isLargeIcon class="text-sm font-ps2"
+            >Contents</IconLabel
+          >
           <ul class="mt-4 list-square pl-4 leading-tight">
             {
               headings.map(({ depth, slug, text }) => (
@@ -109,7 +111,9 @@ const minDepth = Math.min(...headings.map((heading) => heading.depth))
         tags && (
           <PixelContainer>
             <div class="p-4">
-              <span class="text-sm font-ps2">Tags</span>
+              <IconLabel name="clownfish" isLargeIcon class="text-sm font-ps2">
+                Tags
+              </IconLabel>
               <div class="mt-4 flex flex-wrap gap-1">
                 {tags.map((tag: string) => (
                   <TagChip label={tag} />
@@ -123,7 +127,9 @@ const minDepth = Math.min(...headings.map((heading) => heading.depth))
         author && (
           <PixelContainer>
             <div class="p-4">
-              <span class="text-sm font-ps2">Writer</span>
+              <IconLabel name="pigeon" isLargeIcon class="text-sm font-ps2">
+                Writer
+              </IconLabel>
               <div class="mt-4 flex items-center space-x-4">
                 <img class="w-12 h-12" src="/800x450.png" alt="Writer image" />
                 <div>
