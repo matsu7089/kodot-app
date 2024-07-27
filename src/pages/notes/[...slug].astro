@@ -16,6 +16,7 @@ export const getStaticPaths = async () => {
 const { entry } = Astro.props
 const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 
+const frontmatter = { ...entry.data, ...remarkPluginFrontmatter }
 const { title, author, pubDate } = entry.data
 
 const ogImageURL = new URL(`/og/notes/${entry.slug}.png`, Astro.site)
@@ -44,7 +45,7 @@ const seoHeadProps: SeoHeadProps = {
 <MarkdownLayout
   primaryColor="green"
   headings={headings}
-  frontmatter={remarkPluginFrontmatter}
+  frontmatter={frontmatter}
   seoHeadProps={seoHeadProps}
 >
   <Content />
