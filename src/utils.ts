@@ -83,9 +83,11 @@ export const customPaginate = <T extends ReturnType<PaginateFunction>>(
 
 /** 共通処理を適用したGetStaticPathsを返す */
 export const customPaginatePaths = (
-  entries: Array<CollectionEntry<keyof ContentEntryMap>>
+  ...args: Parameters<typeof getPubCollection>
 ) => {
   return (async ({ paginate }) => {
+    const entries = (await getPubCollection(...args)).sort(orderByPubDateDesc)
+
     return customPaginate(
       paginate(entries, {
         pageSize,

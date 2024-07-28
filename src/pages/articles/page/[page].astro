@@ -1,13 +1,8 @@
 ---
 import ListLayout from '@/layouts/ListLayout.astro'
-import {
-  customPaginatePaths,
-  getPubCollection,
-  orderByPubDateDesc,
-} from '@/utils'
+import { customPaginatePaths } from '@/utils'
 
-const entries = (await getPubCollection('articles')).sort(orderByPubDateDesc)
-export const getStaticPaths = customPaginatePaths(entries)
+export const getStaticPaths = customPaginatePaths('articles')
 
 const { page } = Astro.props
 ---
