@@ -36,7 +36,7 @@ const allTags = await getAllTags()
     }
   </div>
   <Pagination class="my-8" primaryColor={primaryColor} page={page} />
-  <div class="mt-8 flex flex-wrap justify-center gap-2">
+  <div class="my-8 flex flex-wrap justify-center gap-2">
     {allTags.map((tag) => <TagChip label={tag} isLarge />)}
   </div>
 </BaseLayout>
