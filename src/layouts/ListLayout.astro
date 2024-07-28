@@ -9,12 +9,13 @@ import IconLabel from '@/components/IconLabel.astro'
 
 export type Props = {
   title: string
+  tagText?: string
   icon: string
   page: Page<CollectionEntry<keyof ContentEntryMap>>
   primaryColor: PrimaryColor
 }
 
-const { title, icon, page, primaryColor } = Astro.props
+const { title, tagText, icon, page, primaryColor } = Astro.props
 ---
 
 <BaseLayout primaryColor={primaryColor}>
@@ -22,6 +23,7 @@ const { title, icon, page, primaryColor } = Astro.props
     <IconLabel name={icon} isLargeIcon class="font-ps2 text-xl font-bold"
       >{title}</IconLabel
     >
+    {tagText && <span class="text-2xl font-bold">{tagText}</span>}
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
     {

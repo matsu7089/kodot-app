@@ -1,0 +1,36 @@
+---
+import ListLayout from '@/layouts/ListLayout.astro'
+import {
+  getFirstPage,
+  getAllTags,
+  getPubCollection,
+  orderByPubDateDesc,
+} from '@/utils'
+
+export const getStaticPaths = async () => {
+  const allTags = await getAllTags()
+
+  return allTags.map((tag) => ({
+    params: { tag },
+  }))
+}
+
+const { tag } = Astro.params
+const title = `Tag:`
+const tagText = '#' + tag
+
+const entries = [
+  ...(await getPubCollection('articles', tag)),
+  ...(await getPubCollection('notes', tag)),
+].sort(orderByPubDateDesc)
+
+const page = await getFirstPage(Astro.url.pathname, entries)
+---
+
+<ListLayout
+  primaryColor="blue"
+  title={title}
+  {tagText}
+  icon="clownfish"
+  page={page}
+/>

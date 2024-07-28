@@ -39,10 +39,8 @@ export const getRecentEntries = async (
 /** 1ページ目のPageを取得 */
 export const getFirstPage = async (
   pathname: string,
-  ...args: Parameters<typeof getPubCollection>
+  entries: Array<CollectionEntry<keyof ContentEntryMap>>
 ) => {
-  const entries = (await getPubCollection(...args)).sort(orderByPubDateDesc)
-
   const data = entries.slice(0, pageSize)
   const lastPage = Math.ceil(entries.length / pageSize)
   const next = lastPage >= 2 ? pathname + '/page/2' : undefined
@@ -64,7 +62,7 @@ export const getFirstPage = async (
 }
 
 /** ページングの1ページ目を無くすカスタム関数 */
-const customPaginate = <T extends ReturnType<PaginateFunction>>(
+export const customPaginate = <T extends ReturnType<PaginateFunction>>(
   paginate: T
 ): T => {
   return paginate
@@ -85,15 +83,26 @@ const customPaginate = <T extends ReturnType<PaginateFunction>>(
 
 /** 共通処理を適用したGetStaticPathsを返す */
 export const customPaginatePaths = (
-  ...args: Parameters<typeof getPubCollection>
+  entries: Array<CollectionEntry<keyof ContentEntryMap>>
 ) => {
   return (async ({ paginate }) => {
-    const entries = (await getPubCollection(...args)).sort(orderByPubDateDesc)
-
     return customPaginate(
       paginate(entries, {
         pageSize,
       })
     )
   }) satisfies GetStaticPaths
+}
+
+/** 公開されている記事の全てのタグリストを取得 */
+export const getAllTags = async (): Promise<string[]> => {
+  const tagSet = [
+    ...(await getPubCollection('articles')),
+    ...(await getPubCollection('notes')),
+  ].reduce((acc, cur) => {
+    cur.data.tags.forEach((tag) => acc.add(tag))
+    return acc
+  }, new Set<string>())
+
+  return [...tagSet]
 }

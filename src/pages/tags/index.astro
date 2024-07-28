@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import IconLabel from '@/components/IconLabel.astro'
+import TagChip from '@/components/TagChip.astro'
+import { getAllTags } from '@/utils'
+
+const allTags = await getAllTags()
+---
+
+<BaseLayout primaryColor="blue">
+  <div class="text-white dark:text-gh-dimmed-text flex justify-center my-8">
+    <IconLabel name="clownfish" isLargeIcon class="font-ps2 text-xl font-bold"
+      >Tags</IconLabel
+    >
+  </div>
+  <div class="mt-8 flex flex-wrap justify-center gap-2">
+    {allTags.map((tag) => <TagChip label={tag} isLarge />)}
+  </div>
+</BaseLayout>

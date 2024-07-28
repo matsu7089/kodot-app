@@ -1,0 +1,45 @@
+---
+import ListLayout from '@/layouts/ListLayout.astro'
+import { pageSize } from '@/siteConfig'
+import {
+  customPaginate,
+  getAllTags,
+  getPubCollection,
+  orderByPubDateDesc,
+} from '@/utils'
+import type { GetStaticPaths } from 'astro'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allTags = await getAllTags()
+
+  const allEntries = [
+    ...(await getPubCollection('articles')),
+    ...(await getPubCollection('notes')),
+  ].sort(orderByPubDateDesc)
+
+  return allTags.flatMap((tag) => {
+    const entries = allEntries.filter((entry) => entry.data.tags.includes(tag))
+
+    return customPaginate(
+      paginate(entries, {
+        pageSize,
+        params: { tag },
+      })
+    )
+  })
+}) satisfies GetStaticPaths
+
+const { page } = Astro.props
+const { tag } = Astro.params
+
+const title = `Tag:`
+const tagText = '#' + tag
+---
+
+<ListLayout
+  primaryColor="blue"
+  title={title}
+  tagText={tagText}
+  icon="clownfish"
+  page={page}
+/>

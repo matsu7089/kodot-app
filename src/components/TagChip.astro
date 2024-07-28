@@ -1,12 +1,15 @@
 ---
 export type Props = {
   label: string
+  isLarge?: boolean
 }
 
-const displayLabel = '#' + Astro.props.label
+const { label, isLarge } = Astro.props
+const displayLabel = '#' + label
+const href = `/tags/` + label
 
 const [bgColor, bgColorDark] = (() => {
-  const hash = Astro.props.label.split('').reduce((acc, char) => {
+  const hash = label.split('').reduce((acc, char) => {
     return (acc << 5) - acc + char.charCodeAt(0) ** 3
   }, 0)
 
@@ -16,8 +19,11 @@ const [bgColor, bgColorDark] = (() => {
 ---
 
 <a
-  class="inline-block text-sm px-1 bg-color hover:-translate-x-0.5 hover:-translate-y-0.5 pixel-border"
-  href="#"
+  class:list={[
+    'inline-block bg-color hover:-translate-x-0.5 hover:-translate-y-0.5 pixel-border',
+    isLarge ? 'text-lg px-2 py-1' : 'text-sm px-1',
+  ]}
+  href={href}
 >
   {displayLabel}
 </a>
