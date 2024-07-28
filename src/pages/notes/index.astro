@@ -5,4 +5,4 @@ import { getFirstPage } from '@/utils'
 const page = await getFirstPage(Astro.url.pathname, 'notes')
 ---
 
-<ListLayout primaryColor="green" title="Notes" page={page} />
+<ListLayout primaryColor="green" title="Notes" icon="book-green" page={page} />

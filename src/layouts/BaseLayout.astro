@@ -28,8 +28,8 @@ const {
 
 const siteName = 'Kodot App'
 const headerLinks = [
-  { href: '/articles', label: 'Articles' },
-  { href: '/notes', label: 'Notes' },
+  { href: '/articles', label: 'Articles', icon: 'book-blue' },
+  { href: '/notes', label: 'Notes', icon: 'book-green' },
 ]
 const footerLinks = [
   ...headerLinks,
@@ -70,7 +70,8 @@ const year = new Date().getFullYear()
               headerLinks.map((link) => (
                 <li class="mx-2">
                   <a href={link.href} class=" hover:text-gray-300">
-                    {link.label}
+                    <span class="hidden sm:block">{link.label}</span>
+                    <Icon name={link.icon} class="w-8 h-8 sm:hidden" />
                   </a>
                 </li>
               ))

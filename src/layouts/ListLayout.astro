@@ -5,21 +5,23 @@ import type { PrimaryColor } from '@/siteConfig'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import Pagination from '@/components/Pagination.astro'
+import IconLabel from '@/components/IconLabel.astro'
 
 export type Props = {
   title: string
+  icon: string
   page: Page<CollectionEntry<keyof ContentEntryMap>>
   primaryColor: PrimaryColor
 }
 
-const { title, page, primaryColor } = Astro.props
+const { title, icon, page, primaryColor } = Astro.props
 ---
 
 <BaseLayout primaryColor={primaryColor}>
-  <div class="text-white dark:text-gh-dimmed-text text-center my-8">
-    <h1 class="font-ps2 text-xl font-bold">
-      {`- ${title} -`}
-    </h1>
+  <div class="text-white dark:text-gh-dimmed-text flex justify-center my-8">
+    <IconLabel name={icon} isLargeIcon class="font-ps2 text-xl font-bold"
+      >{title}</IconLabel
+    >
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
     {

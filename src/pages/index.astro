@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import ButtonLink from '@/components/ButtonLink.astro'
+import IconLabel from '@/components/IconLabel.astro'
 import { getRecentEntries } from '@/utils'
 import { primaryBgClass } from '@/siteConfig'
 
@@ -13,7 +14,11 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
 <BaseLayout primaryColor="blue" disableAutoContaier>
   <div class="container mx-auto px-4 py-8">
     <div class="text-white dark:text-gh-dimmed-text">
-      <h2 class="font-ps2 text-xl font-bold mb-2">&gt; Articles</h2>
+      <IconLabel
+        name="book-blue"
+        isLargeIcon
+        class="font-ps2 text-xl font-bold mb-2">Articles</IconLabel
+      >
       <p>Godot Engine を使ったゲーム開発に関する記事です。</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
@@ -33,7 +38,11 @@ const recentNotes = await getRecentEntries(displayLimit, 'notes')
   <div class={primaryBgClass['green']}>
     <div class="container mx-auto px-4 py-8">
       <div class="text-white dark:text-gh-dimmed-text">
-        <h2 class="font-ps2 text-xl font-bold mb-2">&gt; Notes</h2>
+        <IconLabel
+          name="book-green"
+          isLargeIcon
+          class="font-ps2 text-xl font-bold mb-2">Notes</IconLabel
+        >
         <p>Godot Engine に限らない様々なトピックを扱う記事です。</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
