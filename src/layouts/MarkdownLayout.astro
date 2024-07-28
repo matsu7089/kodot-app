@@ -88,7 +88,7 @@ const minDepth = Math.min(...headings.map((heading) => heading.depth))
             {
               headings.map(({ depth, slug, text }) => (
                 <li
-                  class="space-y-1"
+                  class:list={['space-y-1 toc', primaryColor]}
                   style={{ marginLeft: `${(depth - minDepth) * 8}px` }}
                 >
                   <a
@@ -182,7 +182,47 @@ const minDepth = Math.min(...headings.map((heading) => heading.depth))
   }
 </script>
 
+<script is:inline>
+  const tocLinks = document.querySelectorAll('.toc')
+  const sections = document
+    .querySelector('.markdown')
+    .querySelectorAll('h1,h2,h3,h4,h5,h6')
+
+  let lastActiveIndex = -1
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = Array.from(sections).indexOf(entry.target)
+
+        if (index === -1 || !entry.isIntersecting) {
+          return
+        }
+
+        if (lastActiveIndex !== -1) {
+          tocLinks[lastActiveIndex].classList.remove('active')
+        }
+
+        tocLinks[index].classList.add('active')
+        lastActiveIndex = index
+      })
+    },
+    { threshold: 0, rootMargin: '0px 0px -95% 0px' }
+  )
+
+  sections.forEach((section) => {
+    observer.observe(section)
+  })
+</script>
+
 <style>
+  li.toc.active {
+    @apply underline text-kodot-blue;
+  }
+  li.green.toc.active {
+    @apply text-kodot-green;
+  }
+
   /* ref: https://github.com/iandinwoodie/github-markdown-tailwindcss/ */
   .py-05 {
     padding-top: 0.125rem;
