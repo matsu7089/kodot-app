@@ -46,8 +46,9 @@ const authorData: InferEntrySchema<'authors'> | undefined = author
   ? (await getEntry('authors', author))?.data
   : undefined
 
-const avatarImage = authorData?.avatar
-  ? (await import(`../content/authors/avatars/${authorData.avatar}`)).default
+const avatarImage = author
+  ? (await import(`../content/authors/avatars/${author}.png`).catch(() => {}))
+      ?.default
   : undefined
 
 const avatarColor = (() => {
