@@ -18,7 +18,7 @@ export const getStaticPaths = async () => {
 const { entry } = Astro.props
 const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 
-const frontmatter = { ...entry.data, ...remarkPluginFrontmatter }
+const frontmatter = { ...remarkPluginFrontmatter, ...entry.data }
 const { title, author, pubDate } = entry.data
 
 const ogImageURL = new URL(`/og/articles/${entry.slug}.png`, Astro.site)

@@ -29,7 +29,8 @@ const {
   },
 } = Astro.props
 
-const { title, pubDate, lastModified, godotVersion, author, tags } = frontmatter
+const { title, pubDate, lastModified, godotVersion, author, tags, cover } =
+  frontmatter
 
 const pubDateText = dayjs(pubDate).format(dateFormat)
 
@@ -62,16 +63,46 @@ const avatarColor = (() => {
 
   return `hsl(${hash % 360}, 70%, 75%)`
 })()
+
+const coverBackgroundColor = (() => {
+  if (typeof title !== 'string') {
+    return undefined
+  }
+
+  const hash = title.split('').reduce((acc, char) => {
+    return (acc << 5) - acc + char.charCodeAt(0) ** 3
+  }, 0)
+
+  return `hsl(${hash % 360}, 70%, 75%)`
+})()
 ---
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
   <div class="flex flex-col lg:flex-row m-4">
     <PixelContainer class="flex-1 min-w-0 p-4 lg:mr-4">
-      <img
-        class="w-full h-40 md:h-60 lg:h-80 xl:h-96 object-cover"
-        src="/800x450.png"
-        alt="Card image"
-      />
+      {
+        cover ? (
+          <div class="relative w-full h-40 md:h-60 lg:h-80 xl:h-96 overflow-hidden">
+            <Image
+              class="absolute top-0 left-0 w-full h-full object-cover blur-xl"
+              alt="Cover background image"
+              src={cover}
+            />
+            <Image
+              class="relative top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-full h-full object-contain"
+              alt="Cover foreground image"
+              src={cover}
+            />
+          </div>
+        ) : (
+          <div
+            class="w-full h-40 md:h-60 flex justify-center items-center"
+            style={{ backgroundColor: coverBackgroundColor }}
+          >
+            <Icon name="kodot-solid" class="text-white h-1/2" />
+          </div>
+        )
+      }
       <div class="flex flex-col items-center">
         <div class="text-2xl font-bold mt-6">{title}</div>
         <div

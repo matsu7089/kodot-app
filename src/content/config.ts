@@ -10,14 +10,19 @@ const baseSchema = z.object({
 
 const articles = defineCollection({
   type: 'content',
-  schema: baseSchema.extend({
-    godotVersion: z.string(),
-  }),
+  schema: ({ image }) =>
+    baseSchema.extend({
+      godotVersion: z.string(),
+      cover: image().optional(),
+    }),
 })
 
 const notes = defineCollection({
   type: 'content',
-  schema: baseSchema,
+  schema: ({ image }) =>
+    baseSchema.extend({
+      cover: image().optional(),
+    }),
 })
 
 const authors = defineCollection({
