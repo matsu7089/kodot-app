@@ -1,5 +1,5 @@
 ---
-import { dayjs } from '@/utils'
+import { dayjs, strToHSL } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
 
@@ -52,29 +52,8 @@ const avatarImage = author
       ?.default
   : undefined
 
-const avatarColor = (() => {
-  if (typeof author !== 'string') {
-    return undefined
-  }
-
-  const hash = author.split('').reduce((acc, char) => {
-    return (acc << 5) - acc + char.charCodeAt(0) ** 3
-  }, 0)
-
-  return `hsl(${hash % 360}, 70%, 75%)`
-})()
-
-const coverBackgroundColor = (() => {
-  if (typeof title !== 'string') {
-    return undefined
-  }
-
-  const hash = title.split('').reduce((acc, char) => {
-    return (acc << 5) - acc + char.charCodeAt(0) ** 3
-  }, 0)
-
-  return `hsl(${hash % 360}, 70%, 75%)`
-})()
+const avatarColor = strToHSL(author, 70, 75)
+const coverBackgroundColor = strToHSL(title, 70, 75)
 ---
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>

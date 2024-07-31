@@ -4,7 +4,7 @@ import { Image } from 'astro:assets'
 import Icon from 'astro-icon'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
-import { dayjs } from '@/utils'
+import { dayjs, strToHSL } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
 
 export type Props = {
@@ -25,13 +25,7 @@ const version =
     ? 'v' + data.godotVersion.match(/^\d+/)?.[0]
     : undefined
 
-const coverBackgroundColor = (() => {
-  const hash = title.split('').reduce((acc, char) => {
-    return (acc << 5) - acc + char.charCodeAt(0) ** 3
-  }, 0)
-
-  return `hsl(${hash % 360}, 70%, 75%)`
-})()
+const coverBackgroundColor = strToHSL(title, 70, 75)
 ---
 
 <a class="inline-block" href={href}>

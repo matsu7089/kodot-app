@@ -1,4 +1,6 @@
 ---
+import { strToHSL } from '@/utils'
+
 export type Props = {
   label: string
   isLarge?: boolean
@@ -8,14 +10,8 @@ const { label, isLarge } = Astro.props
 const displayLabel = '#' + label
 const href = `/tags/` + label
 
-const [bgColor, bgColorDark] = (() => {
-  const hash = label.split('').reduce((acc, char) => {
-    return (acc << 5) - acc + char.charCodeAt(0) ** 3
-  }, 0)
-
-  const hue = hash % 360
-  return [`hsl(${hue}, 70%, 75%)`, `hsl(${hue}, 70%, 25%)`]
-})()
+const bgColor = strToHSL(label, 70, 75)
+const bgColorDark = strToHSL(label, 70, 25)
 ---
 
 <a

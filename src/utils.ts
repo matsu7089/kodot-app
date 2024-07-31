@@ -108,3 +108,18 @@ export const getAllTags = async (): Promise<string[]> => {
 
   return [...tagSet]
 }
+
+/** 文字列からハッシュ値を取得 */
+const strToHash = (str: string) =>
+  str.split('').reduce((acc, char) => {
+    return (acc << 5) - acc + char.charCodeAt(0) ** 3
+  }, 0)
+
+/** 文字列からHSLを取得 */
+export const strToHSL = (str: any, s: number, l: number) => {
+  if (typeof str !== 'string') {
+    return undefined
+  }
+
+  return `hsl(${strToHash(str) % 360}, ${s}%, ${l}%)`
+}
