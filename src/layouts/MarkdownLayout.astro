@@ -155,15 +155,59 @@ const avatarColor = (() => {
                 Writer
               </IconLabel>
               <div class="mt-4 flex items-center space-x-4">
-                <div class="avatar">
-                  {avatarImage ? (
-                    <Image src={avatarImage} alt="Writer image" />
-                  ) : (
-                    <Icon name="kodot-solid" style={{ color: avatarColor }} />
-                  )}
+                <div>
+                  <div class="avatar">
+                    {avatarImage ? (
+                      <Image src={avatarImage} alt="Writer image" />
+                    ) : (
+                      <Icon name="kodot-solid" style={{ color: avatarColor }} />
+                    )}
+                  </div>
                 </div>
                 <div>
-                  <span>{authorData?.displayName || author}</span>
+                  <span class="break-all">
+                    {authorData?.displayName || author}
+                  </span>
+                  {authorData && (
+                    <div
+                      class:list={[
+                        'flex space-x-2 mt-2',
+                        primaryColor === 'blue'
+                          ? 'text-kodot-blue'
+                          : 'text-kodot-green',
+                      ]}
+                    >
+                      {authorData.github && (
+                        <a
+                          href={`https://github.com/${authorData.github}`}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                        >
+                          <Icon name="github" class="w-5 h-5" />
+                        </a>
+                      )}
+
+                      {authorData.twitter && (
+                        <a
+                          href={`https://x.com/${authorData.twitter}`}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                        >
+                          <Icon name="twitter" class="w-5 h-5" />
+                        </a>
+                      )}
+
+                      {authorData.website && (
+                        <a
+                          href={authorData.website}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                        >
+                          <Icon name="house" class="w-5 h-5" />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
