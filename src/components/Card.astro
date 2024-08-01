@@ -42,11 +42,13 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
           class="aspect-[16/9] object-cover"
         />
       ) : (
-        <div
-          class="w-full aspect-[16/9] flex justify-center items-center"
-          style={{ backgroundColor: coverBackgroundColor }}
-        >
-          <Icon name="kodot-solid" class="text-white w-1/5" />
+        <div>
+          <div
+            class="aspect-[16/9] flex justify-center items-center"
+            style={{ backgroundColor: coverBackgroundColor }}
+          >
+            <Icon name="kodot-solid" class="text-white w-1/5" />
+          </div>
         </div>
       )
     }
