@@ -16,7 +16,7 @@ const bgColorDark = strToHSL(label, 70, 25)
 
 <a
   class:list={[
-    'inline-block bg-color hover:-translate-x-0.5 hover:-translate-y-0.5 pixel-border',
+    'inline-block bg-color hover:-translate-x-[3px] hover:-translate-y-[3px] pixel-border',
     isLarge ? 'text-lg px-2 py-1' : 'text-sm px-1',
   ]}
   href={href}
@@ -34,12 +34,12 @@ const bgColorDark = strToHSL(label, 70, 25)
 
   .pixel-border {
     border-width: 4px;
-    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(34,39,46)' /></svg>")
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(34,39,46)' /></svg>")
       2;
     background-clip: padding-box;
   }
 
   :global(.dark) .pixel-border {
-    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2zm1,2h-1v2h2v-2z' fill='rgb(173,186,199)' /></svg>");
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(173,186,199)' /></svg>");
   }
 </style>

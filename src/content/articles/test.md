@@ -3,6 +3,7 @@ title: test
 pubDate: 2023-11-11
 author: matsu7089
 godotVersion: 4.1.3
+tags: [hoge, huga, piyo]
 ---
 
 # GFM
