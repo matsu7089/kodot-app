@@ -1,0 +1,202 @@
+---
+import PixelContainer from './PixelContainer.astro'
+import Icon from 'astro-icon'
+---
+
+<dialog id="dialog">
+  <PixelContainer class="flex items-center p-4">
+    <Icon name="search" class:list={['h-8', 'text-kodot-blue']} />
+    <input id="input" type="search" placeholder="Search" autofocus />
+  </PixelContainer>
+  <PixelContainer class="mt-4 result">
+    <p id="result-message" class="font-ps2 m-4">
+      {"Let's go on an adventure!"}
+    </p>
+    <div id="result-container" class="mt-4 mx-4"></div>
+    <button id="more" style="display: none;">Load more</button>
+  </PixelContainer>
+</dialog>
+
+<script is:inline>
+  const searchButton = document.getElementById('search')
+  const dialog = document.getElementById('dialog')
+  const input = document.getElementById('input')
+
+  const setOverflowY = (v) => {
+    document.documentElement.style.overflowY = v
+  }
+
+  const showModal = () => {
+    dialog.showModal()
+    setOverflowY('hidden')
+  }
+
+  searchButton.addEventListener('click', showModal)
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== '/' || document.activeElement === input) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (dialog.open) {
+      input.focus()
+    } else {
+      showModal()
+    }
+  })
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      dialog.close()
+    }
+  })
+
+  const createTitleAndExcerpt = (result) => {
+    const fragment = new DocumentFragment()
+
+    const titleElement = document.createElement('p')
+    const aElement = document.createElement('a')
+    const excerptElement = document.createElement('p')
+
+    aElement.innerText = result.meta?.title || result.title
+    aElement.href = result.url
+
+    titleElement.className = 'title'
+    titleElement.appendChild(aElement)
+
+    excerptElement.className = 'excerpt'
+    excerptElement.innerHTML = result.excerpt
+
+    fragment.appendChild(titleElement)
+    fragment.appendChild(excerptElement)
+
+    return fragment
+  }
+
+  const createResultItem = (result) => {
+    const resultItemElement = document.createElement('div')
+    const subResultElement = document.createElement('ul')
+
+    resultItemElement.className = 'result-item'
+    subResultElement.className = 'sub-result'
+
+    result.sub_results.slice(0, 3).forEach((subResult) => {
+      const itemElement = document.createElement('li')
+      itemElement.className = 'item'
+      itemElement.appendChild(createTitleAndExcerpt(subResult))
+
+      subResultElement.appendChild(itemElement)
+    })
+
+    resultItemElement.appendChild(createTitleAndExcerpt(result))
+    resultItemElement.appendChild(subResultElement)
+
+    return resultItemElement
+  }
+
+  const resultContainer = document.getElementById('result-container')
+  const resultMessage = document.getElementById('result-message')
+  const moreButton = document.getElementById('more')
+  let remainResults = []
+
+  const process = async (results) => {
+    const pageSize = 5
+    const data = await Promise.all(
+      results.slice(0, pageSize).map((r) => r.data())
+    )
+
+    data.forEach((result) => {
+      resultContainer.appendChild(createResultItem(result))
+    })
+
+    remainResults = results.slice(pageSize)
+    moreButton.disabled = remainResults.length === 0
+  }
+
+  moreButton.addEventListener('click', () => {
+    process(remainResults)
+  })
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const pagefind = await import('/pagefind/pagefind.js')
+    pagefind.init()
+
+    input.addEventListener('input', async () => {
+      resultMessage.innerText = 'Searching...'
+      const search = await pagefind.debouncedSearch(input.value)
+
+      if (search === null) {
+        return
+      }
+
+      const results = search.results
+      const numOfResults = results.length
+
+      resultMessage.innerText =
+        numOfResults === 1 ? '1 result' : `${numOfResults || 'No'} results`
+
+      resultContainer.replaceChildren()
+      moreButton.style.display = numOfResults === 0 ? 'none' : 'block'
+
+      process(results)
+    })
+  })
+
+  dialog.addEventListener('close', () => {
+    input.value = ''
+    setOverflowY('')
+    resultMessage.innerText = "Let's go on an adventure!"
+    resultContainer.replaceChildren()
+    moreButton.style.display = 'none'
+  })
+</script>
+
+<style>
+  #dialog {
+    @apply p-2 my-4 bg-transparent w-full max-w-xl text-current;
+  }
+  #dialog::backdrop {
+    @apply bg-black bg-opacity-50;
+  }
+
+  #input {
+    @apply p-2 w-full ml-4 bg-transparent;
+  }
+  #input::placeholder {
+    @apply font-ps2;
+  }
+
+  #more {
+    @apply w-full font-ps2 p-4 hover:text-kodot-blue disabled:text-gray-500 disabled:opacity-50;
+  }
+
+  .result :global(.title > a:hover) {
+    @apply text-kodot-blue underline;
+  }
+
+  .result :global(.excerpt) {
+    @apply text-xs;
+  }
+
+  .result :global(.result-item) {
+    @apply mt-4 pb-4 border-b-4 border-current;
+  }
+  .result :global(.result-item > .title) {
+    @apply text-xl;
+  }
+  .result :global(.result-item > .sub-result) {
+    @apply ml-4 mt-2;
+  }
+  .result :global(.result-item > .sub-result > .item) {
+    list-style-type: square;
+  }
+
+  .result :global(mark) {
+    @apply bg-kodot-blue text-white;
+  }
+  :global(.dark) .result :global(mark) {
+    @apply bg-kodot-blue-dark text-gh-dimmed-text;
+  }
+</style>

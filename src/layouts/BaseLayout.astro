@@ -6,6 +6,7 @@ import type { HTMLAttributes } from 'astro/types'
 import { Icon } from 'astro-icon'
 import ThemeIcon from '@/components/ThemeIcon.astro'
 import SeoHead, { type Props as SeoHeadProps } from '@/components/SeoHead.astro'
+import SearchModal from '@/components/SearchModal.astro'
 import {
   type PrimaryColor,
   primaryBgClass,
@@ -63,12 +64,12 @@ const year = new Date().getFullYear()
           <span class="mr-2">Kodot</span><span>App</span>
         </div>
       </a>
-      <div class="flex items-center">
+      <div class="flex items-center space-x-4">
         <nav>
-          <ul class="flex font-ps2 text-sm">
+          <ul class="flex font-ps2 text-sm space-x-4">
             {
               headerLinks.map((link) => (
-                <li class="mx-2">
+                <li>
                   <a href={link.href} class=" hover:text-gray-300">
                     <span class="hidden sm:block">{link.label}</span>
                     <Icon name={link.icon} class="w-8 h-8 sm:hidden" />
@@ -78,6 +79,9 @@ const year = new Date().getFullYear()
             }
           </ul>
         </nav>
+        <button id="search">
+          <Icon name="search" class="h-8" />
+        </button>
         <ThemeIcon />
       </div>
     </header>
@@ -90,6 +94,7 @@ const year = new Date().getFullYear()
       {...attrs}
     >
       <slot />
+      <SearchModal />
     </main>
     <footer
       class:list={[

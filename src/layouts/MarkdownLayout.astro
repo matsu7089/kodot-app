@@ -58,7 +58,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
   <div class="flex flex-col lg:flex-row m-4">
-    <PixelContainer class="flex-1 min-w-0 p-4 lg:mr-4">
+    <PixelContainer class="flex-1 min-w-0 p-4 lg:mr-4" data-pagefind-body>
       {
         cover ? (
           <div class="relative w-full h-40 md:h-60 lg:h-80 xl:h-96 overflow-hidden">
@@ -83,7 +83,9 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
         )
       }
       <div class="flex flex-col items-center">
-        <div class="text-2xl font-bold mt-6">{title}</div>
+        <div class="text-2xl font-bold mt-6" data-pagefind-meta="title">
+          {title}
+        </div>
         <div
           class="mt-4 flex flex-wrap items-center font-ps2 text-[8px] space-x-4"
         >
