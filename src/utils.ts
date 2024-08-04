@@ -43,6 +43,7 @@ export const getFirstPage = async (
 ) => {
   const data = entries.slice(0, pageSize)
   const lastPage = Math.ceil(entries.length / pageSize)
+  const last = pathname + '/page/' + lastPage
   const next = lastPage >= 2 ? pathname + '/page/2' : undefined
 
   return {
@@ -57,6 +58,8 @@ export const getFirstPage = async (
       current: pathname,
       prev: undefined,
       next,
+      first: pathname,
+      last,
     },
   } satisfies Page
 }
