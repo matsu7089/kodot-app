@@ -22,7 +22,7 @@ const title = data.title
 const date = dayjs(data.pubDate).format(dateFormat)
 const version =
   'godotVersion' in data
-    ? 'v' + data.godotVersion.match(/^\d+/)?.[0]
+    ? 'v' + (data.godotVersion.match(/^\d+\.\d+/)?.[0] || data.godotVersion)
     : undefined
 
 const coverBackgroundColor = strToHSL(title, 70, 75)
