@@ -29,7 +29,7 @@ jobs:
         run: npm run build
 
       - name: Remove unused file
-        run: rm -f dist/pagefind/pagefind-(highlight|modular|ui)*
+        run: rm -f dist/pagefind/pagefind-highlight.js dist/pagefind/pagefind-modular-ui.* dist/pagefind/pagefind-ui.*
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
