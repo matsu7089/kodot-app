@@ -1,6 +1,8 @@
 ---
 import PixelContainer from './PixelContainer.astro'
 import Icon from 'astro-icon'
+
+const isDev = import.meta.env.DEV
 ---
 
 <dialog id="dialog">
@@ -17,7 +19,7 @@ import Icon from 'astro-icon'
   </PixelContainer>
 </dialog>
 
-<script is:inline>
+<script is:inline define:vars={{ isDev }}>
   document.addEventListener('DOMContentLoaded', async () => {
     const searchButton = document.getElementById('search')
     const dialog = document.getElementById('dialog')
@@ -147,6 +149,10 @@ import Icon from 'astro-icon'
       resultContainer.replaceChildren()
       moreButton.style.display = 'none'
     })
+
+    if (isDev) {
+      return
+    }
 
     const pagefind = await import('/pagefind/pagefind.js')
     pagefind.init()
