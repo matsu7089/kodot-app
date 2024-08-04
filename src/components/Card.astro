@@ -55,10 +55,19 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
       <div
         class="mt-2 flex flex-wrap items-center text-[8px] font-ps2 space-x-2"
       >
-        <IconLabel name="clock" primaryColor={primaryColor}>{date}</IconLabel>
+        <IconLabel
+          name="clock"
+          primaryColor={primaryColor}
+          labelClass="pt-[4px]"
+          >{date}
+        </IconLabel>
         {
           version && (
-            <IconLabel name="kodot-solid" primaryColor={primaryColor}>
+            <IconLabel
+              name="kodot-solid"
+              primaryColor={primaryColor}
+              labelClass="pt-[4px]"
+            >
               {version}
             </IconLabel>
           )
