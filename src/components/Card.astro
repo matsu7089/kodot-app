@@ -36,10 +36,8 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
       data.cover ? (
         <Image
           src={data.cover}
-          width="800"
-          height="450"
           alt="Card image"
-          class="aspect-[16/9] object-cover"
+          class="w-full aspect-[16/9] object-cover"
         />
       ) : (
         <div>
