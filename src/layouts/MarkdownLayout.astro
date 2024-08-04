@@ -71,12 +71,14 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
               class="relative top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-full h-full object-contain"
               alt="Cover foreground image"
               src={cover}
+              data-pagefind-meta="image[src]"
             />
           </div>
         ) : (
           <div
             class="w-full h-40 md:h-60 flex justify-center items-center"
             style={{ backgroundColor: coverBackgroundColor }}
+            data-pagefind-meta="image:"
           >
             <Icon name="kodot-solid" class="text-white h-1/2" />
           </div>

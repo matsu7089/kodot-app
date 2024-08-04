@@ -77,10 +77,24 @@ import Icon from 'astro-icon'
 
   const createResultItem = (result) => {
     const resultItemElement = document.createElement('div')
+    const resultTitleElement = document.createElement('div')
     const subResultElement = document.createElement('ul')
 
     resultItemElement.className = 'result-item'
+    resultTitleElement.className = 'result-title'
     subResultElement.className = 'sub-result'
+
+    const imgElement = (() => {
+      if (!result.meta.image) {
+        return new DocumentFragment()
+      }
+
+      const img = document.createElement('img')
+      img.className = 'cover'
+      img.src = result.meta.image
+
+      return img
+    })()
 
     result.sub_results.slice(0, 3).forEach((subResult) => {
       const itemElement = document.createElement('li')
@@ -90,7 +104,13 @@ import Icon from 'astro-icon'
       subResultElement.appendChild(itemElement)
     })
 
-    resultItemElement.appendChild(createTitleAndExcerpt(result))
+    const titleDiv = document.createElement('div')
+    titleDiv.appendChild(createTitleAndExcerpt(result))
+
+    resultTitleElement.appendChild(imgElement)
+    resultTitleElement.appendChild(titleDiv)
+
+    resultItemElement.appendChild(resultTitleElement)
     resultItemElement.appendChild(subResultElement)
 
     return resultItemElement
@@ -183,8 +203,11 @@ import Icon from 'astro-icon'
   .result :global(.result-item) {
     @apply mt-4 pb-4 border-b-4 border-current;
   }
-  .result :global(.result-item > .title) {
-    @apply text-xl;
+  .result :global(.result-item > .result-title) {
+    @apply flex;
+  }
+  .result :global(.result-item > .result-title > .cover) {
+    @apply mr-2 w-40 aspect-[16/9] object-cover;
   }
   .result :global(.result-item > .sub-result) {
     @apply ml-4 mt-2;
