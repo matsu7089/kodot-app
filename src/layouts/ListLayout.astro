@@ -15,13 +15,17 @@ export type Props = {
   icon: string
   page: Page<CollectionEntry<keyof ContentEntryMap>>
   primaryColor: PrimaryColor
+  seoTitle?: string
 }
 
-const { title, tagText, icon, page, primaryColor } = Astro.props
+const { title, tagText, icon, page, primaryColor, seoTitle } = Astro.props
 const allTags = await getAllTags()
 ---
 
-<BaseLayout primaryColor={primaryColor}>
+<BaseLayout
+  primaryColor={primaryColor}
+  seoHeadProps={{ title: seoTitle || title }}
+>
   <div class="text-white dark:text-gh-dimmed-text flex justify-center my-8">
     <IconLabel name={icon} isLargeIcon class="font-ps2 text-xl font-bold"
       >{title}</IconLabel
