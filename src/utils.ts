@@ -20,8 +20,11 @@ export const getPubCollection = async (
   key: keyof ContentEntryMap,
   tag?: string
 ) =>
-  await getCollection(key, ({ data: { isDraft, tags } }) =>
-    (import.meta.env.PROD ? !isDraft : true) && tag ? tags.includes(tag) : true
+  await getCollection(
+    key,
+    ({ data: { isDraft, tags } }) =>
+      (import.meta.env.PROD ? !isDraft : true) &&
+      (tag ? tags.includes(tag) : true)
   )
 
 /** 公開日の降順で並び替え */
