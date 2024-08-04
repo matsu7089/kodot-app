@@ -18,128 +18,136 @@ import Icon from 'astro-icon'
 </dialog>
 
 <script is:inline>
-  const searchButton = document.getElementById('search')
-  const dialog = document.getElementById('dialog')
-  const input = document.getElementById('input')
+  document.addEventListener('DOMContentLoaded', async () => {
+    const searchButton = document.getElementById('search')
+    const dialog = document.getElementById('dialog')
+    const input = document.getElementById('input')
 
-  const setOverflowY = (v) => {
-    document.documentElement.style.overflowY = v
-  }
-
-  const showModal = () => {
-    dialog.showModal()
-    setOverflowY('hidden')
-  }
-
-  searchButton.addEventListener('click', showModal)
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== '/' || document.activeElement === input) {
-      return
+    const setOverflowY = (v) => {
+      document.documentElement.style.overflowY = v
     }
 
-    event.preventDefault()
-
-    if (dialog.open) {
-      input.focus()
-    } else {
-      showModal()
+    const showModal = () => {
+      dialog.showModal()
+      setOverflowY('hidden')
     }
-  })
 
-  dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) {
-      dialog.close()
-    }
-  })
+    searchButton.addEventListener('click', showModal)
 
-  const createTitleAndExcerpt = (result) => {
-    const fragment = new DocumentFragment()
-
-    const titleElement = document.createElement('p')
-    const aElement = document.createElement('a')
-    const excerptElement = document.createElement('p')
-
-    aElement.innerText = result.meta?.title || result.title
-    aElement.href = result.url
-
-    titleElement.className = 'title'
-    titleElement.appendChild(aElement)
-
-    excerptElement.className = 'excerpt'
-    excerptElement.innerHTML = result.excerpt
-
-    fragment.appendChild(titleElement)
-    fragment.appendChild(excerptElement)
-
-    return fragment
-  }
-
-  const createResultItem = (result) => {
-    const resultItemElement = document.createElement('div')
-    const resultTitleElement = document.createElement('div')
-    const subResultElement = document.createElement('ul')
-
-    resultItemElement.className = 'result-item'
-    resultTitleElement.className = 'result-title'
-    subResultElement.className = 'sub-result'
-
-    const imgElement = (() => {
-      if (!result.meta.image) {
-        return new DocumentFragment()
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== '/' || document.activeElement === input) {
+        return
       }
 
-      const img = document.createElement('img')
-      img.className = 'cover'
-      img.src = result.meta.image
+      event.preventDefault()
 
-      return img
-    })()
-
-    result.sub_results.slice(0, 3).forEach((subResult) => {
-      const itemElement = document.createElement('li')
-      itemElement.className = 'item'
-      itemElement.appendChild(createTitleAndExcerpt(subResult))
-
-      subResultElement.appendChild(itemElement)
+      if (dialog.open) {
+        input.focus()
+      } else {
+        showModal()
+      }
     })
 
-    const titleDiv = document.createElement('div')
-    titleDiv.appendChild(createTitleAndExcerpt(result))
-
-    resultTitleElement.appendChild(imgElement)
-    resultTitleElement.appendChild(titleDiv)
-
-    resultItemElement.appendChild(resultTitleElement)
-    resultItemElement.appendChild(subResultElement)
-
-    return resultItemElement
-  }
-
-  const resultContainer = document.getElementById('result-container')
-  const resultMessage = document.getElementById('result-message')
-  const moreButton = document.getElementById('more')
-  let remainResults = []
-
-  const process = async (results) => {
-    const pageSize = 5
-    const data = await Promise.all(
-      results.slice(0, pageSize).map((r) => r.data())
-    )
-
-    data.forEach((result) => {
-      resultContainer.appendChild(createResultItem(result))
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        dialog.close()
+      }
     })
 
-    remainResults = results.slice(pageSize)
-    moreButton.disabled = remainResults.length === 0
-  }
+    const createTitleAndExcerpt = (result) => {
+      const fragment = new DocumentFragment()
 
-  moreButton.addEventListener('click', () => {
-    process(remainResults)
-  })
+      const titleElement = document.createElement('p')
+      const aElement = document.createElement('a')
+      const excerptElement = document.createElement('p')
 
-  document.addEventListener('DOMContentLoaded', async () => {
+      aElement.innerText = result.meta?.title || result.title
+      aElement.href = result.url
+
+      titleElement.className = 'title'
+      titleElement.appendChild(aElement)
+
+      excerptElement.className = 'excerpt'
+      excerptElement.innerHTML = result.excerpt
+
+      fragment.appendChild(titleElement)
+      fragment.appendChild(excerptElement)
+
+      return fragment
+    }
+
+    const createResultItem = (result) => {
+      const resultItemElement = document.createElement('div')
+      const resultTitleElement = document.createElement('div')
+      const subResultElement = document.createElement('ul')
+
+      resultItemElement.className = 'result-item'
+      resultTitleElement.className = 'result-title'
+      subResultElement.className = 'sub-result'
+
+      const imgElement = (() => {
+        if (!result.meta.image) {
+          return new DocumentFragment()
+        }
+
+        const img = document.createElement('img')
+        img.className = 'cover'
+        img.src = result.meta.image
+
+        return img
+      })()
+
+      result.sub_results.slice(0, 3).forEach((subResult) => {
+        const itemElement = document.createElement('li')
+        itemElement.className = 'item'
+        itemElement.appendChild(createTitleAndExcerpt(subResult))
+
+        subResultElement.appendChild(itemElement)
+      })
+
+      const titleDiv = document.createElement('div')
+      titleDiv.appendChild(createTitleAndExcerpt(result))
+
+      resultTitleElement.appendChild(imgElement)
+      resultTitleElement.appendChild(titleDiv)
+
+      resultItemElement.appendChild(resultTitleElement)
+      resultItemElement.appendChild(subResultElement)
+
+      return resultItemElement
+    }
+
+    const resultContainer = document.getElementById('result-container')
+    const resultMessage = document.getElementById('result-message')
+    const moreButton = document.getElementById('more')
+    let remainResults = []
+
+    const process = async (results) => {
+      const pageSize = 5
+      const data = await Promise.all(
+        results.slice(0, pageSize).map((r) => r.data())
+      )
+
+      data.forEach((result) => {
+        resultContainer.appendChild(createResultItem(result))
+      })
+
+      remainResults = results.slice(pageSize)
+      moreButton.disabled = remainResults.length === 0
+    }
+
+    moreButton.addEventListener('click', () => {
+      process(remainResults)
+    })
+
+    dialog.addEventListener('close', () => {
+      input.value = ''
+      setOverflowY('')
+      resultMessage.innerText = "Let's go on an adventure!"
+      resultContainer.replaceChildren()
+      moreButton.style.display = 'none'
+    })
+
     const pagefind = await import('/pagefind/pagefind.js')
     pagefind.init()
 
@@ -162,14 +170,6 @@ import Icon from 'astro-icon'
 
       process(results)
     })
-  })
-
-  dialog.addEventListener('close', () => {
-    input.value = ''
-    setOverflowY('')
-    resultMessage.innerText = "Let's go on an adventure!"
-    resultContainer.replaceChildren()
-    moreButton.style.display = 'none'
   })
 </script>
 

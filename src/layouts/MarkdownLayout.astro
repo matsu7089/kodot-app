@@ -234,72 +234,76 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
 <!-- ref: https://timneubauer.dev/blog/copy-code-button-in-astro/ -->
 <script is:inline>
-  const copyButtonLabel = 'Copy'
-  const codeBlocks = Array.from(document.querySelectorAll('pre'))
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyButtonLabel = 'Copy'
+    const codeBlocks = Array.from(document.querySelectorAll('pre'))
 
-  for (let codeBlock of codeBlocks) {
-    const wrapper = document.createElement('div')
-    wrapper.style.position = 'relative'
+    for (let codeBlock of codeBlocks) {
+      const wrapper = document.createElement('div')
+      wrapper.style.position = 'relative'
 
-    const copyButton = document.createElement('button')
-    copyButton.className = 'copy-code'
-    copyButton.innerHTML = copyButtonLabel
+      const copyButton = document.createElement('button')
+      copyButton.className = 'copy-code'
+      copyButton.innerHTML = copyButtonLabel
 
-    codeBlock.setAttribute('tabindex', '0')
-    codeBlock.appendChild(copyButton)
+      codeBlock.setAttribute('tabindex', '0')
+      codeBlock.appendChild(copyButton)
 
-    codeBlock.parentNode?.insertBefore(wrapper, codeBlock)
-    wrapper.appendChild(codeBlock)
+      codeBlock.parentNode?.insertBefore(wrapper, codeBlock)
+      wrapper.appendChild(codeBlock)
 
-    copyButton.addEventListener('click', async () => {
-      await copyCode(codeBlock, copyButton)
-    })
-  }
+      copyButton.addEventListener('click', async () => {
+        await copyCode(codeBlock, copyButton)
+      })
+    }
 
-  async function copyCode(block, button) {
-    let code = block.querySelector('code')
-    let text = code.innerText
+    async function copyCode(block, button) {
+      let code = block.querySelector('code')
+      let text = code.innerText
 
-    await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(text)
 
-    button.innerText = 'Copied!'
+      button.innerText = 'Copied!'
 
-    setTimeout(() => {
-      button.innerText = copyButtonLabel
-    }, 700)
-  }
+      setTimeout(() => {
+        button.innerText = copyButtonLabel
+      }, 700)
+    }
+  })
 </script>
 
 <script is:inline>
-  const tocLinks = document.querySelectorAll('.toc')
-  const sections = document
-    .querySelector('.markdown')
-    .querySelectorAll('h1,h2,h3,h4,h5,h6')
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocLinks = document.querySelectorAll('.toc')
+    const sections = document
+      .querySelector('.markdown')
+      .querySelectorAll('h1,h2,h3,h4,h5,h6')
 
-  let lastActiveIndex = -1
+    let lastActiveIndex = -1
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const index = Array.from(sections).indexOf(entry.target)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Array.from(sections).indexOf(entry.target)
 
-        if (index === -1 || !entry.isIntersecting) {
-          return
-        }
+          if (index === -1 || !entry.isIntersecting) {
+            return
+          }
 
-        if (lastActiveIndex !== -1) {
-          tocLinks[lastActiveIndex].classList.remove('active')
-        }
+          if (lastActiveIndex !== -1) {
+            tocLinks[lastActiveIndex].classList.remove('active')
+          }
 
-        tocLinks[index].classList.add('active')
-        lastActiveIndex = index
-      })
-    },
-    { threshold: 0, rootMargin: '0px 0px -95% 0px' }
-  )
+          tocLinks[index].classList.add('active')
+          lastActiveIndex = index
+        })
+      },
+      { threshold: 0, rootMargin: '0px 0px -95% 0px' }
+    )
 
-  sections.forEach((section) => {
-    observer.observe(section)
+    sections.forEach((section) => {
+      observer.observe(section)
+    })
   })
 </script>
 

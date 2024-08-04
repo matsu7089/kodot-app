@@ -8,44 +8,46 @@ import { Icon } from 'astro-icon'
 </button>
 
 <script is:inline>
-  // ref: https://docs.astro.build/ja/tutorial/6-islands/2/
-  const themeKey = 'theme'
-  const dark = 'dark'
-  const light = 'light'
+  document.addEventListener('DOMContentLoaded', () => {
+    // ref: https://docs.astro.build/ja/tutorial/6-islands/2/
+    const themeKey = 'theme'
+    const dark = 'dark'
+    const light = 'light'
 
-  const theme = (() => {
-    const lsTheme = localStorage?.getItem(themeKey)
+    const theme = (() => {
+      const lsTheme = localStorage?.getItem(themeKey)
 
-    if (lsTheme === dark || lsTheme === light) {
-      return lsTheme
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return dark
-    }
-    return light
-  })()
+      if (lsTheme === dark || lsTheme === light) {
+        return lsTheme
+      }
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return dark
+      }
+      return light
+    })()
 
-  const element = document.documentElement
-
-  if (theme === light) {
-    element.classList.remove(dark)
-  } else {
-    element.classList.add(dark)
-  }
-
-  localStorage?.setItem(themeKey, theme)
-
-  const handleToggleClick = () => {
     const element = document.documentElement
-    element.classList.toggle(dark)
 
-    const isDark = element.classList.contains(dark)
-    localStorage.setItem(themeKey, isDark ? dark : light)
-  }
+    if (theme === light) {
+      element.classList.remove(dark)
+    } else {
+      element.classList.add(dark)
+    }
 
-  document
-    .getElementById('themeToggle')
-    ?.addEventListener('click', handleToggleClick)
+    localStorage?.setItem(themeKey, theme)
+
+    const handleToggleClick = () => {
+      const element = document.documentElement
+      element.classList.toggle(dark)
+
+      const isDark = element.classList.contains(dark)
+      localStorage.setItem(themeKey, isDark ? dark : light)
+    }
+
+    document
+      .getElementById('themeToggle')
+      ?.addEventListener('click', handleToggleClick)
+  })
 </script>
 
 <style>
