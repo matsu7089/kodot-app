@@ -8,6 +8,7 @@ export type Props = HTMLAttributes<'span'> & {
   alt?: string
   primaryColor?: PrimaryColor
   isLargeIcon?: boolean
+  labelClass?: string
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   primaryColor,
   class: classNames,
   isLargeIcon,
+  labelClass,
   ...attrs
 } = Astro.props
 ---
@@ -29,5 +31,5 @@ const {
     ]}
     alt={alt}
   />
-  <span><slot /></span>
+  <span class={labelClass}><slot /></span>
 </span>
