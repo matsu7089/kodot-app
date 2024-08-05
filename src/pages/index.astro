@@ -4,14 +4,14 @@ import Card from '@/components/Card.astro'
 import ButtonLink from '@/components/ButtonLink.astro'
 import IconLabel from '@/components/IconLabel.astro'
 import TagChip from '@/components/TagChip.astro'
-import { getRecentEntries, getAllTags } from '@/utils'
+import { getRecentEntries, getTags } from '@/utils'
 import { primaryBgClass } from '@/siteConfig'
 
 const displayLimit = 3
 const recentArticles = await getRecentEntries(displayLimit, 'articles')
 const recentNotes = await getRecentEntries(displayLimit, 'notes')
 
-const allTags = await getAllTags()
+const tags = await getTags('articles')
 ---
 
 <BaseLayout primaryColor="blue" disableAutoContaier>
@@ -45,7 +45,7 @@ const allTags = await getAllTags()
       <p>タグから記事を検索できます。</p>
     </div>
     <div class="mt-8 flex flex-wrap gap-2">
-      {allTags.map((tag) => <TagChip label={tag} isLarge />)}
+      {tags.map((tag) => <TagChip label={tag} isLarge />)}
     </div>
   </div>
   <div class:list={[primaryBgClass['green'], 'fadein']}></div>

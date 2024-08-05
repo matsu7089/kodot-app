@@ -1,10 +1,17 @@
 ---
 import ListLayout from '@/layouts/ListLayout.astro'
-import { customPaginatePaths } from '@/utils'
+import { customPaginatePaths, getTags } from '@/utils'
 
 export const getStaticPaths = customPaginatePaths('articles')
 
 const { page } = Astro.props
+const tags = await getTags('articles')
 ---
 
-<ListLayout primaryColor="blue" title="Articles" icon="book-blue" page={page} />
+<ListLayout
+  primaryColor="blue"
+  title="Articles"
+  icon="book-blue"
+  page={page}
+  tags={tags}
+/>

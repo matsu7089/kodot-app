@@ -1,9 +1,21 @@
 ---
 import ListLayout from '@/layouts/ListLayout.astro'
-import { getFirstPage, getPubCollection, orderByPubDateDesc } from '@/utils'
+import {
+  getFirstPage,
+  getPubCollection,
+  getTags,
+  orderByPubDateDesc,
+} from '@/utils'
 
 const entries = (await getPubCollection('articles')).sort(orderByPubDateDesc)
 const page = await getFirstPage(Astro.url.pathname, entries)
+const tags = await getTags('articles')
 ---
 
-<ListLayout primaryColor="blue" title="Articles" icon="book-blue" page={page} />
+<ListLayout
+  primaryColor="blue"
+  title="Articles"
+  icon="book-blue"
+  page={page}
+  tags={tags}
+/>

@@ -12,6 +12,7 @@ export const getStaticPaths = async () => {
 
   return allTags.map((tag) => ({
     params: { tag },
+    props: { allTags },
   }))
 }
 
@@ -25,6 +26,7 @@ const entries = [
 ].sort(orderByPubDateDesc)
 
 const page = await getFirstPage(Astro.url.pathname, entries)
+const tags = Astro.props.allTags
 ---
 
 <ListLayout
@@ -33,5 +35,6 @@ const page = await getFirstPage(Astro.url.pathname, entries)
   {tagText}
   icon="clownfish"
   page={page}
+  tags={tags}
   seoTitle={tagText + 'の記事一覧'}
 />

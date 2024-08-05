@@ -102,17 +102,35 @@ export const customPaginatePaths = (
   }) satisfies GetStaticPaths
 }
 
-/** 公開されている記事の全てのタグリストを取得 */
-export const getAllTags = async (): Promise<string[]> => {
-  const tagSet = [
-    ...(await getPubCollection('articles')),
-    ...(await getPubCollection('notes')),
-  ].reduce((acc, cur) => {
-    cur.data.tags.forEach((tag) => acc.add(tag))
-    return acc
-  }, new Set<string>())
+/** 公開されている記事のタグリストを記事の多い順で取得 */
+export const getTags = async (
+  key: keyof ContentEntryMap
+): Promise<string[]> => {
+  const tagCountMap = (await getPubCollection(key)).reduce(
+    (acc: { [tag: string]: number }, cur) => {
+      cur.data.tags.forEach((tag) => {
+        if (acc[tag]) {
+          acc[tag]++
+        } else {
+          acc[tag] = 1
+        }
+      })
 
-  return [...tagSet]
+      return acc
+    },
+    {}
+  )
+
+  const tagList = Object.entries(tagCountMap)
+    .sort((a, b) => b[1] - a[1])
+    .map((v) => v[0])
+
+  return tagList
+}
+
+/** 全てのタグリストを取得 */
+export const getAllTags = async () => {
+  return [...(await getTags('articles')), ...(await getTags('notes'))]
 }
 
 /** 文字列からハッシュ値を取得 */

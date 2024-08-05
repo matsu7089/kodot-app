@@ -7,7 +7,6 @@ import Card from '@/components/Card.astro'
 import Pagination from '@/components/Pagination.astro'
 import IconLabel from '@/components/IconLabel.astro'
 import TagChip from '@/components/TagChip.astro'
-import { getAllTags } from '@/utils'
 
 export type Props = {
   title: string
@@ -15,11 +14,11 @@ export type Props = {
   icon: string
   page: Page<CollectionEntry<keyof ContentEntryMap>>
   primaryColor: PrimaryColor
+  tags?: Array<string>
   seoTitle?: string
 }
 
-const { title, tagText, icon, page, primaryColor, seoTitle } = Astro.props
-const allTags = await getAllTags()
+const { title, tagText, icon, page, primaryColor, tags, seoTitle } = Astro.props
 ---
 
 <BaseLayout
@@ -40,7 +39,13 @@ const allTags = await getAllTags()
     }
   </div>
   <Pagination class="my-8" primaryColor={primaryColor} page={page} />
-  <div class="my-8 flex flex-wrap justify-center gap-2">
-    {allTags.map((tag) => <TagChip label={tag} isLarge />)}
-  </div>
+  {
+    tags && (
+      <div class="my-8 flex flex-wrap justify-center gap-2">
+        {tags.map((tag) => (
+          <TagChip label={tag} isLarge />
+        ))}
+      </div>
+    )
+  }
 </BaseLayout>
