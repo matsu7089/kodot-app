@@ -140,11 +140,15 @@ const isDev = import.meta.env.DEV
     const moreButton = document.getElementById('more')
     let remainResults = []
 
-    const process = async (results) => {
+    const process = async (results, shoudResultClear) => {
       const pageSize = 5
       const data = await Promise.all(
         results.slice(0, pageSize).map((r) => r.data())
       )
+
+      if (shoudResultClear) {
+        resultContainer.replaceChildren()
+      }
 
       data.forEach((result) => {
         resultContainer.appendChild(createResultItem(result))
@@ -155,6 +159,7 @@ const isDev = import.meta.env.DEV
     }
 
     moreButton.addEventListener('click', () => {
+      moreButton.disabled = true
       process(remainResults)
     })
 
@@ -192,13 +197,11 @@ const isDev = import.meta.env.DEV
       const results = search.results
       const numOfResults = results.length
 
+      await process(results, true)
+
       resultMessage.innerText =
         numOfResults === 1 ? '1 result' : `${numOfResults || 'No'} results`
-
-      resultContainer.replaceChildren()
       moreButton.style.display = numOfResults === 0 ? 'none' : 'block'
-
-      process(results)
     }
 
     input.addEventListener('input', handleSearch)
