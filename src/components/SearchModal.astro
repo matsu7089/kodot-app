@@ -6,12 +6,28 @@ const isDev = import.meta.env.DEV
 ---
 
 <dialog id="dialog">
-  <PixelContainer class="flex items-center p-4">
-    <Icon name="search" class:list={['h-8', 'text-kodot-blue']} />
-    <input id="input" type="search" placeholder="Search" autofocus />
+  <PixelContainer class="p-4">
+    <div class="flex items-center">
+      <Icon name="search" class:list={['h-8', 'text-kodot-blue']} />
+      <div class="ml-4 w-full">
+        <input
+          id="input"
+          type="search"
+          placeholder="Search"
+          autofocus
+          class="w-full p-2 bg-transparent"
+        />
+      </div>
+    </div>
+    <div class="mt-2 font-ps2 text-[10px] flex space-x-2 justify-end">
+      <div>
+        <input type="checkbox" id="check-articles" checked />
+        <label for="check-articles">Articles Only</label>
+      </div>
+    </div>
   </PixelContainer>
   <PixelContainer class="mt-4 result">
-    <p id="result-message" class="font-ps2 m-4">
+    <p id="result-message" class="font-ps2 m-4 text-center">
       {"Let's go on an adventure!"}
     </p>
     <div id="result-container" class="mt-4 mx-4"></div>
@@ -156,10 +172,18 @@ const isDev = import.meta.env.DEV
 
     const pagefind = await import('/pagefind/pagefind.js')
     pagefind.init()
+    pagefind.filters()
 
-    input.addEventListener('input', async () => {
+    const checkArticles = document.getElementById('check-articles')
+
+    const handleSearch = async () => {
       resultMessage.innerText = 'Searching...'
-      const search = await pagefind.debouncedSearch(input.value)
+
+      const searchOptions = checkArticles.checked
+        ? { filters: { collection: 'articles' } }
+        : null
+
+      const search = await pagefind.debouncedSearch(input.value, searchOptions)
 
       if (search === null) {
         return
@@ -175,7 +199,10 @@ const isDev = import.meta.env.DEV
       moreButton.style.display = numOfResults === 0 ? 'none' : 'block'
 
       process(results)
-    })
+    }
+
+    input.addEventListener('input', handleSearch)
+    checkArticles.addEventListener('input', handleSearch)
   })
 </script>
 
@@ -188,7 +215,13 @@ const isDev = import.meta.env.DEV
   }
 
   #input {
-    @apply p-2 w-full ml-4 bg-transparent;
+    border-width: 4px;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(34,39,46)' /></svg>")
+      2;
+    background-clip: padding-box;
+  }
+  :global(.dark) #input {
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(173,186,199)' /></svg>");
   }
   #input::placeholder {
     @apply font-ps2;

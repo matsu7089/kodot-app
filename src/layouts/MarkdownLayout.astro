@@ -4,7 +4,11 @@ import { type PrimaryColor, dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
 
 import { Image } from 'astro:assets'
-import { getEntry, type InferEntrySchema } from 'astro:content'
+import {
+  getEntry,
+  type ContentEntryMap,
+  type InferEntrySchema,
+} from 'astro:content'
 import Icon from 'astro-icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
@@ -17,6 +21,7 @@ export type Props = {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
   primaryColor?: PrimaryColor
+  collection?: keyof ContentEntryMap
   seoHeadProps?: SeoHeadProps
 }
 
@@ -24,6 +29,7 @@ const {
   headings,
   frontmatter,
   primaryColor = 'blue',
+  collection = '',
   seoHeadProps = {
     title: frontmatter.title,
   },
@@ -58,7 +64,11 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
   <div class="flex flex-col lg:flex-row m-4">
-    <PixelContainer class="flex-1 min-w-0 p-4 lg:mr-4" data-pagefind-body>
+    <PixelContainer
+      class="flex-1 min-w-0 p-4 lg:mr-4"
+      data-pagefind-body
+      data-pagefind-filter={`collection:${collection}`}
+    >
       {
         cover ? (
           <div class="relative w-full h-40 md:h-60 lg:h-80 xl:h-96 overflow-hidden">
