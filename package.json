@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.1",
+    "@astrojs/check": "^0.9.3",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource/m-plus-1-code": "^5.0.16",
     "@fontsource/m-plus-1p": "^5.0.16",
     "@fontsource/press-start-2p": "^5.0.20",
     "@southball/remark-mermaid": "^0.5.0",
     "@vercel/og": "^0.5.20",
-    "astro": "^4.13.1",
+    "astro": "^4.14.4",
     "astro-compress": "^2.2.3",
     "astro-icon": "^0.8.2",
     "astro-rehype-relative-markdown-links": "^0.15.0",
