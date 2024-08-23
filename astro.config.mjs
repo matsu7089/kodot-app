@@ -10,6 +10,11 @@ import remarkContainers from 'remark-flexible-containers'
 import remarkMermaid from '@southball/remark-mermaid'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeAstroRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links'
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerMetaHighlight,
+} from '@shikijs/transformers'
 import { visit } from 'unist-util-visit'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
@@ -30,7 +35,8 @@ const rlcExternalLinks = () => {
       if (node.value.startsWith(rlcStartString)) {
         node.value = node.value.replace(
           rlcStartString,
-          rlcStartString + ' rel="nofollow noopener noreferrer" target="_blank"'
+          rlcStartString +
+            ' rel="nofollow noopener noreferrer" target="_blank"',
         )
       }
     })
@@ -62,6 +68,13 @@ export default defineConfig({
       ],
       rehypeAstroRelativeMarkdownLinks,
     ],
+    shikiConfig: {
+      transformers: [
+        transformerNotationDiff(),
+        transformerNotationHighlight(),
+        transformerMetaHighlight(),
+      ],
+    },
   },
   site: 'https://kodot-app.pages.dev',
 })
