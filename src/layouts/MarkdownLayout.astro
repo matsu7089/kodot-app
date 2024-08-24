@@ -437,6 +437,10 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
     font-family: 'M PLUS 1 Code', sans-serif;
   }
 
+  :global(.dark) .markdown :global(code) {
+    @apply bg-gray-700;
+  }
+
   .markdown :global(pre) {
     @apply !bg-[#2d333b] py-4;
     border-width: 4px;
@@ -448,12 +452,11 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
     border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(173,186,199)' /></svg>");
   }
 
-  .markdown :global(pre) :global(code) {
-    @apply block bg-transparent p-0 overflow-visible rounded-none;
+  .markdown :global(pre > code) {
+    @apply block bg-transparent p-0 overflow-visible rounded-none w-fit min-w-full;
   }
-
-  .markdown :global(code) {
-    @apply w-fit min-w-full;
+  :global(.dark) .markdown :global(pre > code) {
+    @apply bg-transparent;
   }
 
   .markdown :global(code > span.line) {
