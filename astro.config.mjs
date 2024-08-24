@@ -69,6 +69,7 @@ export default defineConfig({
       rehypeAstroRelativeMarkdownLinks,
     ],
     shikiConfig: {
+      theme: 'github-dark-dimmed',
       transformers: [
         transformerNotationDiff(),
         transformerNotationHighlight(),
