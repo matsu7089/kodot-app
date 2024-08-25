@@ -9,6 +9,8 @@ import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
 import remarkMermaid from '@southball/remark-mermaid'
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeAstroRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links'
 import {
   transformerNotationDiff,
@@ -62,6 +64,21 @@ export default defineConfig({
       remarkModifiedTime,
     ],
     rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'prepend',
+          content: {
+            type: 'element',
+            tagName: 'span',
+            properties: {
+              className: ['header-anchor'],
+            },
+            children: [],
+          },
+        },
+      ],
       [
         rehypeExternalLinks,
         { rel: 'nofollow noopener noreferrer', target: '_blank' },
