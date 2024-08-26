@@ -70,12 +70,11 @@ export default defineConfig({
         {
           behavior: 'prepend',
           content: {
-            type: 'element',
-            tagName: 'span',
-            properties: {
-              className: ['header-anchor'],
-            },
-            children: [],
+            type: 'text',
+            value: '',
+          },
+          properties: {
+            className: ['header-anchor'],
           },
         },
       ],
