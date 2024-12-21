@@ -11,7 +11,6 @@ import remarkMermaid from '@southball/remark-mermaid'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeAstroRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links'
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -37,7 +36,8 @@ const rlcExternalLinks = () => {
       if (node.value.startsWith(rlcStartString)) {
         node.value = node.value.replace(
           rlcStartString,
-          rlcStartString + ' rel="nofollow noopener noreferrer" target="_blank"'
+          rlcStartString +
+            ' rel="nofollow noopener noreferrer" target="_blank"',
         )
       }
     })
@@ -81,7 +81,6 @@ export default defineConfig({
         rehypeExternalLinks,
         { rel: 'nofollow noopener noreferrer', target: '_blank' },
       ],
-      rehypeAstroRelativeMarkdownLinks,
     ],
     shikiConfig: {
       theme: 'github-dark-dimmed',

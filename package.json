@@ -20,8 +20,6 @@
     "@vercel/og": "^0.5.20",
     "astro": "^5.1.1",
     "astro-compress": "^2.2.3",
-    "astro-icon": "^0.8.2",
-    "astro-rehype-relative-markdown-links": "^0.15.0",
     "budoux": "^0.6.1",
     "dayjs": "^1.11.10",
     "pagefind": "^1.1.0",
