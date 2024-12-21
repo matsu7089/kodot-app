@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"M PLUS 1p"', 'sans-serif', ...defaultTheme.fontFamily.sans],
+        sans: ['"BIZ UDPGothic"', ...defaultTheme.fontFamily.sans],
         ps2: ['"Press Start 2P"', 'sans-serif'],
       },
       colors: {
@@ -26,6 +26,9 @@ export default {
       },
       listStyleType: {
         square: 'square',
+      },
+      rotate: {
+        aa: '0.05deg',
       },
     },
   },
