@@ -1,14 +1,10 @@
 ---
-import { dayjs, strToHSL } from '@/utils'
+import { dayjs, strToHSL, type MarkdownCollectionKey } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
 import '@fontsource/m-plus-1-code'
 
 import { Image } from 'astro:assets'
-import {
-  getEntry,
-  type ContentEntryMap,
-  type InferEntrySchema,
-} from 'astro:content'
+import { getEntry, type InferEntrySchema } from 'astro:content'
 import Icon from 'astro-icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PixelContainer from '@/components/PixelContainer.astro'
@@ -21,7 +17,7 @@ export type Props = {
   headings: Array<MarkdownHeading>
   frontmatter: Record<string, any>
   primaryColor?: PrimaryColor
-  collection?: keyof ContentEntryMap
+  collection?: MarkdownCollectionKey
   seoHeadProps?: SeoHeadProps
 }
 
@@ -54,8 +50,11 @@ const authorData: InferEntrySchema<'authors'> | undefined = author
   : undefined
 
 const avatarImage = author
-  ? (await import(`../content/authors/avatars/${author}.png`).catch(() => {}))
-      ?.default
+  ? (
+      await import(`../../content/authors/avatars/${author}.png`).catch(
+        () => {}
+      )
+    )?.default
   : undefined
 
 const avatarColor = strToHSL(author, 70, 75)

@@ -1,23 +1,23 @@
 ---
-import type { CollectionEntry, ContentEntryMap } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
 import Icon from 'astro-icon'
 import PixelContainer from '@/components/PixelContainer.astro'
 import IconLabel from '@/components/IconLabel.astro'
-import { dayjs, strToHSL } from '@/utils'
+import { dayjs, strToHSL, type MarkdownCollectionKey } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
 
 export type Props = {
   primaryColor: PrimaryColor
-  entry: CollectionEntry<keyof ContentEntryMap>
+  entry: CollectionEntry<MarkdownCollectionKey>
 }
 
 const {
   primaryColor,
-  entry: { collection, slug, data },
+  entry: { collection, id, data },
 } = Astro.props
 
-const href = `/${collection}/${slug}`
+const href = `/${collection}/${id}`
 const title = data.title
 const date = dayjs(data.pubDate).format(dateFormat)
 const version =

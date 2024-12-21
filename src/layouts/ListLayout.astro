@@ -1,7 +1,8 @@
 ---
 import type { Page } from 'astro'
-import type { CollectionEntry, ContentEntryMap } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 import type { PrimaryColor } from '@/siteConfig'
+import type { MarkdownCollectionKey } from '@/utils'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/Card.astro'
 import Pagination from '@/components/Pagination.astro'
@@ -12,7 +13,7 @@ export type Props = {
   title: string
   tagText?: string
   icon: string
-  page: Page<CollectionEntry<keyof ContentEntryMap>>
+  page: Page<CollectionEntry<MarkdownCollectionKey>>
   primaryColor: PrimaryColor
   tags?: Array<string>
   seoTitle?: string

@@ -1,4 +1,5 @@
 ---
+import { render } from 'astro:content'
 import MarkdownLayout from '@/layouts/MarkdownLayout.astro'
 import { getPubCollection } from '@/utils'
 import type { Props as SeoHeadProps } from '@/components/SeoHead.astro'
@@ -8,18 +9,18 @@ export const getStaticPaths = async () => {
   const entries = await getPubCollection('notes')
 
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }))
 }
 
 const { entry } = Astro.props
-const { Content, headings, remarkPluginFrontmatter } = await entry.render()
+const { Content, headings, remarkPluginFrontmatter } = await render(entry)
 
 const frontmatter = { ...remarkPluginFrontmatter, ...entry.data }
 const { title, author, pubDate } = entry.data
 
-const ogImageURL = new URL(`/og/notes/${entry.slug}.png`, Astro.site)
+const ogImageURL = new URL(`/og/notes/${entry.id}.png`, Astro.site)
 
 const seoHeadProps: SeoHeadProps = {
   title: title,

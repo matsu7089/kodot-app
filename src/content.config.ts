@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
 
 const baseSchema = z.object({
   isDraft: z.boolean().default(false),
@@ -9,7 +10,7 @@ const baseSchema = z.object({
 })
 
 const articles = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: './content/articles' }),
   schema: ({ image }) =>
     baseSchema.extend({
       godotVersion: z.string(),
@@ -18,7 +19,7 @@ const articles = defineCollection({
 })
 
 const notes = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: './content/notes' }),
   schema: ({ image }) =>
     baseSchema.extend({
       cover: image().optional(),
@@ -26,7 +27,7 @@ const notes = defineCollection({
 })
 
 const authors = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/[^_]*.json', base: './content/authors' }),
   schema: z.object({
     displayName: z.string().optional(),
     github: z.string().optional(),

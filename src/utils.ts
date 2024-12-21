@@ -1,9 +1,5 @@
 import type { GetStaticPaths, Page, PaginateFunction } from 'astro'
-import {
-  getCollection,
-  type CollectionEntry,
-  type ContentEntryMap,
-} from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import dayjsModule from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -15,9 +11,11 @@ dayjsModule.tz.setDefault('Asia/Tokyo')
 
 export const dayjs = dayjsModule
 
+export type MarkdownCollectionKey = 'articles' | 'notes'
+
 /** 公開されている記事リストを取得 */
 export const getPubCollection = async (
-  key: keyof ContentEntryMap,
+  key: MarkdownCollectionKey,
   tag?: string
 ) =>
   await getCollection(
@@ -29,8 +27,8 @@ export const getPubCollection = async (
 
 /** 公開日の降順で並び替え */
 export const orderByPubDateDesc = (
-  a: CollectionEntry<keyof ContentEntryMap>,
-  b: CollectionEntry<keyof ContentEntryMap>
+  a: CollectionEntry<MarkdownCollectionKey>,
+  b: CollectionEntry<MarkdownCollectionKey>
 ) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 
 /** 最新の記事を指定した数取得 */
@@ -42,7 +40,7 @@ export const getRecentEntries = async (
 /** 1ページ目のPageを取得 */
 export const getFirstPage = async (
   pathname: string,
-  entries: Array<CollectionEntry<keyof ContentEntryMap>>
+  entries: Array<CollectionEntry<MarkdownCollectionKey>>
 ) => {
   const data = entries.slice(0, pageSize)
   const lastPage = Math.ceil(entries.length / pageSize)
@@ -104,7 +102,7 @@ export const customPaginatePaths = (
 
 /** 公開されている記事のタグリストを記事の多い順で取得 */
 export const getTags = async (
-  key: keyof ContentEntryMap
+  key: MarkdownCollectionKey
 ): Promise<string[]> => {
   const tagCountMap = (await getPubCollection(key)).reduce(
     (acc: { [tag: string]: number }, cur) => {

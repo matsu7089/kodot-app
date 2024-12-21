@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import type { CollectionEntry, ContentEntryMap } from 'astro:content'
-import { getPubCollection } from '@/utils'
+import type { CollectionEntry } from 'astro:content'
+import { getPubCollection, type MarkdownCollectionKey } from '@/utils'
 import { ImageResponse } from '@vercel/og'
 import { loadDefaultJapaneseParser } from 'budoux'
 
@@ -12,7 +12,7 @@ export type Props = {
     slug: string
   }
   props: {
-    entry: CollectionEntry<keyof ContentEntryMap>
+    entry: CollectionEntry<MarkdownCollectionKey>
   }
 }
 
@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
     (entry) =>
       ({
         params: {
-          slug: `${entry.collection}/${entry.slug}`,
+          slug: `${entry.collection}/${entry.id}`,
         },
         props: {
           entry,
