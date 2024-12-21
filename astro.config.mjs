@@ -92,6 +92,9 @@ export default defineConfig({
     },
   },
   site: 'https://kodot-app.pages.dev',
+  prefetch: {
+    prefetchAll: true,
+  },
   experimental: {
     svg: {
       mode: 'sprite',
