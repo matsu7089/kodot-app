@@ -3,7 +3,7 @@ import '@fontsource/m-plus-1p'
 import '@fontsource/press-start-2p'
 
 import type { HTMLAttributes } from 'astro/types'
-import { Icon } from 'astro-icon'
+import Icon from '@/components/Icon.astro'
 import ThemeIcon from '@/components/ThemeIcon.astro'
 import SeoHead, { type Props as SeoHeadProps } from '@/components/SeoHead.astro'
 import SearchModal from '@/components/SearchModal.astro'
@@ -59,7 +59,7 @@ const year = new Date().getFullYear()
       ]}
     >
       <a href="/" class="flex items-center">
-        <Icon name="kodot-solid" alt="logo" class="h-8 mr-2" />
+        <Icon name="kodot-solid" class="w-8 h-8 mr-2" />
         <div class="font-ps2 text-base pt-[4px]">
           <span class="mr-2">Kodot</span><span>App</span>
         </div>
@@ -80,7 +80,7 @@ const year = new Date().getFullYear()
           </ul>
         </nav>
         <button id="search">
-          <Icon name="search" class="h-8" />
+          <Icon name="search" class="h-8 w-8" />
         </button>
         <ThemeIcon />
       </div>
@@ -121,11 +121,5 @@ const year = new Date().getFullYear()
         </p>
       </div>
     </footer>
-
-    <style is:global>
-      [astro-icon] {
-        fill: currentColor;
-      }
-    </style>
   </body>
 </html>

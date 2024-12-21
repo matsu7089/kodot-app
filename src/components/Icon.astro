@@ -1,0 +1,14 @@
+---
+import Component from '*.svg'
+export type Props = astroHTML.JSX.SVGAttributes & {
+  name: string
+  title?: string
+  size?: number | string
+}
+
+const { name, title, size, class: classNames } = Astro.props
+
+const Svg: typeof Component = (await import(`../icons/${name}.svg`)).default
+---
+
+<Svg title={title} size={size} class={classNames} fill="currentColor" />

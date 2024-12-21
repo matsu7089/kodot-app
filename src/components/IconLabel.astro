@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon'
+import Icon from '@/components/Icon.astro'
 import type { HTMLAttributes } from 'astro/types'
 import { type PrimaryColor, primaryTextClass } from '@/siteConfig'
 
@@ -29,7 +29,6 @@ const {
       isLargeIcon ? 'h-8 w-8 mr-2' : 'h-4 w-4 mr-1',
       primaryColor && primaryTextClass[primaryColor],
     ]}
-    alt={alt}
   />
   <span class={labelClass}><slot /></span>
 </span>

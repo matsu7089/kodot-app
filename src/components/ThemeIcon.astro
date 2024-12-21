@@ -1,10 +1,14 @@
 ---
-import { Icon } from 'astro-icon'
+import Icon from '@/components/Icon.astro'
 ---
 
 <button id="themeToggle">
-  <Icon name="sun" class="h-8" />
-  <Icon name="moon" class="h-8" />
+  <div class="sun">
+    <Icon name="sun" class="h-8 w-8" />
+  </div>
+  <div class="moon">
+    <Icon name="moon" class="h-8 w-8" />
+  </div>
 </button>
 
 <script is:inline>
@@ -51,14 +55,14 @@ import { Icon } from 'astro-icon'
 </script>
 
 <style>
-  [astro-icon='sun'] {
+  .sun {
     @apply hidden;
   }
-  :global(.dark) [astro-icon='sun'] {
+  :global(.dark) .sun {
     @apply block;
   }
 
-  :global(.dark) [astro-icon='moon'] {
+  :global(.dark) .moon {
     @apply hidden;
   }
 </style>

@@ -37,8 +37,7 @@ const rlcExternalLinks = () => {
       if (node.value.startsWith(rlcStartString)) {
         node.value = node.value.replace(
           rlcStartString,
-          rlcStartString +
-            ' rel="nofollow noopener noreferrer" target="_blank"',
+          rlcStartString + ' rel="nofollow noopener noreferrer" target="_blank"'
         )
       }
     })
@@ -94,4 +93,9 @@ export default defineConfig({
     },
   },
   site: 'https://kodot-app.pages.dev',
+  experimental: {
+    svg: {
+      mode: 'sprite',
+    },
+  },
 })
