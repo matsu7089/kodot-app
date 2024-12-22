@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,md}'],
+  content: ['./src/**/*.{astro,tsx,md}'],
   darkMode: 'class',
   theme: {
     extend: {
