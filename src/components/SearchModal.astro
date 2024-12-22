@@ -1,6 +1,7 @@
 ---
 import PixelContainer from './PixelContainer.astro'
 import Icon from '@/components/Icon.astro'
+import { SearchModalResult } from './solid/SearchModalResult'
 
 const isDev = import.meta.env.DEV
 ---
@@ -8,7 +9,7 @@ const isDev = import.meta.env.DEV
 <dialog id="dialog">
   <PixelContainer class="p-4">
     <div class="flex items-center">
-      <Icon name="search" class:list={['h-8', 'text-kodot-blue']} />
+      <Icon name="search" class="h-8 w-8 text-kodot-blue" />
       <div class="ml-4 w-full">
         <input
           id="input"
@@ -27,150 +28,12 @@ const isDev = import.meta.env.DEV
     </div>
   </PixelContainer>
   <PixelContainer class="mt-4 result">
-    <p id="result-message" class="font-ps2 m-4 text-center">
-      {"Let's go on an adventure!"}
-    </p>
-    <div id="result-container" class="mt-4 mx-4"></div>
-    <button id="more" style="display: none;">Load more</button>
+    <SearchModalResult client:idle />
   </PixelContainer>
 </dialog>
 
 <script is:inline define:vars={{ isDev }}>
   document.addEventListener('DOMContentLoaded', async () => {
-    const searchButton = document.getElementById('search')
-    const dialog = document.getElementById('dialog')
-    const input = document.getElementById('input')
-
-    const setOverflowY = (v) => {
-      document.documentElement.style.overflowY = v
-    }
-
-    const showModal = () => {
-      dialog.showModal()
-      setOverflowY('hidden')
-    }
-
-    searchButton.addEventListener('click', showModal)
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== '/' || document.activeElement === input) {
-        return
-      }
-
-      event.preventDefault()
-
-      if (dialog.open) {
-        input.focus()
-      } else {
-        showModal()
-      }
-    })
-
-    dialog.addEventListener('click', (event) => {
-      if (event.target === dialog) {
-        dialog.close()
-      }
-    })
-
-    const createTitleAndExcerpt = (result) => {
-      const fragment = new DocumentFragment()
-
-      const titleElement = document.createElement('p')
-      const aElement = document.createElement('a')
-      const excerptElement = document.createElement('p')
-
-      aElement.innerText = result.meta?.title || result.title
-      aElement.href = result.url
-
-      titleElement.className = 'title'
-      titleElement.appendChild(aElement)
-
-      excerptElement.className = 'excerpt'
-      excerptElement.innerHTML = result.excerpt
-
-      fragment.appendChild(titleElement)
-      fragment.appendChild(excerptElement)
-
-      return fragment
-    }
-
-    const createResultItem = (result) => {
-      const resultItemElement = document.createElement('div')
-      const resultTitleElement = document.createElement('div')
-      const subResultElement = document.createElement('ul')
-
-      resultItemElement.className = 'result-item'
-      resultTitleElement.className = 'result-title'
-      subResultElement.className = 'sub-result'
-
-      const imgElement = (() => {
-        if (!result.meta.image) {
-          return new DocumentFragment()
-        }
-
-        const img = document.createElement('img')
-        img.className = 'cover'
-        img.src = result.meta.image
-
-        return img
-      })()
-
-      result.sub_results.slice(0, 3).forEach((subResult) => {
-        const itemElement = document.createElement('li')
-        itemElement.className = 'item'
-        itemElement.appendChild(createTitleAndExcerpt(subResult))
-
-        subResultElement.appendChild(itemElement)
-      })
-
-      const titleDiv = document.createElement('div')
-      titleDiv.appendChild(createTitleAndExcerpt(result))
-
-      resultTitleElement.appendChild(imgElement)
-      resultTitleElement.appendChild(titleDiv)
-
-      resultItemElement.appendChild(resultTitleElement)
-      resultItemElement.appendChild(subResultElement)
-
-      return resultItemElement
-    }
-
-    const resultContainer = document.getElementById('result-container')
-    const resultMessage = document.getElementById('result-message')
-    const moreButton = document.getElementById('more')
-    let remainResults = []
-
-    const process = async (results, shoudResultClear) => {
-      const pageSize = 5
-      const data = await Promise.all(
-        results.slice(0, pageSize).map((r) => r.data())
-      )
-
-      if (shoudResultClear) {
-        resultContainer.replaceChildren()
-      }
-
-      data.forEach((result) => {
-        resultContainer.appendChild(createResultItem(result))
-      })
-
-      remainResults = results.slice(pageSize)
-      moreButton.disabled = remainResults.length === 0
-    }
-
-    moreButton.addEventListener('click', () => {
-      moreButton.disabled = true
-      process(remainResults)
-    })
-
-    dialog.addEventListener('close', () => {
-      input.value = ''
-      setOverflowY('')
-      resultMessage.innerText = "Let's go on an adventure!"
-      resultContainer.replaceChildren()
-      moreButton.style.display = 'none'
-    })
-
     if (isDev) {
       return
     }
@@ -179,33 +42,7 @@ const isDev = import.meta.env.DEV
     pagefind.init()
     pagefind.filters()
 
-    const checkArticles = document.getElementById('check-articles')
-
-    const handleSearch = async () => {
-      resultMessage.innerText = 'Searching...'
-
-      const searchOptions = checkArticles.checked
-        ? { filters: { collection: 'articles' } }
-        : null
-
-      const search = await pagefind.debouncedSearch(input.value, searchOptions)
-
-      if (search === null) {
-        return
-      }
-
-      const results = search.results
-      const numOfResults = results.length
-
-      await process(results, true)
-
-      resultMessage.innerText =
-        numOfResults === 1 ? '1 result' : `${numOfResults || 'No'} results`
-      moreButton.style.display = numOfResults === 0 ? 'none' : 'block'
-    }
-
-    input.addEventListener('input', handleSearch)
-    checkArticles.addEventListener('input', handleSearch)
+    window.pagefind = pagefind
   })
 </script>
 
@@ -214,7 +51,10 @@ const isDev = import.meta.env.DEV
     @apply p-2 my-4 bg-transparent w-full max-w-xl text-current;
   }
   #dialog::backdrop {
-    @apply bg-black bg-opacity-50;
+    @apply backdrop-blur-sm bg-black bg-opacity-50;
+  }
+  :global(.dark) #dialog::backdrop {
+    @apply bg-white bg-opacity-10;
   }
 
   #input {
@@ -228,40 +68,5 @@ const isDev = import.meta.env.DEV
   }
   #input::placeholder {
     @apply font-ps2;
-  }
-
-  #more {
-    @apply w-full font-ps2 p-4 hover:text-kodot-blue disabled:text-gray-500 disabled:opacity-50;
-  }
-
-  .result :global(.title > a:hover) {
-    @apply text-kodot-blue underline;
-  }
-
-  .result :global(.excerpt) {
-    @apply text-xs;
-  }
-
-  .result :global(.result-item) {
-    @apply mt-4 pb-4 border-b-4 border-current;
-  }
-  .result :global(.result-item > .result-title) {
-    @apply flex;
-  }
-  .result :global(.result-item > .result-title > .cover) {
-    @apply mr-2 w-40 aspect-[16/9] object-cover;
-  }
-  .result :global(.result-item > .sub-result) {
-    @apply ml-4 mt-2;
-  }
-  .result :global(.result-item > .sub-result > .item) {
-    list-style-type: square;
-  }
-
-  .result :global(mark) {
-    @apply bg-kodot-blue text-white;
-  }
-  :global(.dark) .result :global(mark) {
-    @apply bg-kodot-blue-dark text-gh-dimmed-text;
   }
 </style>
