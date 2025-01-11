@@ -59,6 +59,31 @@ func _init():
     print("Hello, World!")
 ```
 
+---
+
+コードのコメントに `[!code highlight]`, `[!code ++]`, `[!code --]` を記載すると、該当の行を強調できます。
+
+result:
+
+```gdscript
+func _init():
+    print("highlight") # [!code highlight]
+    print("plus") # [!code ++]
+    print("minus") # [!code --]
+```
+
+また、`{}` で行数を指定すると、その行をハイライトできます。
+例）`gdscript {1,3-4}`
+
+result:
+
+```gdscript {1,3-4}
+print("line1")
+print("line2")
+print("line3")
+print("line4")
+```
+
 ## 特殊な記法
 
 ### Container
