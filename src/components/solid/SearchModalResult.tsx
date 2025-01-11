@@ -90,6 +90,7 @@ export const SearchModalResult: Component = () => {
     }
 
     const handleSearch = async () => {
+      setSearchResult([])
       setResultMessage('Searching...')
 
       const searchOptions = checkArticles.checked
