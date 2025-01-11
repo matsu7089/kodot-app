@@ -54,13 +54,21 @@ export default defineConfig({
       footnoteLabel: '脚注',
     },
     remarkPlugins: [
-      remarkBreaks,
       remarkEmoji,
       [remarkLinkCard, { shortenUrl: true }],
       rlcExternalLinks,
       [remarkMermaid, { themes: ['dark'] }],
       remarkCodeTitles,
-      remarkContainers,
+      [
+        remarkContainers,
+        {
+          containerTagName: (type, _title) =>
+            type === 'details' ? 'details' : 'div',
+          titleTagName: (type, _title) =>
+            type === 'details' ? 'summary' : 'span',
+        },
+      ],
+      remarkBreaks,
       remarkModifiedTime,
     ],
     rehypePlugins: [

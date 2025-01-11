@@ -569,42 +569,67 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
   }
 
   /* ref: https://github.com/ipikuka/remark-flexible-containers */
-  .markdown :global(.remark-container) {
+  .markdown :global(div.remark-container) {
     @apply border-l-4 border-kodot-blue py-2 px-4;
   }
-  .markdown :global(.remark-container > *):not(:last-child) {
+  .markdown :global(div.remark-container > *):not(:last-child) {
     @apply mt-0 mb-4;
   }
 
-  .markdown :global(.remark-container > .remark-container-title) {
-    @apply text-kodot-blue text-base;
+  .markdown :global(div.remark-container > .remark-container-title) {
+    @apply text-kodot-blue text-base block mb-2;
   }
-  .markdown :global(.remark-container > .remark-container-title)::before {
+  .markdown :global(div.remark-container > .remark-container-title)::before {
     content: '';
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,16,16'><path d='m5,1h6v1h1v1h1v1h1v1h1v6h-1v1h-1v1h-1v1h-1v1h-6v-1h-1v-1h-1v-1h-1v-1h-1v-6h1v-1h1v-1h1v-1h1zm3,3h-1v2h2v-2zm0,3h-1v5h2v-5z' fill='rgb(71,140,191)'/></svg>");
     @apply inline-block w-4 h-4 mr-2 bg-[0px_1px] bg-no-repeat;
   }
 
-  .markdown :global(.remark-container.warning) {
+  .markdown :global(div.remark-container.warning) {
     @apply border-[#bf7b47];
   }
-  .markdown :global(.remark-container.warning > .remark-container-title) {
+  .markdown :global(div.remark-container.warning > .remark-container-title) {
     @apply text-[#bf7b47];
   }
   .markdown
-    :global(.remark-container.warning > .remark-container-title)::before {
+    :global(div.remark-container.warning > .remark-container-title)::before {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,16,16'><path d='m7,1h2v1h1v2h1v2h1v2h1v2h1v2h1v2h-1v1h-12v-1h-1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1zm1,4h-1v5h2v-5zm0,6h-1v2h2v-2z' fill='rgb(191,123,71)'/></svg>");
   }
 
-  .markdown :global(.remark-container.caution) {
+  .markdown :global(div.remark-container.caution) {
     @apply border-[#bf474f];
   }
-  .markdown :global(.remark-container.caution > .remark-container-title) {
+  .markdown :global(div.remark-container.caution > .remark-container-title) {
     @apply text-[#bf474f];
   }
   .markdown
-    :global(.remark-container.caution > .remark-container-title)::before {
+    :global(div.remark-container.caution > .remark-container-title)::before {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,16,16'><path d='m5,1h6v1h1v1h1v1h1v1h1v6h-1v1h-1v1h-1v1h-1v1h-6v-1h-1v-1h-1v-1h-1v-1h-1v-6h1v-1h1v-1h1v-1h1zm3,3h-1v5h2v-5zm0,6h-1v2h2v-2z' fill='rgb(191,71,79)'/></svg>");
+  }
+
+  .markdown :global(details.remark-container) {
+    border-width: 4px;
+    border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(17,24,39)' /></svg>")
+      2;
+    background-clip: padding-box;
+  }
+  :global(.dark) .markdown :global(details.remark-container) {
+    border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(173,186,199)' /></svg>");
+  }
+
+  .markdown :global(details.remark-container > *) {
+    @apply px-4;
+  }
+
+  .markdown :global(details.remark-container > summary) {
+    @apply border-b-4 border-current py-2;
+  }
+
+  .markdown :global(details.remark-container > *:not(summary):first-of-type) {
+    @apply pt-2;
+  }
+  .markdown :global(details.remark-container > *:not(summary):last-of-type) {
+    @apply pb-2;
   }
 
   /* ref: https://timneubauer.dev/blog/copy-code-button-in-astro/ */

@@ -64,63 +64,55 @@ func _init():
 ### Container
 
 ```md
-:::note Title
-
+::: note Title
 note タイトル有り
-
 :::
 
-:::note
-
+::: note
 note タイトル無し
-
 :::
 ```
 
 result:
 
-:::note Title
-
+::: note Title
 note タイトル有り
-
 :::
 
-:::note
-
+::: note
 note タイトル無し
-
 :::
 
 ---
 
-note 以外に warning, caution が利用できます。
+note 以外に warning, caution, details が利用できます。
 
 ```md
-:::warning Title
-
+::: warning Title
 warn 表示サンプル
-
 :::
 
-:::caution Title
-
+::: caution Title
 caution 表示サンプル
+:::
 
+::: details Summary
+details 表示サンプル
 :::
 ```
 
 result:
 
-:::warning Title
-
+::: warning Title
 warning タイトル有り
-
 :::
 
-:::caution Title
-
+::: caution Title
 caution タイトル有り
+:::
 
+::: details Summary
+details 表示サンプル
 :::
 
 ※ Container はネストできません。
