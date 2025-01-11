@@ -1,7 +1,7 @@
 ---
 import { dayjs, strToHSL, type MarkdownCollectionKey } from '@/utils'
 import { type PrimaryColor, dateFormat } from '@/siteConfig'
-import '@fontsource/m-plus-1-code'
+import '@fontsource-variable/jetbrains-mono'
 
 import { Image } from 'astro:assets'
 import { getEntry, type InferEntrySchema } from 'astro:content'
@@ -423,7 +423,8 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
   .markdown :global(.remark-code-title) {
     @apply text-sm mx-2 px-2 text-white w-fit bg-kodot-blue;
-    font-family: 'M PLUS 1 Code', sans-serif;
+    font-family: 'JetBrains Mono Variable', 'BIZ UDPGothic', monospace;
+    font-variant-ligatures: none;
     border-width: 4px 4px 0;
     border-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><path d='m2,0h2v2h2v2h-2v2h-2v-2h-2v-2h2z' fill='rgb(45,51,59)' /></svg>")
       2;
@@ -438,7 +439,8 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
   .markdown :global(code) {
     @apply text-sm inline bg-gray-200 rounded px-1 py-05 rotate-aa;
-    font-family: 'M PLUS 1 Code', sans-serif;
+    font-family: 'JetBrains Mono Variable', 'BIZ UDPGothic', monospace;
+    font-variant-ligatures: none;
   }
 
   :global(.dark) .markdown :global(code) {
