@@ -31,8 +31,16 @@ const {
   },
 } = Astro.props
 
-const { title, pubDate, lastModified, godotVersion, author, tags, cover } =
-  frontmatter
+const {
+  title,
+  pubDate,
+  lastModified,
+  godotVersion,
+  author,
+  tags,
+  cover,
+  isDraft,
+} = frontmatter
 
 const pubDateText = dayjs(pubDate).format(dateFormat)
 
@@ -100,6 +108,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
         <div
           class="mt-6 flex flex-wrap items-center font-ps2 text-[10px] space-x-4"
         >
+          {isDraft && <span class="px-2 text-white bg-kodot-blue">Draft</span>}
           <IconLabel
             name="clock"
             primaryColor={primaryColor}
