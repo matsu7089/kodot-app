@@ -93,17 +93,17 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
           </div>
         )
       }
-      <div class="flex flex-col items-center">
-        <div class="text-2xl font-bold mt-6" data-pagefind-meta="title">
+      <div class="flex flex-col items-center my-12">
+        <h1 class="text-2xl font-bold" data-pagefind-meta="title">
           {title}
-        </div>
+        </h1>
         <div
-          class="mt-4 flex flex-wrap items-center font-ps2 text-[8px] space-x-4"
+          class="mt-6 flex flex-wrap items-center font-ps2 text-[10px] space-x-4"
         >
           <IconLabel
             name="clock"
             primaryColor={primaryColor}
-            labelClass="pt-[4px]"
+            labelClass="pt-[2px]"
           >
             {pubDateText}
           </IconLabel>
@@ -112,7 +112,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
               <IconLabel
                 name="updated"
                 primaryColor={primaryColor}
-                labelClass="pt-[4px]"
+                labelClass="pt-[2px]"
               >
                 {modifiedDateText}
               </IconLabel>
@@ -123,7 +123,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
               <IconLabel
                 name="kodot-solid"
                 primaryColor={primaryColor}
-                labelClass="pt-[4px]"
+                labelClass="pt-[2px]"
               >
                 {versionText}
               </IconLabel>
@@ -136,7 +136,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
       </div>
     </PixelContainer>
     <div
-      class="w-full lg:w-60 self-start sticky top-4 overflow-y-auto space-y-4"
+      class="w-full lg:w-72 self-start sticky top-4 overflow-y-auto space-y-4"
     >
       <PixelContainer class="hidden lg:block">
         <div class="p-4">
@@ -330,7 +330,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
 
 <style>
   li.toc.active {
-    @apply underline text-kodot-blue;
+    @apply text-kodot-blue;
   }
   li.green.toc.active {
     @apply text-kodot-green;
@@ -394,27 +394,27 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
   }
 
   .markdown :global(h1) {
-    @apply leading-tight border-b text-3xl font-semibold mb-4 mt-6 pb-2;
+    @apply leading-tight border-b text-3xl font-semibold mb-6 mt-12 pb-2;
   }
 
   .markdown :global(h2) {
-    @apply leading-tight border-b text-2xl font-semibold mb-4 mt-6 pb-2;
+    @apply leading-tight border-b text-2xl font-semibold mb-6 mt-12 pb-2;
   }
 
   .markdown :global(h3) {
-    @apply leading-snug text-lg font-semibold mb-4 mt-6;
+    @apply leading-snug text-lg font-semibold mb-6 mt-12;
   }
 
   .markdown :global(h4) {
-    @apply leading-none text-base font-semibold mb-4 mt-6;
+    @apply leading-none text-base font-semibold mb-6 mt-12;
   }
 
   .markdown :global(h5) {
-    @apply leading-tight text-sm font-semibold mb-4 mt-6;
+    @apply leading-tight text-sm font-semibold mb-6 mt-12;
   }
 
   .markdown :global(h6) {
-    @apply leading-tight text-sm font-semibold text-gray-600 mb-4 mt-6;
+    @apply leading-tight text-sm font-semibold text-gray-600 mb-6 mt-12;
   }
 
   .markdown :global(blockquote) {
