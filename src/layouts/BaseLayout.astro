@@ -8,6 +8,7 @@ import ThemeIcon from '@/components/ThemeIcon.astro'
 import SeoHead, { type Props as SeoHeadProps } from '@/components/SeoHead.astro'
 import SearchModal from '@/components/SearchModal.astro'
 import {
+  siteName,
   type PrimaryColor,
   primaryBgClass,
   primaryTextClass,
@@ -27,7 +28,6 @@ const {
   ...attrs
 } = Astro.props
 
-const siteName = 'Kodot App'
 const headerLinks = [
   { href: '/articles', label: 'Articles', icon: 'book-blue' },
   { href: '/notes', label: 'Notes', icon: 'book-green' },
