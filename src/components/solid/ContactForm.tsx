@@ -100,15 +100,13 @@ export const ContactForm: Component = () => {
   return (
     <>
       <Show when={!submitCompleted()}>
-        <Show when={errorMessage() !== ''}>
-          <div class="pixel-border p-2 mb-8">エラー：{errorMessage()}</div>
-        </Show>
         <span class="text-lg">
           <span class="text-red-500">*</span> カテゴリー
         </span>
         <select
           class="pixel-border p-2 w-full bg-transparent mt-2"
           onChange={handleCategoryChange}
+          disabled={submitting()}
         >
           <option>選択してください</option>
           <option value="question">記事内容に関するご質問等</option>
@@ -131,8 +129,10 @@ export const ContactForm: Component = () => {
               </span>
               <textarea
                 class="pixel-border p-2 w-full bg-transparent mt-2"
-                onchange={handleContentChange}
+                oninput={handleContentChange}
                 rows="3"
+                maxLength="2000"
+                disabled={submitting()}
               ></textarea>
               <p class="mt-2">
                 ※必ずリクエストされたテーマで記事を書くとは限りませんが、参考にさせていただきます！
@@ -144,19 +144,26 @@ export const ContactForm: Component = () => {
               </span>
               <textarea
                 class="pixel-border p-2 w-full bg-transparent mt-2"
-                onchange={handleContentChange}
+                oninput={handleContentChange}
                 rows="3"
+                maxLength="2000"
+                disabled={submitting()}
               ></textarea>
               <span class="text-lg mt-2">
                 <span class="text-red-500">*</span> メールアドレス
               </span>
               <input
                 class="pixel-border p-2 w-full bg-transparent mt-2"
-                onchange={handleEmailChange}
+                oninput={handleEmailChange}
+                maxLength="255"
+                disabled={submitting()}
               ></input>
               <p class="mt-2">※メール返信までお時間を頂く場合がございます。</p>
             </Match>
           </Switch>
+          <Show when={errorMessage() !== ''}>
+            <div class="pixel-border p-2 mt-4">エラー：{errorMessage()}</div>
+          </Show>
         </div>
         <div
           style={{
