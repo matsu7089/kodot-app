@@ -74,10 +74,10 @@ export const ContactForm: Component = () => {
     setSubmitting(true)
     setErrorMessage('')
 
-    const response = await fetch('', {
+    const response = await fetch(import.meta.env.PUBLIC_CONTACT_API, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
         category: category(),
@@ -87,9 +87,8 @@ export const ContactForm: Component = () => {
       }),
     })
 
-    setSubmitting(false)
-
     const data = await response.json()
+    setSubmitting(false)
 
     if (response.ok && !data.error) {
       setSubmitCompleted(true)
