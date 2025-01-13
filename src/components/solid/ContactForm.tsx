@@ -15,6 +15,7 @@ export const ContactForm: Component = () => {
   const [submitting, setSubmitting] = createSignal(false)
   const [errorMessage, setErrorMessage] = createSignal('')
   const [submitCompleted, setSubmitCompleted] = createSignal(false)
+  let categorySelect!: HTMLSelectElement
 
   const handleCategoryChange = (e: Event) => {
     const value = (e.target as HTMLSelectElement).value
@@ -51,6 +52,8 @@ export const ContactForm: Component = () => {
   }
 
   onMount(() => {
+    categorySelect.value = ''
+
     // @ts-ignore next-line - turnstileの型が無いので無視
     window.onloadTurnstileCallback = () => {
       // @ts-ignore next-line - turnstileの型が無いので無視
@@ -104,11 +107,12 @@ export const ContactForm: Component = () => {
           <span class="text-red-500">*</span> カテゴリー
         </span>
         <select
+          ref={categorySelect}
           class="pixel-border p-2 w-full bg-transparent mt-2"
           onChange={handleCategoryChange}
           disabled={submitting()}
         >
-          <option>選択してください</option>
+          <option value="">選択してください</option>
           <option value="question">記事内容に関するご質問等</option>
           <option value="request">記事をリクエストしたい</option>
           <option value="other">
