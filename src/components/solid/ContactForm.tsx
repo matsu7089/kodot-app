@@ -161,10 +161,10 @@ export const ContactForm: Component = () => {
               <p class="mt-2">※メール返信までお時間を頂く場合がございます。</p>
             </Match>
           </Switch>
-          <Show when={errorMessage() !== ''}>
-            <div class="pixel-border p-2 mt-4">エラー：{errorMessage()}</div>
-          </Show>
         </div>
+        <Show when={errorMessage() !== ''}>
+          <div class="pixel-border p-2 mt-4">エラー：{errorMessage()}</div>
+        </Show>
         <div
           style={{
             display:
