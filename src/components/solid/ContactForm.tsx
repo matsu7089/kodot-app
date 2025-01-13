@@ -21,6 +21,7 @@ export const ContactForm: Component = () => {
     const value = (e.target as HTMLSelectElement).value
     setCategory(value)
     setContent('')
+    setErrorMessage('')
   }
 
   const handleContentChange = (e: Event) => {
