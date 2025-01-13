@@ -14,6 +14,8 @@ import {
   primaryTextClass,
 } from '@/siteConfig'
 
+import SiteLogoSvg from '@/icons/kodot-app-logo.svg'
+
 export type Props = HTMLAttributes<'main'> & {
   primaryColor: PrimaryColor
   seoHeadProps?: SeoHeadProps
@@ -55,17 +57,14 @@ const year = new Date().getFullYear()
   >
     <header
       class:list={[
-        'bg-white dark:bg-gh-dimmed-bg p-4 flex justify-between items-center',
+        'bg-white dark:bg-gh-dimmed-bg flex justify-between items-center',
         primaryTextClass[primaryColor],
       ]}
     >
-      <a href="/" class="flex items-center">
-        <Icon name="kodot-solid" class="w-8 h-8 mr-2" />
-        <div class="font-ps2 text-base pt-[4px]">
-          <span class="mr-2">Kodot</span><span>App</span>
-        </div>
+      <a href="/" class="flex items-center mx-4">
+        <SiteLogoSvg class="h-[28px] w-full" />
       </a>
-      <div class="flex items-center space-x-4">
+      <div class="p-4 flex items-center space-x-4">
         <nav>
           <ul class="flex font-ps2 text-sm space-x-4">
             {
