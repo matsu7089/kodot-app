@@ -2,6 +2,9 @@ on:
   push:
     branches: main
 
+env:
+  PUBLIC_CONTACT_API: ${{ vars.PUBLIC_CONTACT_API }}
+
 jobs:
   publish:
     runs-on: ubuntu-latest
