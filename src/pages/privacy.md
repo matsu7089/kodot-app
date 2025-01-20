@@ -2,6 +2,7 @@
 layout: ../layouts/MarkdownLayout.astro
 title: プライバシーポリシー
 pubDate: 2023-12-15
+disableGiscus: true
 ---
 
 ## プライバシーポリシー

@@ -2,6 +2,7 @@
 layout: ../layouts/MarkdownLayout.astro
 title: 利用規約
 pubDate: 2023-12-15
+disableGiscus: true
 ---
 
 ## 利用規約

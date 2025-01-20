@@ -7,6 +7,7 @@ const baseSchema = z.object({
   pubDate: z.date(),
   author: z.string(),
   tags: z.array(z.string()).default(['others']),
+  disableGiscus: z.boolean().default(false),
 })
 
 const articles = defineCollection({

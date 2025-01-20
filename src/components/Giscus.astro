@@ -1,0 +1,63 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+export type Props = HTMLAttributes<'section'>
+
+const { class: classNames } = Astro.props
+---
+
+<section class={classNames}>
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo="matsu7089/kodot-app"
+    data-repo-id="R_kgDOKsGK7Q"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsGK7c4CmLnN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light_tritanopia"
+    data-lang="ja"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async></script>
+</section>
+
+<script is:inline>
+  const updateTheme = () => {
+    const theme = document.documentElement.classList.contains('dark')
+      ? 'dark_dimmed'
+      : 'light_tritanopia'
+
+    const iframe = document.querySelector('iframe.giscus-frame')
+
+    if (!iframe) {
+      return
+    }
+
+    if (iframe.style.opacity === '0') {
+      const url = new URL(iframe.src)
+      url.searchParams.set('theme', theme)
+      iframe.src = url.toString()
+      return
+    }
+
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme } } },
+      'https://giscus.app'
+    )
+  }
+
+  const observer = new MutationObserver(updateTheme)
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+
+  window.addEventListener('load', () => {
+    updateTheme()
+  })
+</script>
