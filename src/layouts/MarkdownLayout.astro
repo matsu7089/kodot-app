@@ -69,11 +69,15 @@ const avatarImage = author
 
 const avatarColor = strToHSL(author, 70, 75)
 const coverBackgroundColor = strToHSL(title, 70, 75)
+
+const isProd = import.meta.env.PROD
 ---
 
 <BaseLayout primaryColor={primaryColor} seoHeadProps={seoHeadProps}>
-  <div class="flex flex-col lg:flex-row m-4">
-    <div class="flex-1 min-w-0 lg:mr-4">
+  <div
+    class="m-4 grid gap-x-4 [grid-template-areas:'main''side''bottom'] lg:[grid-template-areas:'main_side''bottom_side'] lg:grid-cols-[1fr_300px]"
+  >
+    <div class="[grid-area:main] min-w-0">
       <PixelContainer
         class="p-4"
         data-pagefind-body
@@ -147,31 +151,40 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
             }
           </div>
         </div>
-        <div class:list={['mt-4 markdown', primaryColor]}>
+      </PixelContainer>
+      <PixelContainer class="mt-4 p-4">
+        <div class:list={['markdown', primaryColor]}>
+          <details class="remark-container block lg:hidden">
+            <summary class="remark-container-title">Contents</summary>
+            <ul class="mx-4">
+              {
+                headings.map(({ depth, slug, text }) => (
+                  <li style={{ marginLeft: `${(depth - minDepth) * 8}px` }}>
+                    <a class="!text-inherit !font-normal" href={'#' + slug}>
+                      {text}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </details>
           <slot />
         </div>
       </PixelContainer>
-      {
-        !isDraft && !disableGiscus && (
-          <PixelContainer class="mt-4 p-4">
-            <Giscus />
-          </PixelContainer>
-        )
-      }
     </div>
     <div
-      class="w-full lg:w-72 self-start sticky top-4 overflow-y-auto space-y-4 lg:max-h-[calc(100vh-2rem)]"
+      class="[grid-area:side] flex flex-col gap-4 mt-4 lg:mt-0 lg:self-start lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]"
     >
-      <PixelContainer class="hidden lg:block">
-        <div class="p-4">
+      <PixelContainer class="hidden lg:block flex-1 overflow-y-auto">
+        <div class="p-4 h-full">
           <IconLabel name="dog" isLargeIcon class="text-sm font-ps2"
             >Contents</IconLabel
           >
-          <ul class="mt-4 list-square pl-4 leading-tight">
+          <ul class="mt-4 list-square pl-4 leading-normal">
             {
               headings.map(({ depth, slug, text }) => (
                 <li
-                  class:list={['space-y-1 toc', primaryColor]}
+                  class:list={['toc', primaryColor]}
                   style={{ marginLeft: `${(depth - minDepth) * 8}px` }}
                 >
                   <a
@@ -192,7 +205,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
       </PixelContainer>
       {
         tags?.length > 0 && (
-          <PixelContainer>
+          <PixelContainer class="flex-none">
             <div class="p-4">
               <IconLabel name="clownfish" isLargeIcon class="text-sm font-ps2">
                 Tags
@@ -208,7 +221,7 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
       }
       {
         author && (
-          <PixelContainer>
+          <PixelContainer class="flex-none">
             <div class="p-4">
               <IconLabel name="pigeon" isLargeIcon class="text-sm font-ps2">
                 Author
@@ -270,6 +283,15 @@ const coverBackgroundColor = strToHSL(title, 70, 75)
                 </div>
               </div>
             </div>
+          </PixelContainer>
+        )
+      }
+    </div>
+    <div class="[grid-area:bottom]">
+      {
+        isProd && !disableGiscus && (
+          <PixelContainer class="mt-4 p-4">
+            <Giscus />
           </PixelContainer>
         )
       }
