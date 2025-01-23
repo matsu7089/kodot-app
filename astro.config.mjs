@@ -9,6 +9,7 @@ import remarkLinkCard from 'remark-link-card'
 import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
 import remarkMermaid from '@southball/remark-mermaid'
+import { remarkRelativeMarkdownCard } from './src/plugins/remarkRelativeMarkdownCard'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -45,6 +46,11 @@ const rlcExternalLinks = () => {
   }
 }
 
+const site =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4321'
+    : 'https://kodot-app.pages.dev'
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [solidJs(), tailwind(), compress()],
@@ -69,6 +75,7 @@ export default defineConfig({
         },
       ],
       remarkBreaks,
+      [remarkRelativeMarkdownCard, { site }],
       remarkModifiedTime,
     ],
     rehypePlugins: [
@@ -100,7 +107,7 @@ export default defineConfig({
       ],
     },
   },
-  site: 'https://kodot-app.pages.dev',
+  site,
   prefetch: {
     prefetchAll: true,
   },

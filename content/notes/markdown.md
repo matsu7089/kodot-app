@@ -34,6 +34,18 @@ result:
 
 https://github.com/matsu7089/kodot-app
 
+---
+
+`.md` ファイルの相対リンクもカード表示になります。
+
+```md
+[](./markdown.md)
+```
+
+result:
+
+[](./markdown.md)
+
 ### Emoji
 
 ```md
