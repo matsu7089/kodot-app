@@ -19,6 +19,7 @@ import {
   transformerMetaHighlight,
 } from '@shikijs/transformers'
 import { visit } from 'unist-util-visit'
+import { imageUploadMiddleware } from './src/plugins/imageUploadMiddleware'
 
 // ref: https://docs.astro.build/ja/recipes/modified-time/
 const remarkModifiedTime = () => {
@@ -115,5 +116,8 @@ export default defineConfig({
     svg: {
       mode: 'sprite',
     },
+  },
+  vite: {
+    plugins: [imageUploadMiddleware()],
   },
 })

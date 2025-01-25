@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PixelContainer from '@/components/PixelContainer.astro'
+import { ImageUploader } from '@/components/solid/ImageUploader'
+
+export const getStaticPaths = () => {
+  const isDev = import.meta.env.DEV
+
+  return isDev ? [{ params: { path: undefined } }] : []
+}
+---
+
+<BaseLayout primaryColor="blue">
+  <PixelContainer class="m-4 p-4">
+    <ImageUploader client:load />
+  </PixelContainer>
+</BaseLayout>
