@@ -1,5 +1,4 @@
 import sharp from 'sharp'
-import fetch from 'node-fetch'
 
 export const imageUploadMiddleware = () => ({
   name: 'image-upload-middleware',
