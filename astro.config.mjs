@@ -51,7 +51,7 @@ const rlcExternalLinks = () => {
 const site =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4321'
-    : 'https://kodot-app.pages.dev'
+    : 'https://kodot.app'
 
 // https://astro.build/config
 export default defineConfig({
