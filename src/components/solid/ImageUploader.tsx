@@ -1,16 +1,8 @@
 import type { Component } from 'solid-js'
 import { createSignal, For } from 'solid-js'
 
-type UploadImageInfo = {
-  id: string
-  width: number
-  height: number
-}
-
 export const ImageUploader: Component = () => {
-  const [uploadedImageInfo, setUploadedImageInfo] = createSignal<
-    Array<UploadImageInfo>
-  >([])
+  const [imageUrls, setImageUrls] = createSignal<Array<string>>([])
   let inputRef!: HTMLInputElement
 
   const handleFile = async (file: File | null | undefined) => {
@@ -37,9 +29,9 @@ export const ImageUploader: Component = () => {
       alert('画像のアップロードに失敗しました。')
     }
 
-    const info: UploadImageInfo = await response.json()
+    const { id } = await response.json()
 
-    setUploadedImageInfo([...uploadedImageInfo(), info])
+    setImageUrls([...imageUrls(), 'https://images.kodot.app/' + id])
   }
 
   const handleDrop = (event: DragEvent) => {
@@ -58,9 +50,9 @@ export const ImageUploader: Component = () => {
     handleFile(file)
   }
 
-  const handleCopy = (index: number) => {
-    const info = uploadedImageInfo()[index]
-    navigator.clipboard.writeText(info.id)
+  const handleCopy = (url: string) => {
+    const link = `![](${url})`
+    navigator.clipboard.writeText(link)
   }
 
   return (
@@ -86,14 +78,14 @@ export const ImageUploader: Component = () => {
       />
 
       <div class="grid grid-cols-4 gap-4 mt-4">
-        <For each={uploadedImageInfo()}>
-          {(info, index) => (
+        <For each={imageUrls()}>
+          {(url) => (
             <div>
-              <img class="object-contain" src={info.id} />
+              <img class="object-contain" src={url} />
               <button
                 class="w-full p-2 border"
                 type="button"
-                onclick={() => handleCopy(index())}
+                onclick={() => handleCopy(url)}
               >
                 画像リンクをコピー
               </button>
