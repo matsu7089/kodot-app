@@ -10,6 +10,7 @@ import remarkCodeTitles from 'remark-flexible-code-titles'
 import remarkContainers from 'remark-flexible-containers'
 import remarkMermaid from '@southball/remark-mermaid'
 import { remarkRelativeMarkdownCard } from './src/plugins/remarkRelativeMarkdownCard'
+import { remarkRemoteImageLazy } from './src/plugins/remarkRemoteImageLazy'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -77,6 +78,7 @@ export default defineConfig({
       ],
       remarkBreaks,
       [remarkRelativeMarkdownCard, { site }],
+      remarkRemoteImageLazy,
       remarkModifiedTime,
     ],
     rehypePlugins: [
