@@ -1,5 +1,5 @@
 import type { Component } from 'solid-js'
-import { createSignal, For } from 'solid-js'
+import { createSignal, For, onMount } from 'solid-js'
 
 export const ImageUploader: Component = () => {
   const [imageUrls, setImageUrls] = createSignal<Array<string>>([])
@@ -54,6 +54,12 @@ export const ImageUploader: Component = () => {
     const link = `![](${url})`
     navigator.clipboard.writeText(link)
   }
+
+  onMount(() => {
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault()
+    })
+  })
 
   return (
     <div>
